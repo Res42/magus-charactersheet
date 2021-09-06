@@ -1,13 +1,29 @@
-import { Hatter } from './hatter';
+import { KarakterMapper } from '../karakter2';
 import { KepzettsegType } from './kepzettseg';
 
-export interface IIskolaAlapKepzettseg {
+export interface IskolaAlapKepzettseg {
   kepzettseg: KepzettsegType;
   szint?: number;
   szazalek?: number;
 }
 
-export const BESURRANO_TOLVAJ_KEPZETTSEGEK: IIskolaAlapKepzettseg[] = [
+export interface Iskola {
+  nev: string;
+  kap: number;
+  kepzettsegek: IskolaAlapKepzettseg[];
+  // TODO: oktatás szintet is tárolni
+  oktatasok: KepzettsegType[];
+}
+
+export function mapIskola(iskola: Iskola): KarakterMapper {
+  return (karakter) => ({
+    ...karakter,
+    kaszt: [...karakter.kaszt, iskola.nev],
+    szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
+  });
+}
+
+const BESURRANO_TOLVAJ_KEPZETTSEGEK: IskolaAlapKepzettseg[] = [
   { kepzettseg: KepzettsegType.Fegyverhasznalat, szint: 2 },
   { kepzettseg: KepzettsegType.AlcazasAlruha, szint: 2 },
   { kepzettseg: KepzettsegType.Mechanika, szint: 2 },
@@ -30,53 +46,58 @@ export const BESURRANO_TOLVAJ_KEPZETTSEGEK: IIskolaAlapKepzettseg[] = [
   { kepzettseg: KepzettsegType.Veszelyerzek, szazalek: 15 },
 ];
 
-export class Iskola extends Hatter {
-  protected constructor(
-    nev: string,
-    kap: number,
-    public readonly kepzettsegek: IIskolaAlapKepzettseg[],
-    // TODO: oktatás szintet is tárolni
-    public readonly oktatasok: KepzettsegType[]
-  ) {
-    super(nev, kap);
-  }
+export const Iskolak = {
+  Harcos: {
+    Alap: { nev: 'Harcos', kap: 4, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Amazon: { nev: 'Amazon', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Barbar: { nev: 'Barbár', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
+    ErigowiSzamszerijasz: { nev: 'Erigowi számszeríjász', kap: 4, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Siedon: { nev: 'Siedon', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
+    PredociVertes: { nev: 'Predoci vértes', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
+  },
 
-  static Harcos = {
-    Alap: new Iskola('Harcos', 4, [], []),
-    Amazon: new Iskola('Amazon', 6, [], []),
-    Barbar: new Iskola('Barbár', 7, [], []),
-    ErigowiSzamszerijasz: new Iskola('Erigowi számszeríjász', 4, [], []),
-    Siedon: new Iskola('Siedon', 5, [], []),
-    PredociVertes: new Iskola('Predoci vértes', 5, [], []),
-  };
-
-  static Tolvaj = {
-    Alap: new Iskola('Tolvaj', 5, [], []),
-    Zsebes: new Iskola('Zsebes', 5, [], []),
-    Hamisito: new Iskola('Hamisító', 6, [], []),
-    Besurrano: new Iskola('Besurranó', 6, BESURRANO_TOLVAJ_KEPZETTSEGEK, []),
+  Tolvaj: {
+    Alap: { nev: 'Tolvaj', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Zsebes: { nev: 'Zsebes', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Hamisito: { nev: 'Hamisító', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+    Besurrano: { nev: 'Besurranó', kap: 6, kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK, oktatasok: [] } as Iskola,
 
     Kobrak: {
-      Alap: new Iskola('Tolvaj (Kobrák)', 6, [], []),
-      Zsebes: new Iskola('Zsebes (Kobrák)', 6, [], []),
-      Hamisito: new Iskola('Hamisító (Kobrák)', 6, [], []),
-      Besurrano: new Iskola('Besurranó (Kobrák)', 7, BESURRANO_TOLVAJ_KEPZETTSEGEK, []),
+      Alap: { nev: 'Tolvaj (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Zsebes: { nev: 'Zsebes (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Hamisito: { nev: 'Hamisító (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Besurranó (Kobrák)',
+        kap: 7,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
 
     TalavarCsodamuvesei: {
-      Alap: new Iskola('Tolvaj (Talavar csodaművesei)', 6, [], []),
-      Zsebes: new Iskola('Zsebes (Talavar csodaművesei)', 6, [], []),
-      Hamisito: new Iskola('Hamisító (Talavar csodaművesei)', 7, [], []),
-      Besurrano: new Iskola('Besurranó (Talavar csodaművesei)', 7, BESURRANO_TOLVAJ_KEPZETTSEGEK, []),
+      Alap: { nev: 'Tolvaj (Talavar csodaművesei)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Zsebes: { nev: 'Zsebes (Talavar csodaművesei)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Hamisito: { nev: 'Hamisító (Talavar csodaművesei)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Besurranó (Talavar csodaművesei)',
+        kap: 7,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
 
     Szurkecsuklyasok: {
-      Alap: new Iskola('Tolvaj (Szürkecsuklyások)', 5, [], []),
-      Zsebes: new Iskola('Zsebes (Szürkecsuklyások)', 6, [], []),
-      Hamisito: new Iskola('Hamisító (Szürkecsuklyások)', 6, [], []),
-      Besurrano: new Iskola('Besurranó (Szürkecsuklyások)', 6, BESURRANO_TOLVAJ_KEPZETTSEGEK, []),
+      Alap: { nev: 'Tolvaj (Szürkecsuklyások)', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Zsebes: { nev: 'Zsebes (Szürkecsuklyások)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Hamisito: { nev: 'Hamisító (Szürkecsuklyások)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Besurranó (Szürkecsuklyások)',
+        kap: 6,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
-  };
+  },
 
   // TODO: többi iskola HGB alapján
-}
+};

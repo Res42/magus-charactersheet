@@ -1,11 +1,11 @@
 import columnify from 'columnify';
-import { Karakter } from '../core/karakter';
+import { IKarakter } from '../core/karakter2';
 
-export function prettyPrint(karakter: Karakter): string {
+export function prettyPrint(karakter: IKarakter): string {
   const alapadatok = columnify(
     [
       ['Név', karakter.nev],
-      ['Faj', karakter.faj.nev],
+      ['Faj', karakter.faj],
       ['Szint', karakter.szint],
       ['Szintenkénti KAP', karakter.szintenkentiKap],
     ],
@@ -14,16 +14,16 @@ export function prettyPrint(karakter: Karakter): string {
 
   const tulajdosagok = columnify(
     [
-      ['Erő', karakter.ero],
-      ['Gyorsaság', karakter.gyorsasag],
-      ['Ügyesség', karakter.ugyesseg],
-      ['Állóképesség', karakter.allokepesseg],
-      ['Karizma', karakter.karizma],
-      ['Egészség', karakter.egeszseg],
-      ['Intelligencia', karakter.intelligencia],
-      ['Akaraterő', karakter.akaratero],
-      ['Asztrál', karakter.asztral],
-      ['Érzékelés', karakter.erzekeles],
+      ['Erő', karakter.tulajdonsagok.ero],
+      ['Gyorsaság', karakter.tulajdonsagok.gyorsasag],
+      ['Ügyesség', karakter.tulajdonsagok.ugyesseg],
+      ['Állóképesség', karakter.tulajdonsagok.allokepesseg],
+      ['Karizma', karakter.tulajdonsagok.karizma],
+      ['Egészség', karakter.tulajdonsagok.egeszseg],
+      ['Intelligencia', karakter.tulajdonsagok.intelligencia],
+      ['Akaraterő', karakter.tulajdonsagok.akaratero],
+      ['Asztrál', karakter.tulajdonsagok.asztral],
+      ['Érzékelés', karakter.tulajdonsagok.erzekeles],
     ],
     { columnSplitter: ' | ', showHeaders: false, config: { 1: { align: 'right' } } }
   );

@@ -1,13 +1,13 @@
-import { Karakter } from '../core/karakter';
 import { prettyPrint } from '../display/pretty-print';
-import { Faj } from '../core/components/faj';
-import { Iskola } from '../core/components/iskola';
-import { Hatter } from '../core/components/hatter';
+import { Fajok } from '../core/components/faj';
+import { Iskolak } from '../core/components/iskola';
+import { Hatterek } from '../core/components/hatter';
+import { createKarakter } from '../core/karakter2';
 
-const jeirin = new Karakter(
-  'Jeirin Rond',
-  [Faj.Ember, Iskola.Tolvaj.Besurrano, Hatter.PSZI_ERZEKENYSEG, Hatter.MANALATO_2, Hatter.VAGYON_1],
-  {
+const jeirin2 = createKarakter({
+  nev: 'Jeirin Rond',
+  hatterek: [Fajok.Ember, Iskolak.Tolvaj.Besurrano, Hatterek.PsziErzekenyseg, Hatterek.Manalato2, Hatterek.Vagyon1],
+  tulajdonsagok: {
     ero: 13,
     gyorsasag: 14,
     ugyesseg: 15,
@@ -18,9 +18,9 @@ const jeirin = new Karakter(
     akaratero: 14,
     asztral: 13,
     erzekeles: 15,
-  }
-);
+  },
+});
 // első szint
 // jeirin.szintlepes({});
 
-console.log(prettyPrint(jeirin));
+console.log(prettyPrint(jeirin2));
