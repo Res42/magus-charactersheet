@@ -1,4 +1,4 @@
-import { Karakter, KarakterMapper, MAX_TULAJDONSAG_SZINT } from './model';
+import { Karakter, KarakterMapperFn, MAX_TULAJDONSAG_SZINT } from './model';
 
 export enum TulajdonsagType {
   Ero = 'ero',
@@ -15,14 +15,14 @@ export enum TulajdonsagType {
 
 export type Tulajdonsagok = Record<TulajdonsagType, number>;
 
-export function mapEro(): KarakterMapper {
+export function mapEro(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     te: karakter.te + karakter.tulajdonsagok.ero,
   });
 }
 
-export function mapGyorsasag(): KarakterMapper {
+export function mapGyorsasag(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     ke: karakter.ke + karakter.tulajdonsagok.gyorsasag,
@@ -32,7 +32,7 @@ export function mapGyorsasag(): KarakterMapper {
   });
 }
 
-export function mapUgyesseg(): KarakterMapper {
+export function mapUgyesseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     te: karakter.te + karakter.tulajdonsagok.ugyesseg,
@@ -41,42 +41,42 @@ export function mapUgyesseg(): KarakterMapper {
   });
 }
 
-export function mapAllokepesseg(): KarakterMapper {
+export function mapAllokepesseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxFp: karakter.maxFp + karakter.tulajdonsagok.allokepesseg,
   });
 }
 
-export function mapEgeszseg(): KarakterMapper {
+export function mapEgeszseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxEp: karakter.maxEp + karakter.tulajdonsagok.egeszseg,
   });
 }
 
-export function mapAkaratero(): KarakterMapper {
+export function mapAkaratero(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxFp: karakter.maxFp + karakter.tulajdonsagok.akaratero,
   });
 }
 
-export function mapIntelligencia(): KarakterMapper {
+export function mapIntelligencia(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxPszi: karakter.maxPszi + karakter.tulajdonsagok.intelligencia,
   });
 }
 
-export function mapErzekeles(): KarakterMapper {
+export function mapErzekeles(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     ke: karakter.maxPszi + karakter.tulajdonsagok.erzekeles,
   });
 }
 
-export const TULAJDONSAG_MAPPERS: KarakterMapper[] = [
+export const TULAJDONSAG_MAPPERS: KarakterMapperFn[] = [
   mapEro(),
   mapGyorsasag(),
   mapUgyesseg(),

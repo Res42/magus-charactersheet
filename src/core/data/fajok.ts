@@ -101,5 +101,7 @@ export const Fajok = {
       asztral: 19,
       erzekeles: 18,
     },
+    // TODO: kyr származékok szociális képzettségeket 4-es oktatással tanulnak
+    oktatasok: [],
   } as Faj,
 };

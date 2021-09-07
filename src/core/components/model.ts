@@ -7,7 +7,7 @@ export const DEFAULT_VE = 60;
 export const MAX_TULAJDONSAG_SZINT = 20;
 export const MAX_TULAJDONSAG_PONT = 135;
 
-export type KarakterMapper = (karakter: Karakter) => Karakter;
+export type KarakterMapperFn = (karakter: Karakter) => Karakter;
 
 export interface InitKarakter {
   nev: string;

@@ -1,5 +1,5 @@
 import { TulajdonsagType, Tulajdonsagok, tulajdonsagNoveles } from './tulajdonsag';
-import { KarakterMapper } from './model';
+import { KarakterMapperFn } from './model';
 import { KepzettsegType } from './kepzettseg';
 import { mapObjectValues } from '../utils';
 
@@ -48,7 +48,7 @@ export function getKapOfSzintlepes(szintlepes: Szintlepes): number {
   );
 }
 
-function validateSzintlepes(szintlepes: Szintlepes): KarakterMapper {
+function validateSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
   return (karakter) => {
     const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
     if (kapOfSzintlepes !== karakter.szintenkentiKap) {
@@ -61,7 +61,7 @@ function validateSzintlepes(szintlepes: Szintlepes): KarakterMapper {
   };
 }
 
-function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
+function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     szint: karakter.szint + 1,
@@ -78,6 +78,6 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
   });
 }
 
-export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapper[] {
+export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapperFn[] {
   return szintlepesek.flatMap((szintlepes) => [validateSzintlepes(szintlepes), mapSzintlepes(szintlepes)]);
 }

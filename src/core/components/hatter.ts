@@ -1,5 +1,5 @@
 import { TulajdonsagType, Tulajdonsagok, tulajdonsagLimitNoveles, tulajdonsagNoveles } from './tulajdonsag';
-import { KarakterMapper } from './model';
+import { KarakterMapperFn } from './model';
 import { KepzettsegType } from './kepzettseg';
 import { mapObjectValues } from '../utils';
 
@@ -8,7 +8,7 @@ export interface Hatter {
   kap: number;
 }
 
-function mapHatter(hatter: Hatter): KarakterMapper {
+function mapHatter(hatter: Hatter): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     hatterek: [...karakter.hatterek, hatter.nev],
@@ -21,11 +21,10 @@ export interface Faj {
   kap: number;
   tulajdonsagLimitek: Tulajdonsagok;
   // TODO: oktatás szintet is tárolni
-  // TODO: kyr származékok szociális képzettségeket 4-es oktatással tanulnak
   oktatasok?: KepzettsegType[];
 }
 
-function validateFaj(hatterek: Hatterek[]): KarakterMapper {
+function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
   return (karakter) => {
     const fajok = hatterek.filter(isFaj);
 
@@ -39,7 +38,7 @@ function validateFaj(hatterek: Hatterek[]): KarakterMapper {
   };
 }
 
-function mapFaj(faj: Faj): KarakterMapper {
+function mapFaj(faj: Faj): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     faj: faj.nev,
@@ -54,7 +53,7 @@ export interface Adottsag {
   tulajdonsag: TulajdonsagType;
 }
 
-function mapAdottsag(adottsag: Adottsag): KarakterMapper {
+function mapAdottsag(adottsag: Adottsag): KarakterMapperFn {
   return (karakter) => {
     // mivel itt a limit is nő, ezért az új limittel kell majd számolni a `tulajdonsagNoveles`-nél, mert a karakterben levő limit még a régi
     const ujTulajdonsagLimit = tulajdonsagLimitNoveles(karakter, adottsag.tulajdonsag, adottsag.kap);
@@ -89,7 +88,7 @@ export interface Iskola {
   oktatasok: KepzettsegType[];
 }
 
-function mapIskola(iskola: Iskola): KarakterMapper {
+function mapIskola(iskola: Iskola): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     kaszt: [...karakter.kaszt, iskola.nev],
@@ -111,7 +110,7 @@ export function isIskola(hatter: Hatterek): hatter is Iskola {
   return (hatter as Iskola).kepzettsegek != null;
 }
 
-function getHatterMapper(hatter: Hatterek): KarakterMapper {
+function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
   if (isFaj(hatter)) {
     return mapFaj(hatter);
   } else if (isAdottsag(hatter)) {
@@ -136,6 +135,6 @@ function sortHatterek(a: Hatterek, b: Hatterek): number {
   return 0;
 }
 
-export function mapHatterek(hatterek: Hatterek[]): KarakterMapper[] {
+export function mapHatterek(hatterek: Hatterek[]): KarakterMapperFn[] {
   return [validateFaj(hatterek), ...hatterek.sort(sortHatterek).map(getHatterMapper)];
 }
