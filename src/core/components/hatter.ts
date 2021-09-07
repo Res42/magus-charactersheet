@@ -8,7 +8,7 @@ export interface Hatter {
   kap: number;
 }
 
-export function mapHatter(hatter: Hatter): KarakterMapper {
+function mapHatter(hatter: Hatter): KarakterMapper {
   return (karakter) => ({
     ...karakter,
     hatterek: [...karakter.hatterek, hatter.nev],
@@ -25,7 +25,7 @@ export interface Faj {
   oktatasok?: KepzettsegType[];
 }
 
-export function validateFaj(hatterek: Hatterek[]): KarakterMapper {
+function validateFaj(hatterek: Hatterek[]): KarakterMapper {
   return (karakter) => {
     const fajok = hatterek.filter(isFaj);
 
@@ -39,7 +39,7 @@ export function validateFaj(hatterek: Hatterek[]): KarakterMapper {
   };
 }
 
-export function mapFaj(faj: Faj): KarakterMapper {
+function mapFaj(faj: Faj): KarakterMapper {
   return (karakter) => ({
     ...karakter,
     faj: faj.nev,
@@ -54,7 +54,7 @@ export interface Adottsag {
   tulajdonsag: TulajdonsagType;
 }
 
-export function mapAdottsag(adottsag: Adottsag): KarakterMapper {
+function mapAdottsag(adottsag: Adottsag): KarakterMapper {
   return (karakter) => {
     // mivel itt a limit is nő, ezért az új limittel kell majd számolni a `tulajdonsagNoveles`-nél, mert a karakterben levő limit még a régi
     const ujTulajdonsagLimit = tulajdonsagLimitNoveles(karakter, adottsag.tulajdonsag, adottsag.kap);
@@ -89,7 +89,7 @@ export interface Iskola {
   oktatasok: KepzettsegType[];
 }
 
-export function mapIskola(iskola: Iskola): KarakterMapper {
+function mapIskola(iskola: Iskola): KarakterMapper {
   return (karakter) => ({
     ...karakter,
     kaszt: [...karakter.kaszt, iskola.nev],

@@ -19,6 +19,7 @@ const jeirin2 = createKarakter({
     asztral: 13,
     erzekeles: 15,
   },
+  szintlepesek: [],
 });
 // első szint
 // jeirin.szintlepes({});

@@ -48,9 +48,23 @@ export function getKapOfSzintlepes(szintlepes: Szintlepes): number {
   );
 }
 
-export function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
+function validateSzintlepes(szintlepes: Szintlepes): KarakterMapper {
+  return (karakter) => {
+    const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
+    if (kapOfSzintlepes !== karakter.szintenkentiKap) {
+      throw new Error(
+        `A szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${karakter.szintenkentiKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
+      );
+    }
+
+    return karakter;
+  };
+}
+
+function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
   return (karakter) => ({
     ...karakter,
+    szint: karakter.szint + 1,
     maxMana: karakter.maxMana + (szintlepes.mana ?? 0),
     maxKegy: karakter.maxKegy + (szintlepes.kegy ?? 0),
     ke: karakter.ke + (szintlepes.ke ?? 0),
@@ -64,15 +78,6 @@ export function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
   });
 }
 
-export function validateSzintlepes(szintlepes: Szintlepes): KarakterMapper {
-  return (karakter) => {
-    const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
-    if (kapOfSzintlepes !== karakter.szintenkentiKap) {
-      throw new Error(
-        `A szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${karakter.szintenkentiKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
-      );
-    }
-
-    return karakter;
-  };
+export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapper[] {
+  return szintlepesek.flatMap((szintlepes) => [validateSzintlepes(szintlepes), mapSzintlepes(szintlepes)]);
 }

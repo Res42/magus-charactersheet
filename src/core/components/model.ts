@@ -1,4 +1,5 @@
 import { Hatterek } from './hatter';
+import { Szintlepes } from './szintlepes';
 import { Tulajdonsagok } from './tulajdonsag';
 
 export const DEFAULT_KAP = 50;
@@ -13,6 +14,7 @@ export interface InitKarakter {
   jellem?: string;
   hatterek: Hatterek[];
   tulajdonsagok: Tulajdonsagok;
+  szintlepesek: Szintlepes[];
 }
 
 export interface Karakter {
