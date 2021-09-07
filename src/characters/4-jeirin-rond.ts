@@ -1,10 +1,10 @@
 import { Fajok } from '../core/data/fajok';
 import { Hatterek } from '../core/data/hatterek';
 import { Iskolak } from '../core/data/iskolak';
-import { createKarakter } from '../core/karakter2';
+import { createKarakter } from '../core/karakter';
 import { prettyPrint } from '../display/pretty-print';
 
-const jeirin2 = createKarakter({
+const jeirin = createKarakter({
   nev: 'Jeirin Rond',
   hatterek: [Fajok.Ember, Iskolak.Tolvaj.Besurrano, Hatterek.PsziErzekenyseg, Hatterek.Manalato2, Hatterek.Vagyon1],
   tulajdonsagok: {
@@ -24,4 +24,4 @@ const jeirin2 = createKarakter({
 // első szint
 // jeirin.szintlepes({});
 
-console.log(prettyPrint(jeirin2));
+console.log(prettyPrint(jeirin));
