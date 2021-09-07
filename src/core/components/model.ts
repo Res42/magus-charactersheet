@@ -10,12 +10,14 @@ export type KarakterMapper = (karakter: Karakter) => Karakter;
 
 export interface InitKarakter {
   nev: string;
+  jellem?: string;
   hatterek: Hatterek[];
   tulajdonsagok: Tulajdonsagok;
 }
 
 export interface Karakter {
   nev: string;
+  jellem: string;
   faj: string;
   kaszt: string[];
   szintenkentiKap: number;
@@ -37,6 +39,7 @@ export interface Karakter {
 export function emptykarakter(): Karakter {
   return {
     nev: '',
+    jellem: '',
     faj: '',
     kaszt: [],
     szintenkentiKap: DEFAULT_KAP,

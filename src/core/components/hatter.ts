@@ -1,6 +1,7 @@
-import { KarakterMapper, MAX_TULAJDONSAG_SZINT } from './model';
-import { TulajdonsagType, Tulajdonsagok } from './tulajdonsag';
+import { TulajdonsagType, Tulajdonsagok, tulajdonsagLimitNoveles, tulajdonsagNoveles } from './tulajdonsag';
+import { KarakterMapper } from './model';
 import { KepzettsegType } from './kepzettseg';
+import { mapObjectValues } from '../utils';
 
 export interface Hatter {
   nev: string;
@@ -19,6 +20,9 @@ export interface Faj {
   nev: string;
   kap: number;
   tulajdonsagLimitek: Tulajdonsagok;
+  // TODO: oktatás szintet is tárolni
+  // TODO: kyr származékok szociális képzettségeket 4-es oktatással tanulnak
+  oktatasok?: KepzettsegType[];
 }
 
 export function validateFaj(hatterek: Hatterek[]): KarakterMapper {
@@ -40,12 +44,7 @@ export function mapFaj(faj: Faj): KarakterMapper {
     ...karakter,
     faj: faj.nev,
     szintenkentiKap: karakter.szintenkentiKap - faj.kap,
-    tulajdonsagLimitek: Object.fromEntries(
-      Object.entries(faj.tulajdonsagLimitek).map(([tulajdonsag, ertek]) => [
-        tulajdonsag,
-        Math.max(karakter.tulajdonsagLimitek[tulajdonsag as keyof Tulajdonsagok] + ertek, MAX_TULAJDONSAG_SZINT),
-      ])
-    ) as Tulajdonsagok,
+    tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) => tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)),
   });
 }
 
@@ -57,8 +56,8 @@ export interface Adottsag {
 
 export function mapAdottsag(adottsag: Adottsag): KarakterMapper {
   return (karakter) => {
-    const ujTulajdonsagLimit = Math.max(karakter.tulajdonsagLimitek[adottsag.tulajdonsag] + adottsag.kap, MAX_TULAJDONSAG_SZINT);
-    const ujTulajdonsagSzint = Math.max(karakter.tulajdonsagok[adottsag.tulajdonsag] + adottsag.kap, ujTulajdonsagLimit);
+    // mivel itt a limit is nő, ezért az új limittel kell majd számolni a `tulajdonsagNoveles`-nél, mert a karakterben levő limit még a régi
+    const ujTulajdonsagLimit = tulajdonsagLimitNoveles(karakter, adottsag.tulajdonsag, adottsag.kap);
 
     return {
       ...karakter,
@@ -70,7 +69,7 @@ export function mapAdottsag(adottsag: Adottsag): KarakterMapper {
       },
       tulajdonsagok: {
         ...karakter.tulajdonsagok,
-        [adottsag.tulajdonsag]: ujTulajdonsagSzint,
+        [adottsag.tulajdonsag]: tulajdonsagNoveles(karakter, adottsag.tulajdonsag, adottsag.kap, ujTulajdonsagLimit),
       },
     };
   };

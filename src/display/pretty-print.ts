@@ -5,6 +5,7 @@ export function prettyPrint(karakter: Karakter): string {
   const alapadatok = columnify(
     [
       ['Név', karakter.nev],
+      ['Jellem', karakter.jellem],
       ['Faj', karakter.faj],
       ['Szint', karakter.szint],
       ['Szintenkénti KAP', karakter.szintenkentiKap],
@@ -34,6 +35,9 @@ export function prettyPrint(karakter: Karakter): string {
       ['TÉ', karakter.te],
       ['CÉ', karakter.ce],
       ['VÉ', karakter.ve],
+      ['Max. pszi', karakter.maxPszi],
+      ['Max. mana', karakter.maxMana],
+      ['Max. kegy', karakter.maxKegy],
     ],
     {
       columnSplitter: ' | ',

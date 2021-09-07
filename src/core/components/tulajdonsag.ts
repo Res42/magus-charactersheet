@@ -1,4 +1,4 @@
-import { KarakterMapper } from './model';
+import { Karakter, KarakterMapper, MAX_TULAJDONSAG_SZINT } from './model';
 
 export enum TulajdonsagType {
   Ero = 'ero',
@@ -86,3 +86,11 @@ export const TULAJDONSAG_MAPPERS: KarakterMapper[] = [
   mapIntelligencia(),
   mapErzekeles(),
 ];
+
+export function tulajdonsagLimitNoveles(karakter: Karakter, tulajdonsag: TulajdonsagType, noveles: number): number {
+  return Math.max(karakter.tulajdonsagLimitek[tulajdonsag] + noveles, MAX_TULAJDONSAG_SZINT);
+}
+
+export function tulajdonsagNoveles(karakter: Karakter, tulajdonsag: TulajdonsagType, noveles: number, tulajdonsagLimit?: number): number {
+  return Math.max(karakter.tulajdonsagok[tulajdonsag] + noveles, tulajdonsagLimit ?? karakter.tulajdonsagLimitek[tulajdonsag]);
+}

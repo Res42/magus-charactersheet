@@ -1,8 +1,9 @@
+import { TulajdonsagType, Tulajdonsagok, tulajdonsagNoveles } from './tulajdonsag';
 import { KarakterMapper } from './model';
 import { KepzettsegType } from './kepzettseg';
-import { TulajdonsagType } from './tulajdonsag';
+import { mapObjectValues } from '../utils';
 
-export interface Szintlepes {
+export interface Szintlepes extends Partial<Tulajdonsagok> {
   mana?: number;
   kegy?: number;
   ke?: number;
@@ -33,7 +34,17 @@ export function getKapOfSzintlepes(szintlepes: Szintlepes): number {
     (szintlepes.ve ?? 0) * 2 +
     (szintlepes.fp ?? 0) +
     (szintlepes.pszi ?? 0) * 2 +
-    (szintlepes.kepzettsegek ?? []).map((k) => k.kp).reduce((sum, kp) => sum + kp, 0)
+    (szintlepes.kepzettsegek ?? []).map((k) => k.kp).reduce((sum, kp) => sum + kp, 0) +
+    (szintlepes.ero ?? 0) * 20 +
+    (szintlepes.gyorsasag ?? 0) * 20 +
+    (szintlepes.ugyesseg ?? 0) * 20 +
+    (szintlepes.allokepesseg ?? 0) * 20 +
+    (szintlepes.karizma ?? 0) * 20 +
+    (szintlepes.egeszseg ?? 0) * 20 +
+    (szintlepes.intelligencia ?? 0) * 20 +
+    (szintlepes.akaratero ?? 0) * 20 +
+    (szintlepes.asztral ?? 0) * 20 +
+    (szintlepes.erzekeles ?? 0) * 20
   );
 }
 
@@ -48,7 +59,8 @@ export function mapSzintlepes(szintlepes: Szintlepes): KarakterMapper {
     ve: karakter.ve + (szintlepes.ve ?? 0),
     maxFp: karakter.maxFp + (szintlepes.fp ?? 0),
     maxPszi: karakter.maxPszi + (szintlepes.pszi ?? 0),
-    // TODO: képzettésg szintlépés
+    tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) => tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)),
+    // TODO: képzettség szintlépés
   });
 }
 
