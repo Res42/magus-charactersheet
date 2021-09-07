@@ -56,18 +56,24 @@ export interface Adottsag {
 }
 
 export function mapAdottsag(adottsag: Adottsag): KarakterMapper {
-  return (karakter) => ({
-    ...karakter,
-    hatterek: [...karakter.hatterek, adottsag.nev],
-    szintenkentiKap: karakter.szintenkentiKap - adottsag.kap,
-    tulajdonsagLimitek: {
-      ...karakter.tulajdonsagLimitek,
-      [adottsag.tulajdonsag]: Math.max(
-        karakter.tulajdonsagLimitek[adottsag.tulajdonsag] + adottsag.kap,
-        MAX_TULAJDONSAG_SZINT
-      ),
-    },
-  });
+  return (karakter) => {
+    const ujTulajdonsagLimit = Math.max(karakter.tulajdonsagLimitek[adottsag.tulajdonsag] + adottsag.kap, MAX_TULAJDONSAG_SZINT);
+    const ujTulajdonsagSzint = Math.max(karakter.tulajdonsagok[adottsag.tulajdonsag] + adottsag.kap, ujTulajdonsagLimit);
+
+    return {
+      ...karakter,
+      hatterek: [...karakter.hatterek, adottsag.nev],
+      szintenkentiKap: karakter.szintenkentiKap - adottsag.kap,
+      tulajdonsagLimitek: {
+        ...karakter.tulajdonsagLimitek,
+        [adottsag.tulajdonsag]: ujTulajdonsagLimit,
+      },
+      tulajdonsagok: {
+        ...karakter.tulajdonsagok,
+        [adottsag.tulajdonsag]: ujTulajdonsagSzint,
+      },
+    };
+  };
 }
 
 export interface IskolaAlapKepzettseg {
@@ -118,6 +124,19 @@ function getHatterMapper(hatter: Hatterek): KarakterMapper {
   }
 }
 
+/**
+ * Általános háttér sort-oló funkció a hátterek megfelelő sorrendben történő futtatásához.
+ * A faj típusú háttérnek kell először lefutnia, hogy az utána levő adottság hátterek ne rontsák el a tulajdonság limitek miatti számolásokat.
+ * A többi fajta elemmel nem csinál semmit, ugyanolyan sorrendben maradnak.
+ */
+function sortHatterek(a: Hatterek, b: Hatterek): number {
+  if (a === b) return 0;
+  if (isFaj(a)) return -1;
+  if (isFaj(b)) return 1;
+
+  return 0;
+}
+
 export function mapHatterek(hatterek: Hatterek[]): KarakterMapper[] {
-  return [validateFaj(hatterek), ...hatterek.map(getHatterMapper)];
+  return [validateFaj(hatterek), ...hatterek.sort(sortHatterek).map(getHatterMapper)];
 }
