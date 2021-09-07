@@ -1,7 +1,7 @@
 import columnify from 'columnify';
-import { IKarakter } from '../core/karakter2';
+import { Karakter } from '../core/components/model';
 
-export function prettyPrint(karakter: IKarakter): string {
+export function prettyPrint(karakter: Karakter): string {
   const alapadatok = columnify(
     [
       ['Név', karakter.nev],

@@ -1,34 +1,4 @@
-import { MAX_TULAJDONSAG_SZINT } from '../constants';
-import { KarakterMapper } from '../karakter2';
-import { ITulajdonsagok } from './tulajdonsag';
-
-export interface Faj {
-  nev: string;
-  kap: number;
-  tulajdonsagLimitek: ITulajdonsagok;
-}
-
-export function mapFaj(faj: Faj): KarakterMapper {
-  return (karakter) => {
-    if (karakter.faj) {
-      // ha már van besettelve valami truthy (a default üres string, ezért azon nem akad meg)
-      // akkor több, mint 1 fajt adott meg, ilyet nem lehet
-      throw new Error('HATTER.NINCS_PONTOSAN_1_FAJ');
-    }
-
-    return {
-      ...karakter,
-      faj: faj.nev,
-      szintenkentiKap: karakter.szintenkentiKap - faj.kap,
-      tulajdonsagLimitek: Object.fromEntries(
-        Object.entries(faj.tulajdonsagLimitek).map(([tulajdonsag, ertek]) => [
-          tulajdonsag,
-          Math.max(karakter.tulajdonsagLimitek[tulajdonsag as keyof ITulajdonsagok] + ertek, MAX_TULAJDONSAG_SZINT),
-        ])
-      ) as ITulajdonsagok,
-    };
-  };
-}
+import { Faj } from '../components/hatter';
 
 export const Fajok = {
   Ember: {

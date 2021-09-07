@@ -1,7 +1,7 @@
 import { prettyPrint } from '../display/pretty-print';
-import { Fajok } from '../core/components/faj';
-import { Iskolak } from '../core/components/iskola';
-import { Hatterek } from '../core/components/hatter';
+import { Fajok } from '../core/data/fajok';
+import { Iskolak } from '../core/data/iskolak';
+import { Hatterek } from '../core/data/hatterek';
 import { createKarakter } from '../core/karakter2';
 
 const jeirin2 = createKarakter({

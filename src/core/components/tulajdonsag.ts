@@ -1,4 +1,4 @@
-import { KarakterMapper } from '../karakter2';
+import { KarakterMapper } from './model';
 
 export enum TulajdonsagType {
   Ero = 'ero',
@@ -13,7 +13,7 @@ export enum TulajdonsagType {
   Erzekeles = 'erzekeles',
 }
 
-export type ITulajdonsagok = Record<TulajdonsagType, number>;
+export type Tulajdonsagok = Record<TulajdonsagType, number>;
 
 export function mapEro(): KarakterMapper {
   return (karakter) => ({
