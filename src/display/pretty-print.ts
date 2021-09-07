@@ -1,5 +1,5 @@
-import columnify from 'columnify';
 import { Karakter } from '../core/components/model';
+import columnify from 'columnify';
 
 export function prettyPrint(karakter: Karakter): string {
   const alapadatok = columnify(

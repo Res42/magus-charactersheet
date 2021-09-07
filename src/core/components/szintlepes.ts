@@ -1,6 +1,6 @@
+import { KarakterMapper } from './model';
 import { KepzettsegType } from './kepzettseg';
 import { TulajdonsagType } from './tulajdonsag';
-import { KarakterMapper } from './model';
 
 export interface Szintlepes {
   mana?: number;

@@ -1,7 +1,6 @@
-import { mapHatterek } from './components/hatter';
-import { InitKarakter } from './components/model';
+import { InitKarakter, Karakter, emptykarakter } from './components/model';
 import { TULAJDONSAG_MAPPERS } from './components/tulajdonsag';
-import { emptykarakter, Karakter } from './components/model';
+import { mapHatterek } from './components/hatter';
 
 export function createKarakter(init: InitKarakter): Karakter {
   let karakter: Karakter = { ...emptykarakter(), nev: init.nev, tulajdonsagok: init.tulajdonsagok };

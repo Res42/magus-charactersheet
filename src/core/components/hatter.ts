@@ -1,6 +1,6 @@
-import { MAX_TULAJDONSAG_SZINT, KarakterMapper } from './model';
+import { KarakterMapper, MAX_TULAJDONSAG_SZINT } from './model';
+import { TulajdonsagType, Tulajdonsagok } from './tulajdonsag';
 import { KepzettsegType } from './kepzettseg';
-import { Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
 export interface Hatter {
   nev: string;

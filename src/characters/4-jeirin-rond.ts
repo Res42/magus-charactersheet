@@ -1,8 +1,8 @@
-import { prettyPrint } from '../display/pretty-print';
 import { Fajok } from '../core/data/fajok';
-import { Iskolak } from '../core/data/iskolak';
 import { Hatterek } from '../core/data/hatterek';
+import { Iskolak } from '../core/data/iskolak';
 import { createKarakter } from '../core/karakter2';
+import { prettyPrint } from '../display/pretty-print';
 
 const jeirin2 = createKarakter({
   nev: 'Jeirin Rond',
