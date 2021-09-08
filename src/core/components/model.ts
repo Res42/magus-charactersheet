@@ -37,6 +37,8 @@ export interface Karakter {
   maxPszi: number;
   maxMana: number;
   maxKegy: number;
+  asztralTME: number;
+  mentalTME: number;
   szintenkentiAsztralTME: number;
   szintenkentiMentalTME: number;
   oktatasok: Oktatasok;
@@ -84,6 +86,8 @@ export function emptykarakter(): Karakter {
     te: 0,
     ce: 0,
     ve: DEFAULT_VE,
+    asztralTME: 0,
+    mentalTME: 0,
     szintenkentiAsztralTME: 0,
     szintenkentiMentalTME: 0,
     oktatasok: {},
