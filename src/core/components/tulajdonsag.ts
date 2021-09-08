@@ -65,6 +65,7 @@ export function mapAkaratero(): KarakterMapperFn {
 export function mapIntelligencia(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
+    // TODO: csak akkor, ha megvan a Pszi érzékenység háttér
     maxPszi: karakter.maxPszi + karakter.tulajdonsagok.intelligencia,
   });
 }
@@ -72,7 +73,7 @@ export function mapIntelligencia(): KarakterMapperFn {
 export function mapErzekeles(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
-    ke: karakter.maxPszi + karakter.tulajdonsagok.erzekeles,
+    ke: karakter.ke + karakter.tulajdonsagok.erzekeles,
   });
 }
 
@@ -91,6 +92,14 @@ export function tulajdonsagLimitNoveles(karakter: Karakter, tulajdonsag: Tulajdo
   return Math.max(karakter.tulajdonsagLimitek[tulajdonsag] + noveles, MAX_TULAJDONSAG_SZINT);
 }
 
-export function tulajdonsagNoveles(karakter: Karakter, tulajdonsag: TulajdonsagType, noveles: number, tulajdonsagLimit?: number): number {
-  return Math.max(karakter.tulajdonsagok[tulajdonsag] + noveles, tulajdonsagLimit ?? karakter.tulajdonsagLimitek[tulajdonsag]);
+export function tulajdonsagNoveles(
+  karakter: Karakter,
+  tulajdonsag: TulajdonsagType,
+  noveles: number,
+  tulajdonsagLimit?: number
+): number {
+  return Math.max(
+    karakter.tulajdonsagok[tulajdonsag] + noveles,
+    tulajdonsagLimit ?? karakter.tulajdonsagLimitek[tulajdonsag]
+  );
 }

@@ -80,27 +80,47 @@ export const Iskolak = {
     Alap: { nev: 'Tolvaj', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
     Zsebes: { nev: 'Tolvaj (Zsebes)', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
     Hamisito: { nev: 'Tolvaj (Hamisító)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
-    Besurrano: { nev: 'Tolvaj (Besurranó)', kap: 6, kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK, oktatasok: [] } as Iskola,
+    Besurrano: {
+      nev: 'Tolvaj (Besurranó)',
+      kap: 6,
+      kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+      oktatasok: [],
+    } as Iskola,
 
     Kobrak: {
       Alap: { nev: 'Tolvaj (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
       Zsebes: { nev: 'Tolvaj (Kobrák, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
       Hamisito: { nev: 'Tolvaj (Kobrák, Hamisító)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
-      Besurrano: { nev: 'Tolvaj (Kobrák, Besurranó)', kap: 7, kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK, oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Tolvaj (Kobrák, Besurranó)',
+        kap: 7,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
 
     TalavarCsodamuvesei: {
       Alap: { nev: 'Tolvaj (Talavar csodaművesei)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
       Zsebes: { nev: 'Tolvaj (Talavar csodaművesei, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
       Hamisito: { nev: 'Tolvaj (Talavar csodaművesei, Hamisító)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
-      Besurrano: { nev: 'Tolvaj (Talavar csodaművesei, Besurranó)', kap: 7, kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK, oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Tolvaj (Talavar csodaművesei, Besurranó)',
+        kap: 7,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
 
     Szurkecsuklyasok: {
       Alap: { nev: 'Tolvaj (Szürkecsuklyások)', kap: 5, kepzettsegek: [], oktatasok: [] } as Iskola,
       Zsebes: { nev: 'Tolvaj (Szürkecsuklyások, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
       Hamisito: { nev: 'Tolvaj (Szürkecsuklyások, Hamisító)', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
-      Besurrano: { nev: 'Tolvaj (Szürkecsuklyások, Besurranó)', kap: 6, kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK, oktatasok: [] } as Iskola,
+      Besurrano: {
+        nev: 'Tolvaj (Szürkecsuklyások, Besurranó)',
+        kap: 6,
+        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        oktatasok: [],
+      } as Iskola,
     },
   },
 
@@ -145,15 +165,30 @@ export const Iskolak = {
     LiviniaiGyulekezet: { nev: 'Boszorkány (Liviniai Gyülekezet)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
     MaidaSaluquas: { nev: 'Boszorkány (Maida Saluquas)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
     StellaProsylens: { nev: 'Boszorkány (Stella Prosylens)', kap: 8, kepzettsegek: [], oktatasok: [] } as Iskola,
-    AlidaxiBoszorkanyrend: { nev: 'Boszorkány (Alidaxi boszorkányrend)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
+    AlidaxiBoszorkanyrend: {
+      nev: 'Boszorkány (Alidaxi boszorkányrend)',
+      kap: 7,
+      kepzettsegek: [],
+      oktatasok: [],
+    } as Iskola,
     EzerFatyolNoverei: { nev: 'Boszorkány (Ezer Fátyol Nővérei)', kap: 7, kepzettsegek: [], oktatasok: [] } as Iskola,
   },
 
   Boszorkanymester: {
     Alap: { nev: 'Boszorkánymester', kap: 6, kepzettsegek: [], oktatasok: [] } as Iskola,
-    AszisziVerkelyhesek: { nev: 'Boszorkánymester (Asziszi Vérkelyhesek)', kap: 9, kepzettsegek: [], oktatasok: [] } as Iskola,
+    AszisziVerkelyhesek: {
+      nev: 'Boszorkánymester (Asziszi Vérkelyhesek)',
+      kap: 9,
+      kepzettsegek: [],
+      oktatasok: [],
+    } as Iskola,
     AscensMorga: { nev: 'Boszorkánymester (Ascens Morga)', kap: 8, kepzettsegek: [], oktatasok: [] } as Iskola,
-    HergoliVillammester: { nev: 'Boszorkánymester (Hergoli Villámmester)', kap: 8, kepzettsegek: [], oktatasok: [] } as Iskola,
+    HergoliVillammester: {
+      nev: 'Boszorkánymester (Hergoli Villámmester)',
+      kap: 8,
+      kepzettsegek: [],
+      oktatasok: [],
+    } as Iskola,
   },
 
   Tuzvarazslo: {

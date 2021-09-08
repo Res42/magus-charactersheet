@@ -1,4 +1,5 @@
 import { Faj } from '../components/hatter';
+import { KepzettsegType } from '../components/kepzettseg';
 
 export const Fajok = {
   Ember: {
@@ -33,6 +34,13 @@ export const Fajok = {
       asztral: 18,
       erzekeles: 20,
     },
+    ce: 10,
+    oktatasok: {
+      [KepzettsegType.Allatismeret]: 4,
+      [KepzettsegType.Idomitas]: 4,
+      [KepzettsegType.Erdojaras]: 4,
+      [KepzettsegType.Lovaglas]: 4,
+    },
   } as Faj,
 
   Felelf: {
@@ -49,6 +57,13 @@ export const Fajok = {
       akaratero: 18,
       asztral: 18,
       erzekeles: 19,
+    },
+    ce: 5,
+    oktatasok: {
+      [KepzettsegType.Allatismeret]: 3,
+      [KepzettsegType.Idomitas]: 3,
+      [KepzettsegType.Erdojaras]: 3,
+      [KepzettsegType.Lovaglas]: 3,
     },
   } as Faj,
 
@@ -84,6 +99,13 @@ export const Fajok = {
       asztral: 17,
       erzekeles: 18,
     },
+    oktatasok: {
+      [KepzettsegType.Epiteszet]: 4,
+      [KepzettsegType.Terkepeszet]: 4,
+      [KepzettsegType.Mechanika]: 4,
+      [KepzettsegType.MuveszetekSzobraszat]: 4,
+      [KepzettsegType.Szakma]: 4,
+    },
   } as Faj,
 
   KyrSzarmazek: {
@@ -101,7 +123,18 @@ export const Fajok = {
       asztral: 19,
       erzekeles: 18,
     },
-    // TODO: kyr származékok szociális képzettségeket 4-es oktatással tanulnak
-    oktatasok: [],
+    oktatasok: {
+      [KepzettsegType.Ekesszolas]: 4,
+      [KepzettsegType.Heraldika]: 4,
+      [KepzettsegType.Kultura]: 4,
+      [KepzettsegType.Lelektan]: 4,
+      [KepzettsegType.Muveszetek]: 4,
+      [KepzettsegType.Nyelvtudas]: 4,
+      [KepzettsegType.Parbaj]: 4,
+      [KepzettsegType.PolitikaDiplomacia]: 4,
+      [KepzettsegType.SzexualisKultura]: 4,
+      [KepzettsegType.Szineszet]: 4,
+      [KepzettsegType.UdvariEtikettIntrika]: 4,
+    },
   } as Faj,
 };

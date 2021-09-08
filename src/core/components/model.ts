@@ -1,4 +1,5 @@
 import { Hatterek } from './hatter';
+import { Oktatasok } from './kepzettseg';
 import { Szintlepes } from './szintlepes';
 import { Tulajdonsagok } from './tulajdonsag';
 
@@ -36,6 +37,9 @@ export interface Karakter {
   maxPszi: number;
   maxMana: number;
   maxKegy: number;
+  szintenkentiAsztralTME: number;
+  szintenkentiMentalTME: number;
+  oktatasok: Oktatasok;
 }
 
 export function emptykarakter(): Karakter {
@@ -80,5 +84,8 @@ export function emptykarakter(): Karakter {
     te: 0,
     ce: 0,
     ve: DEFAULT_VE,
+    szintenkentiAsztralTME: 0,
+    szintenkentiMentalTME: 0,
+    oktatasok: {},
   };
 }

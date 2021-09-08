@@ -73,8 +73,11 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
     ve: karakter.ve + (szintlepes.ve ?? 0),
     maxFp: karakter.maxFp + (szintlepes.fp ?? 0),
     maxPszi: karakter.maxPszi + (szintlepes.pszi ?? 0),
-    tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) => tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)),
+    tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) =>
+      tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)
+    ),
     // TODO: képzettség szintlépés
+    // TODO: szintenkénti TME bónusz
   });
 }
 

@@ -1,11 +1,14 @@
+import { KepzettsegType, Oktatasok, mergeOktatasok } from './kepzettseg';
 import { TulajdonsagType, Tulajdonsagok, tulajdonsagLimitNoveles, tulajdonsagNoveles } from './tulajdonsag';
 import { KarakterMapperFn } from './model';
-import { KepzettsegType } from './kepzettseg';
 import { mapObjectValues } from '../utils';
 
 export interface Hatter {
   nev: string;
   kap: number;
+  szintenkentiAsztralTME?: number;
+  szintenkentiMentalTME?: number;
+  oktatasok?: Oktatasok;
 }
 
 function mapHatter(hatter: Hatter): KarakterMapperFn {
@@ -13,6 +16,8 @@ function mapHatter(hatter: Hatter): KarakterMapperFn {
     ...karakter,
     hatterek: [...karakter.hatterek, hatter.nev],
     szintenkentiKap: karakter.szintenkentiKap - hatter.kap,
+    szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + (hatter.szintenkentiAsztralTME ?? 0),
+    szintenkentiMentalTME: karakter.szintenkentiMentalTME + (hatter.szintenkentiMentalTME ?? 0),
   });
 }
 
@@ -20,8 +25,9 @@ export interface Faj {
   nev: string;
   kap: number;
   tulajdonsagLimitek: Tulajdonsagok;
-  // TODO: oktatás szintet is tárolni
-  oktatasok?: KepzettsegType[];
+  oktatasok?: Oktatasok;
+  ce?: number;
+  // TODO: elf/félelf nekromancia elleni gyengeség
 }
 
 function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
@@ -29,8 +35,6 @@ function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
     const fajok = hatterek.filter(isFaj);
 
     if (fajok.length !== 1) {
-      // ha már van besettelve valami truthy (a default üres string, ezért azon nem akad meg)
-      // akkor több, mint 1 fajt adott meg, ilyet nem lehet
       throw new Error(`Nem pontosan 1 faj lett megadva háttérnek. Jelenleg ennyi faj van megadva: ${fajok.length}.`);
     }
 
@@ -43,7 +47,11 @@ function mapFaj(faj: Faj): KarakterMapperFn {
     ...karakter,
     faj: faj.nev,
     szintenkentiKap: karakter.szintenkentiKap - faj.kap,
-    tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) => tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)),
+    tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) =>
+      tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)
+    ),
+    ce: karakter.ce + (faj.ce ?? 0),
+    oktatasok: mergeOktatasok(karakter.oktatasok, faj.oktatasok),
   });
 }
 
@@ -84,8 +92,7 @@ export interface Iskola {
   nev: string;
   kap: number;
   kepzettsegek: IskolaAlapKepzettseg[];
-  // TODO: oktatás szintet is tárolni
-  oktatasok: KepzettsegType[];
+  oktatasok: Oktatasok;
 }
 
 function mapIskola(iskola: Iskola): KarakterMapperFn {
@@ -93,6 +100,7 @@ function mapIskola(iskola: Iskola): KarakterMapperFn {
     ...karakter,
     kaszt: [...karakter.kaszt, iskola.nev],
     szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
+    oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
   });
 }
 
@@ -111,15 +119,11 @@ export function isIskola(hatter: Hatterek): hatter is Iskola {
 }
 
 function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
-  if (isFaj(hatter)) {
-    return mapFaj(hatter);
-  } else if (isAdottsag(hatter)) {
-    return mapAdottsag(hatter);
-  } else if (isIskola(hatter)) {
-    return mapIskola(hatter);
-  } else {
-    return mapHatter(hatter);
-  }
+  if (isFaj(hatter)) return mapFaj(hatter);
+  if (isAdottsag(hatter)) return mapAdottsag(hatter);
+  if (isIskola(hatter)) return mapIskola(hatter);
+
+  return mapHatter(hatter);
 }
 
 /**
