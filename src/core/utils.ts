@@ -8,8 +8,8 @@ export function mapObjectValues<T, TResult, TKey extends string>(
 }
 
 export function mergeWith<T, TResult, TKey extends string>(
-  obj1: Record<TKey, T>,
-  obj2: Record<TKey, T>,
+  obj1: Partial<Record<TKey, T>>,
+  obj2: Partial<Record<TKey, T>>,
   callbackFn: (value1: T | undefined, value2: T | undefined, key: TKey) => TResult
 ): Record<TKey, TResult> {
   const allKeys = [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])] as TKey[];

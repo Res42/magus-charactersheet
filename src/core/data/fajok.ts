@@ -38,7 +38,8 @@ export const Fajok = {
     oktatasok: {
       [KepzettsegType.Allatismeret]: 4,
       [KepzettsegType.Idomitas]: 4,
-      [KepzettsegType.Erdojaras]: 4,
+      // TODO: az erdőjárás === vadonjárás?
+      [KepzettsegType.Vadonjaras]: 4,
       [KepzettsegType.Lovaglas]: 4,
     },
   } as Faj,
@@ -62,7 +63,8 @@ export const Fajok = {
     oktatasok: {
       [KepzettsegType.Allatismeret]: 3,
       [KepzettsegType.Idomitas]: 3,
-      [KepzettsegType.Erdojaras]: 3,
+      // TODO: az erdőjárás === vadonjárás?
+      [KepzettsegType.Vadonjaras]: 3,
       [KepzettsegType.Lovaglas]: 3,
     },
   } as Faj,

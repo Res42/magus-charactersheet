@@ -1,46 +1,122 @@
+import { TulajdonsagType } from './tulajdonsag';
 import { mergeWith } from '../utils';
 
 export enum KepzettsegType {
-  Fegyverhasznalat,
-  AlcazasAlruha,
-  Mechanika,
-  SzamtanMertan,
-  Ertekbecsles,
-  Orvtamadas,
-  Jelbeszed,
-  Szabadulomuveszet,
-  Csomozas,
-  Lelektan,
-  Rejtekhelykutatas,
-  Zarnyitas,
-  Zsebmetszes,
-  Lopodzas,
-  Rejtozes,
-  Maszas,
-  Eses,
-  Akrobatika,
-  Csapdakereses,
-  Veszelyerzek,
-  Allatismeret,
-  Idomitas,
-  Erdojaras,
-  Lovaglas,
-  Epiteszet,
-  Terkepeszet,
-  // TODO: hogy ábrázolni az alképzettséges képzettségeket?
-  MuveszetekSzobraszat,
-  Szakma,
-  Ekesszolas,
-  Heraldika,
-  Kultura,
-  Muveszetek,
-  Nyelvtudas,
-  Parbaj,
-  PolitikaDiplomacia,
-  SzexualisKultura,
-  Szineszet,
-  UdvariEtikettIntrika,
+  Fajdalomtures = 'fajdalomtures',
+  Fegyverhasznalat = 'fegyverhasznalat',
+  Fegyverismeret = 'fegyverismeret',
+  Hadvezetes = 'hadvezetes',
+  HarciLaz = 'harciLaz',
+  Harcmuveszet = 'harcmuveszet',
+  HarcteriGyakorlat = 'harcteriGyakorlat',
+  Ketkezesharc = 'ketkezesharc',
+  Pajzshasznalat = 'pajzshasznalat',
+  PusztakezesHarc = 'pusztakezesHarc',
+  Pusztitas = 'pusztitas',
+  Taktika = 'taktika',
+  Vakharc = 'vakharc',
+  Vertviselet = 'vertviselet',
+
+  AlcazasAlruha = 'alcazasAlruha',
+  Hamisitas = 'hamisitas',
+  Jelbeszed = 'jelbeszed',
+  KocsmaiVerekedes = 'kocsmaiVerekedes',
+  MeregkeveresSemlegesites = 'meregkeveresSemlegesites',
+  Orvtamadas = 'orvtamadas',
+  Kinzas = 'kinzas',
+  Szabadulomuveszet = 'szabadulomuveszet',
+  Szerencsejatek = 'szerencsejatek',
+  Csapdakereses = 'csapdakereses',
+  Lopodzas = 'lopodzas',
+  Rejtozes = 'Rejtozes',
+  Rejtekhelykutatas = 'rejtekhelykutatas',
+  Zarnyitas = 'zarnyitas',
+  Zsebmetszes = 'zsebmetszes',
+  Veszelyerzek = 'veszelyerzek',
+
+  Allatismeret = 'allatismeret',
+  CsapdaallitasLeszedes = 'csapdaallitasLeszedes',
+  Csomozas = 'csomozas',
+  Ertekbecsles = 'ertekbecsles',
+  Futas = 'futas',
+  Hajozas = 'hajozas',
+  Hangutanzas = 'hangutanzas',
+  Helyismeret = 'helyismeret',
+  Idomitas = 'idomitas',
+  Idojoslas = 'idojoslas',
+  Kocsihajtas = 'kocsihajtas',
+  Lovaglas = 'lovaglas',
+  Nyomolvasas = 'nyomolvasas',
+  Szakma = 'szakma',
+  Uszas = 'uszas',
+  Vadonjaras = 'vadonjaras',
+  Akrobatika = 'akrobatika',
+  Eses = 'eses',
+  Maszas = 'maszas',
+
+  Alkimia = 'alkimia',
+  Elettan = 'elettan',
+  Epiteszet = 'epiteszet',
+  Herbalizmus = 'herbalizmus',
+  IrasOlvasas = 'irasOlvasas',
+  JogTorvenykezes = 'jogTorvenykezes',
+  Legendaismeret = 'legendaismeret',
+  Mechanika = 'mechanika',
+  Oktatas = 'oktatas',
+  Orvoslas = 'orvoslas',
+  OsiNyelv = 'osiNyelv',
+  SzamtanMertan = 'szamtanMertan',
+  Terkepeszet = 'terkepeszet',
+  Tortenelem = 'tortenelem',
+  Vallasismeret = 'vallasismeret',
+
+  Ekesszolas = 'ekesszolas',
+  Heraldika = 'heraldika',
+  Kultura = 'kultura',
+  Lelektan = 'lelektan',
+  Muveszetek = 'muveszetek',
+  Nyelvtudas = 'nyelvtudas',
+  Parbaj = 'parbaj',
+  PolitikaDiplomacia = 'politikaDiplomacia',
+  SzexualisKultura = 'szexualisKultura',
+  Szineszet = 'szineszet',
+  UdvariEtikettIntrika = 'udvariEtikettIntrika',
+
+  Demonologia = 'demonologia',
+  Dragakomagia = 'dragakomagia',
+  Magasmagia = 'magasmagia',
+  Nekromancia = 'nekromancia',
+  OselemiMagia = 'oselemiMagia',
+  Pszi = 'pszi',
+  Runamagia = 'runamagia',
+  TapasztalatiMagia = 'tapasztalatiMagia',
+
+  // TODO: hogy ábrázolni az alképzettséges képzettségeket? ez külön meg van nevezve a törpénél
+  MuveszetekSzobraszat = 'muveszetekSzobraszat',
 }
+
+interface KepzettsegBase {
+  kepzettsegType: KepzettsegType;
+  eros?: KepzettsegType[];
+  erosOperator?: 'and' | 'or';
+  gyenge?: KepzettsegType[];
+  gyengeOperator?: 'and' | 'or';
+  tulajdonsag: TulajdonsagType[];
+}
+
+export interface FokosKepzettseg extends KepzettsegBase {
+  elsoFok: number;
+  masodikFok: number;
+  harmadikFok: number;
+  negyedikFok: number;
+  otodikFok: number;
+}
+
+export interface SzazalekosKepzettseg extends KepzettsegBase {
+  szazalekPerKap: number;
+}
+
+export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
 
 /** Képzettség - oktatási szint map. */
 export type Oktatasok = { [key in KepzettsegType]?: number };
