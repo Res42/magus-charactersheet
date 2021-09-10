@@ -9,6 +9,7 @@ export interface Hatter {
   szintenkentiAsztralTME?: number;
   szintenkentiMentalTME?: number;
   oktatasok?: Oktatasok;
+  oktatasOsszeadodikFajiOktatassal?: boolean;
 }
 
 function mapHatter(hatter: Hatter): KarakterMapperFn {

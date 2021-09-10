@@ -28,7 +28,7 @@ export enum KepzettsegType {
   Szerencsejatek = 'szerencsejatek',
   Csapdakereses = 'csapdakereses',
   Lopodzas = 'lopodzas',
-  Rejtozes = 'Rejtozes',
+  Rejtozes = 'rejtozes',
   Rejtekhelykutatas = 'rejtekhelykutatas',
   Zarnyitas = 'zarnyitas',
   Zsebmetszes = 'zsebmetszes',
@@ -118,17 +118,25 @@ export interface SzazalekosKepzettseg extends KepzettsegBase {
 
 export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
 
-/** Képzettség - oktatási szint map. */
+/** Képzettség - oktatási KP / százalék bónusz (NEM OKTATÁSI SZINT!) map. */
 export type Oktatasok = { [key in KepzettsegType]?: number };
 
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok | undefined): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined): undefined;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined): Oktatasok | undefined {
+export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
+export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
+export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok | undefined, osszeadodik?: boolean): Oktatasok;
+export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined, osszeadodik?: boolean): undefined;
+export function mergeOktatasok(
+  o1: Oktatasok | undefined,
+  o2: Oktatasok | undefined,
+  osszeadodik = false
+): Oktatasok | undefined {
   if (o1 == null && o2 == null) return undefined;
   if (o1 == null) return o2;
   if (o2 == null) return o1;
 
-  return mergeWith(o1, o2, (v1, v2) => (v1 ?? 0) + (v2 ?? 0));
+  const operation: (v1: number | undefined, v2: number | undefined) => number = osszeadodik
+    ? (v1, v2) => (v1 ?? 0) + (v2 ?? 0)
+    : (v1, v2) => Math.max(v1 ?? 0, v2 ?? 0);
+
+  return mergeWith(o1, o2, operation);
 }

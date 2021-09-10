@@ -1,5 +1,5 @@
 import { Adottsag, Hatter } from '../components/hatter';
-import { KepzettsegType } from '../components/kepzettseg';
+import { SZOCIALIS_KEPZETTSEG_TYPES } from './kepzettsegek';
 import { TulajdonsagType } from '../components/tulajdonsag';
 
 export const Hatterek = {
@@ -18,20 +18,8 @@ export const Hatterek = {
   NemesiVer: {
     nev: 'Nemesi vér',
     kap: 1,
-    // TODO: mit jelent, hogy összeadódik a faj oktatás bónusszal?
-    oktatasok: {
-      [KepzettsegType.Ekesszolas]: 4,
-      [KepzettsegType.Heraldika]: 4,
-      [KepzettsegType.Kultura]: 4,
-      [KepzettsegType.Lelektan]: 4,
-      [KepzettsegType.Muveszetek]: 4,
-      [KepzettsegType.Nyelvtudas]: 4,
-      [KepzettsegType.Parbaj]: 4,
-      [KepzettsegType.PolitikaDiplomacia]: 4,
-      [KepzettsegType.SzexualisKultura]: 4,
-      [KepzettsegType.Szineszet]: 4,
-      [KepzettsegType.UdvariEtikettIntrika]: 4,
-    },
+    oktatasOsszeadodikFajiOktatassal: true,
+    oktatasok: Object.fromEntries(SZOCIALIS_KEPZETTSEG_TYPES.map((kepzettsegType) => [kepzettsegType, 2])),
   } as Hatter,
   PsziErzekenyseg: { nev: 'Pszi érzékenység', kap: 1 } as Hatter,
   Rang1: { nev: 'Rang', kap: 1 } as Hatter,

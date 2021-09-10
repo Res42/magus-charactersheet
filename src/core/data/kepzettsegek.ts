@@ -1,0 +1,102 @@
+import { KepzettsegType } from '../components/kepzettseg';
+
+export const HARCI_KEPZETTSEG_TYPES = [
+  KepzettsegType.Fajdalomtures,
+  KepzettsegType.Fegyverhasznalat,
+  KepzettsegType.Fegyverismeret,
+  KepzettsegType.Hadvezetes,
+  KepzettsegType.HarciLaz,
+  KepzettsegType.Harcmuveszet,
+  KepzettsegType.HarcteriGyakorlat,
+  KepzettsegType.Ketkezesharc,
+  KepzettsegType.Pajzshasznalat,
+  KepzettsegType.PusztakezesHarc,
+  KepzettsegType.Pusztitas,
+  KepzettsegType.Taktika,
+  KepzettsegType.Vakharc,
+  KepzettsegType.Vertviselet,
+] as const;
+
+export const ALVILAGI_KEPZETTSEG_TYPES = [
+  KepzettsegType.AlcazasAlruha,
+  KepzettsegType.Hamisitas,
+  KepzettsegType.Jelbeszed,
+  KepzettsegType.KocsmaiVerekedes,
+  KepzettsegType.MeregkeveresSemlegesites,
+  KepzettsegType.Orvtamadas,
+  KepzettsegType.Kinzas,
+  KepzettsegType.Szabadulomuveszet,
+  KepzettsegType.Szerencsejatek,
+  KepzettsegType.Csapdakereses,
+  KepzettsegType.Lopodzas,
+  KepzettsegType.Rejtozes,
+  KepzettsegType.Rejtekhelykutatas,
+  KepzettsegType.Zarnyitas,
+  KepzettsegType.Zsebmetszes,
+  KepzettsegType.Veszelyerzek,
+] as const;
+
+export const VILAGI_KEPZETTSEG_TYPES = [
+  KepzettsegType.Allatismeret,
+  KepzettsegType.CsapdaallitasLeszedes,
+  KepzettsegType.Csomozas,
+  KepzettsegType.Ertekbecsles,
+  KepzettsegType.Futas,
+  KepzettsegType.Hajozas,
+  KepzettsegType.Hangutanzas,
+  KepzettsegType.Helyismeret,
+  KepzettsegType.Idomitas,
+  KepzettsegType.Idojoslas,
+  KepzettsegType.Kocsihajtas,
+  KepzettsegType.Lovaglas,
+  KepzettsegType.Nyomolvasas,
+  KepzettsegType.Szakma,
+  KepzettsegType.Uszas,
+  KepzettsegType.Vadonjaras,
+  KepzettsegType.Akrobatika,
+  KepzettsegType.Eses,
+  KepzettsegType.Maszas,
+] as const;
+
+export const TUDOMANYOS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Alkimia,
+  KepzettsegType.Elettan,
+  KepzettsegType.Epiteszet,
+  KepzettsegType.Herbalizmus,
+  KepzettsegType.IrasOlvasas,
+  KepzettsegType.JogTorvenykezes,
+  KepzettsegType.Legendaismeret,
+  KepzettsegType.Mechanika,
+  KepzettsegType.Oktatas,
+  KepzettsegType.Orvoslas,
+  KepzettsegType.OsiNyelv,
+  KepzettsegType.SzamtanMertan,
+  KepzettsegType.Terkepeszet,
+  KepzettsegType.Tortenelem,
+  KepzettsegType.Vallasismeret,
+] as const;
+
+export const SZOCIALIS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Ekesszolas,
+  KepzettsegType.Heraldika,
+  KepzettsegType.Kultura,
+  KepzettsegType.Lelektan,
+  KepzettsegType.Muveszetek,
+  KepzettsegType.Nyelvtudas,
+  KepzettsegType.Parbaj,
+  KepzettsegType.PolitikaDiplomacia,
+  KepzettsegType.SzexualisKultura,
+  KepzettsegType.Szineszet,
+  KepzettsegType.UdvariEtikettIntrika,
+] as const;
+
+export const MISZTIKUS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Demonologia,
+  KepzettsegType.Dragakomagia,
+  KepzettsegType.Magasmagia,
+  KepzettsegType.Nekromancia,
+  KepzettsegType.OselemiMagia,
+  KepzettsegType.Pszi,
+  KepzettsegType.Runamagia,
+  KepzettsegType.TapasztalatiMagia,
+] as const;
