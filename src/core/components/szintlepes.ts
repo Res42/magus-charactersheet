@@ -24,7 +24,7 @@ export interface KepzettsegSzintLepes {
   tulajdonsag?: TulajdonsagType;
 }
 
-export function getKapOfSzintlepes(szintlepes: Szintlepes): number {
+function getKapOfSzintlepes(szintlepes: Szintlepes): number {
   return (
     (szintlepes.mana ?? 0) * 3 +
     (szintlepes.kegy ?? 0) * 3 +

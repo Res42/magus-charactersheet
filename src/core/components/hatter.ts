@@ -19,6 +19,7 @@ function mapHatter(hatter: Hatter): KarakterMapperFn {
     szintenkentiKap: karakter.szintenkentiKap - hatter.kap,
     szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + (hatter.szintenkentiAsztralTME ?? 0),
     szintenkentiMentalTME: karakter.szintenkentiMentalTME + (hatter.szintenkentiMentalTME ?? 0),
+    oktatasok: mergeOktatasok(karakter.oktatasok, hatter.oktatasok, hatter.oktatasOsszeadodikFajiOktatassal),
   });
 }
 
@@ -107,16 +108,22 @@ function mapIskola(iskola: Iskola): KarakterMapperFn {
 
 export type Hatterek = Faj | Adottsag | Hatter | Iskola;
 
-export function isFaj(hatter: Hatterek): hatter is Faj {
+function isFaj(hatter: Hatterek): hatter is Faj {
   return (hatter as Faj).tulajdonsagLimitek != null;
 }
 
-export function isAdottsag(hatter: Hatterek): hatter is Adottsag {
+function isAdottsag(hatter: Hatterek): hatter is Adottsag {
   return (hatter as Adottsag).tulajdonsag != null;
 }
 
-export function isIskola(hatter: Hatterek): hatter is Iskola {
+function isIskola(hatter: Hatterek): hatter is Iskola {
   return (hatter as Iskola).kepzettsegek != null;
+}
+
+function isOktatasOsszeadodikFajiOktatassalHatter(
+  hatter: Hatterek
+): hatter is Hatter & { oktatasOsszeadodikFajiOktatassal: true } {
+  return (hatter as Hatter).oktatasOsszeadodikFajiOktatassal === true;
 }
 
 function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
@@ -127,19 +134,30 @@ function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
   return mapHatter(hatter);
 }
 
-/**
- * Általános háttér sort-oló funkció a hátterek megfelelő sorrendben történő futtatásához.
- * A faj típusú háttérnek kell először lefutnia, hogy az utána levő adottság hátterek ne rontsák el a tulajdonság limitek miatti számolásokat.
- * A többi fajta elemmel nem csinál semmit, ugyanolyan sorrendben maradnak.
- */
 function sortHatterek(a: Hatterek, b: Hatterek): number {
   if (a === b) return 0;
+
   if (isFaj(a)) return -1;
   if (isFaj(b)) return 1;
+
+  if (isOktatasOsszeadodikFajiOktatassalHatter(a)) return -1;
+  if (isOktatasOsszeadodikFajiOktatassalHatter(b)) return 1;
+
+  if (isIskola(a)) return -1;
+  if (isIskola(b)) return 1;
 
   return 0;
 }
 
+/**
+ * hátterek futtatásának sorrendje:
+ * 0. validáció
+ * 1. faj
+ * 2. `oktatasOsszeadodikFajiOktatassal: true` háttér, rögtön a fajok után kell futtatni,
+ *    hogy máshonnan kapott oktatással ne kombózzon össze, ilyen pl. a nemesi vér
+ * 3. iskola (figyelni az iskola által adott `oktatasOsszeadodikFajiOktatassal: true` hátterekre!)
+ * 4. többi háttér
+ */
 export function mapHatterek(hatterek: Hatterek[]): KarakterMapperFn[] {
   return [validateFaj(hatterek), ...hatterek.sort(sortHatterek).map(getHatterMapper)];
 }

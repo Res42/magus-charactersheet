@@ -15,14 +15,14 @@ export enum TulajdonsagType {
 
 export type Tulajdonsagok = Record<TulajdonsagType, number>;
 
-export function mapEro(): KarakterMapperFn {
+function mapEro(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     te: karakter.te + karakter.tulajdonsagok.ero,
   });
 }
 
-export function mapGyorsasag(): KarakterMapperFn {
+function mapGyorsasag(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     ke: karakter.ke + karakter.tulajdonsagok.gyorsasag,
@@ -32,7 +32,7 @@ export function mapGyorsasag(): KarakterMapperFn {
   });
 }
 
-export function mapUgyesseg(): KarakterMapperFn {
+function mapUgyesseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     te: karakter.te + karakter.tulajdonsagok.ugyesseg,
@@ -41,28 +41,28 @@ export function mapUgyesseg(): KarakterMapperFn {
   });
 }
 
-export function mapAllokepesseg(): KarakterMapperFn {
+function mapAllokepesseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxFp: karakter.maxFp + karakter.tulajdonsagok.allokepesseg,
   });
 }
 
-export function mapEgeszseg(): KarakterMapperFn {
+function mapEgeszseg(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxEp: karakter.maxEp + karakter.tulajdonsagok.egeszseg,
   });
 }
 
-export function mapAkaratero(): KarakterMapperFn {
+function mapAkaratero(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxFp: karakter.maxFp + karakter.tulajdonsagok.akaratero,
   });
 }
 
-export function mapIntelligencia(): KarakterMapperFn {
+function mapIntelligencia(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     // TODO: csak akkor, ha megvan a Pszi érzékenység háttér
@@ -70,7 +70,7 @@ export function mapIntelligencia(): KarakterMapperFn {
   });
 }
 
-export function mapErzekeles(): KarakterMapperFn {
+function mapErzekeles(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     ke: karakter.ke + karakter.tulajdonsagok.erzekeles,

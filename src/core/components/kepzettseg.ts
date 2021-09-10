@@ -97,23 +97,20 @@ export enum KepzettsegType {
 
 interface KepzettsegBase {
   kepzettsegType: KepzettsegType;
+  nev: string;
   eros?: KepzettsegType[];
   erosOperator?: 'and' | 'or';
   gyenge?: KepzettsegType[];
   gyengeOperator?: 'and' | 'or';
-  tulajdonsag: TulajdonsagType[];
+  tulajdonsag?: TulajdonsagType[];
 }
 
 export interface FokosKepzettseg extends KepzettsegBase {
-  elsoFok: number;
-  masodikFok: number;
-  harmadikFok: number;
-  negyedikFok: number;
-  otodikFok: number;
+  fokok: [number, number, number, number, number];
 }
 
 export interface SzazalekosKepzettseg extends KepzettsegBase {
-  szazalekPerKap: number;
+  szazalekPerKp: number;
 }
 
 export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
