@@ -4,7 +4,6 @@
   "description": "A charactersheet for the role playing game MAGUS.",
   "type": "module",
   "scripts": {
-    "4": "npm run build && node ./src/characters/4-jeirin-rond.js",
     "build": "tsc",
     "test": "jest"
   },
