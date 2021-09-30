@@ -17,7 +17,6 @@ export function createKarakter(init: InitKarakter): Karakter {
     // TODO: saját nyelv, kultúra, helyismeret
     // TODO: kezdő KP = intelligencia kezelése KÉRDÉS: ez nő, ha az intelligencia stat nő?
     // TODO: erő sebzés bónusz
-    // TODO: szintlépés mapper
     // TODO: státusz mapper
     ...TULAJDONSAG_MAPPERS,
     // TODO: equipment mapper

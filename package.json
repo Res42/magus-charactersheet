@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "@types/columnify": "^1.5.1",
-    "columnify": "^1.5.4"
+    "columnify": "^1.5.4",
+    "typescript-parsec": "^0.3.2"
   },
   "jest": {
     "preset": "ts-jest/presets/default-esm",
