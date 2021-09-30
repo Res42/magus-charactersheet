@@ -1,4 +1,4 @@
-export function mapObjectValues<T, TResult, TKey extends string>(
+export function mapObjectValues<T, TResult, TKey extends string | number>(
   obj: Record<TKey, T>,
   mapperFn: (key: TKey, value: T, obj?: Record<TKey, T>) => TResult
 ): Record<TKey, TResult> {
@@ -7,7 +7,7 @@ export function mapObjectValues<T, TResult, TKey extends string>(
   ) as Record<TKey, TResult>;
 }
 
-export function mergeWith<T, TResult, TKey extends string>(
+export function mergeWith<T, TResult, TKey extends string | number>(
   obj1: Partial<Record<TKey, T>>,
   obj2: Partial<Record<TKey, T>>,
   callbackFn: (value1: T | undefined, value2: T | undefined, key: TKey) => TResult

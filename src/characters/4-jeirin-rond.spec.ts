@@ -2,7 +2,6 @@ import { Fajok } from '../core/data/fajok';
 import { Hatterek } from '../core/data/hatterek';
 import { Iskolak } from '../core/data/iskolak';
 import { createKarakter } from '../core/karakter';
-import { prettyPrint } from '../display/pretty-print';
 
 test('Character: Jeirin Rond', () => {
   const jeirin = createKarakter({
@@ -22,8 +21,7 @@ test('Character: Jeirin Rond', () => {
     },
     szintlepesek: [],
   });
-  // első szint
-  // jeirin.szintlepes({});
 
-  console.log(prettyPrint(jeirin));
+  // TODO: write the test
+  // console.log(prettyPrint(jeirin));
 });
