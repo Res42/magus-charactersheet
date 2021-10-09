@@ -23,5 +23,4 @@ test('Character: Jeirin Rond', () => {
   });
 
   // TODO: write the test
-  // console.log(prettyPrint(jeirin));
 });
