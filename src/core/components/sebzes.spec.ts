@@ -1,4 +1,4 @@
-import { Sebzes, parseSebzes } from './sebzes';
+import { Sebzes, addSebzes, parseSebzes, substractSebzes } from './sebzes';
 
 const UTK_TESZTESETEK: [string, Sebzes][] = [
   ['1k10', { 10: 1 }],
@@ -39,6 +39,38 @@ const SAJAT_TESZTESETEK: [string, Sebzes][] = [
   // ['k6', { 6: 1 }],
 ];
 
-test.each([...UTK_TESZTESETEK, ...SAJAT_TESZTESETEK])('parse sebzés: "%s"', (sebzes, expected: Sebzes) => {
-  expect(parseSebzes(sebzes)).toEqual(expected);
+test.each([...UTK_TESZTESETEK, ...SAJAT_TESZTESETEK])('Sebzés parser: "%s"', (sebzes, expected) => {
+  const result = parseSebzes(sebzes);
+
+  expect(result).toEqual(expected);
+});
+
+const OSSZEADAS_TESZTESETEK: [Sebzes, Sebzes, Sebzes][] = [
+  [{ 10: 1 }, { 10: 2 }, { 10: 3 }],
+  [
+    { 10: 1, 1: 1 },
+    { 6: 2, 1: 3 },
+    { 10: 1, 6: 2, 1: 4 },
+  ],
+];
+
+test.each(OSSZEADAS_TESZTESETEK)('Sebzés összeadás', (sebzes1, sebzes2, expected) => {
+  const result = addSebzes(sebzes1, sebzes2);
+
+  expect(result).toEqual(expected);
+});
+
+const KIVONAS_TESZTESETEK: [Sebzes, Sebzes, Sebzes][] = [
+  [{ 10: 1 }, { 10: 2 }, { 10: -1 }],
+  [
+    { 10: 1, 1: 1 },
+    { 6: 2, 1: 3 },
+    { 10: 1, 6: -2, 1: -2 },
+  ],
+];
+
+test.each(KIVONAS_TESZTESETEK)('Sebzés kivonás', (sebzes1, sebzes2, expected) => {
+  const result = substractSebzes(sebzes1, sebzes2);
+
+  expect(result).toEqual(expected);
 });

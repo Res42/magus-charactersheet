@@ -219,7 +219,7 @@ export const Kepzettsegek = {
     } as FokosKepzettseg,
     Hamisitas: {
       kepzettsegType: KepzettsegType.Hamisitas,
-      nev: 'hamisítás',
+      nev: 'Hamisítás',
       fokok: HARMADIK_NEHEZSEGI_SZINTU_FOKOK,
       // TODO: lásd a leírást
       tulajdonsag: [TulajdonsagType.Ugyesseg, TulajdonsagType.Intelligencia],

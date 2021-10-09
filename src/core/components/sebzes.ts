@@ -77,7 +77,7 @@ function applyDice([dices, , sides]: [number, Token<TokenKind>, number]): Sebzes
 }
 
 function applySebzesList(sebzesek: Sebzes[]): Sebzes {
-  return sebzesek.reduce((sum, curr) => mergeWith(sum, curr, (d1, d2) => (d1 ?? 0) + (d2 ?? 0)), {});
+  return sebzesek.reduce((sum, curr) => addSebzes(sum, curr), {});
 }
 
 /**
@@ -109,4 +109,12 @@ const SUM_EXPRESSION: Parser<TokenKind, Sebzes> = apply(rep_sc(EXPRESSION), appl
 
 export function parseSebzes(sebzes: string): Sebzes {
   return expectSingleResult(expectEOF(SUM_EXPRESSION.parse(lexer.parse(sebzes))));
+}
+
+export function addSebzes(sebzes1: Sebzes, sebzes2: Sebzes): Sebzes {
+  return mergeWith(sebzes1, sebzes2, (d1, d2) => (d1 ?? 0) + (d2 ?? 0));
+}
+
+export function substractSebzes(sebzes1: Sebzes, sebzes2: Sebzes): Sebzes {
+  return mergeWith(sebzes1, sebzes2, (d1, d2) => (d1 ?? 0) - (d2 ?? 0));
 }
