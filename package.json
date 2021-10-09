@@ -4,7 +4,7 @@
   "description": "A charactersheet for the role playing game MAGUS.",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "test": "jest"
   },
   "author": "Adam Reisinger",
