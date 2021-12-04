@@ -45,16 +45,18 @@ function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
 }
 
 function mapFaj(faj: Faj): KarakterMapperFn {
-  return (karakter) => ({
-    ...karakter,
-    faj: faj.nev,
-    szintenkentiKap: karakter.szintenkentiKap - faj.kap,
-    tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) =>
-      tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)
-    ),
-    ce: karakter.ce + (faj.ce ?? 0),
-    oktatasok: mergeOktatasok(karakter.oktatasok, faj.oktatasok),
-  });
+  return (karakter) => {
+    return {
+      ...karakter,
+      faj: faj.nev,
+      szintenkentiKap: karakter.szintenkentiKap - faj.kap,
+      tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) =>
+        tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)
+      ),
+      ce: karakter.ce + (faj.ce ?? 0),
+      oktatasok: mergeOktatasok(karakter.oktatasok, faj.oktatasok),
+    };
+  };
 }
 
 export interface Adottsag {

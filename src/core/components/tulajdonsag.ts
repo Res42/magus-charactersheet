@@ -89,7 +89,7 @@ export const TULAJDONSAG_MAPPERS: KarakterMapperFn[] = [
 ];
 
 export function tulajdonsagLimitNoveles(karakter: Karakter, tulajdonsag: TulajdonsagType, noveles: number): number {
-  return Math.max(karakter.tulajdonsagLimitek[tulajdonsag] + noveles, MAX_TULAJDONSAG_SZINT);
+  return Math.min(karakter.tulajdonsagLimitek[tulajdonsag] + noveles, MAX_TULAJDONSAG_SZINT);
 }
 
 export function tulajdonsagNoveles(
@@ -98,7 +98,7 @@ export function tulajdonsagNoveles(
   noveles: number,
   tulajdonsagLimit?: number
 ): number {
-  return Math.max(
+  return Math.min(
     karakter.tulajdonsagok[tulajdonsag] + noveles,
     tulajdonsagLimit ?? karakter.tulajdonsagLimitek[tulajdonsag]
   );
