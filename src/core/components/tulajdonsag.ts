@@ -59,6 +59,14 @@ function mapAkaratero(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxFp: karakter.maxFp + karakter.tulajdonsagok.akaratero,
+    mentalTME: karakter.mentalTME + karakter.tulajdonsagok.akaratero,
+  });
+}
+
+function mapAsztral(): KarakterMapperFn {
+  return (karakter) => ({
+    ...karakter,
+    asztralTME: karakter.asztralTME + karakter.tulajdonsagok.asztral,
   });
 }
 
@@ -85,6 +93,7 @@ export const TULAJDONSAG_MAPPERS: KarakterMapperFn[] = [
   mapEgeszseg(),
   mapAkaratero(),
   mapIntelligencia(),
+  mapAsztral(),
   mapErzekeles(),
 ];
 
