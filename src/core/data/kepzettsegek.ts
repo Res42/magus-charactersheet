@@ -261,7 +261,7 @@ export const Kepzettsegek = {
     } as FokosKepzettseg,
     Szabadulomuveszet: {
       kepzettsegType: KepzettsegType.Szabadulomuveszet,
-      nev: 'SZabadulóművészet',
+      nev: 'Szabadulóművészet',
       fokok: HARMADIK_NEHEZSEGI_SZINTU_FOKOK,
       eros: [KepzettsegType.Csomozas],
       gyenge: [KepzettsegType.Zarnyitas],
@@ -569,7 +569,7 @@ export const Kepzettsegek = {
     } as FokosKepzettseg,
     Kultura: {
       kepzettsegType: KepzettsegType.Kultura,
-      nev: 'kultúra',
+      nev: 'Kultúra',
       fokok: ELSO_NEHEZSEGI_SZINTU_FOKOK,
       eros: [KepzettsegType.Nyelvtudas],
     } as FokosKepzettseg,
