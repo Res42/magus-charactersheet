@@ -1,5 +1,5 @@
 import { Hatterek } from './hatter';
-import { Oktatasok } from './kepzettseg';
+import { Kepzettsegek, Oktatasok } from './kepzettseg';
 import { Szintlepes } from './szintlepes';
 import { Tulajdonsagok } from './tulajdonsag';
 
@@ -42,6 +42,7 @@ export interface Karakter {
   szintenkentiAsztralTME: number;
   szintenkentiMentalTME: number;
   oktatasok: Oktatasok;
+  kepzettsegek: Kepzettsegek;
 }
 
 export function emptykarakter(): Karakter {
@@ -91,5 +92,6 @@ export function emptykarakter(): Karakter {
     szintenkentiAsztralTME: 0,
     szintenkentiMentalTME: 0,
     oktatasok: {},
+    kepzettsegek: {},
   };
 }

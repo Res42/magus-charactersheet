@@ -118,6 +118,8 @@ export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
 /** Képzettség - oktatási KP / százalék bónusz (NEM OKTATÁSI SZINT!) map. */
 export type Oktatasok = { [key in KepzettsegType]?: number };
 
+export type Kepzettsegek = Record<string, number>;
+
 export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
 export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
 export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok | undefined, osszeadodik?: boolean): Oktatasok;

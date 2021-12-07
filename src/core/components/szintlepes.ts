@@ -52,7 +52,7 @@ function validateSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
   return (karakter) => {
     const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
     if (kapOfSzintlepes !== karakter.szintenkentiKap) {
-      throw new Error(
+      console.warn(
         `A szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${karakter.szintenkentiKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
       );
     }
@@ -74,7 +74,12 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
     maxFp: karakter.maxFp + (szintlepes.fp ?? 0),
     maxPszi: karakter.maxPszi + (szintlepes.pszi ?? 0),
     tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) =>
-      tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)
+      tulajdonsagNoveles(
+        karakter,
+        tulajdonsag,
+        (szintlepes[tulajdonsag] ?? 0) +
+          (szintlepes.kepzettsegek?.filter((k) => k.tulajdonsag === tulajdonsag).length ?? 0)
+      )
     ),
     asztralTME: karakter.asztralTME + karakter.szintenkentiAsztralTME,
     mentalTME: karakter.mentalTME + karakter.szintenkentiMentalTME,
