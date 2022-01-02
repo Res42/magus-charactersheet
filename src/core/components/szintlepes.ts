@@ -1,6 +1,6 @@
 import { TulajdonsagType, Tulajdonsagok, tulajdonsagNoveles } from './tulajdonsag';
 import { KarakterMapperFn } from './model';
-import { KepzettsegType } from './kepzettseg';
+import { Kepzettseg, KepzettsegType } from './kepzettseg';
 import { mapObjectValues } from '../utils';
 
 export interface Szintlepes extends Partial<Tulajdonsagok> {
@@ -12,15 +12,15 @@ export interface Szintlepes extends Partial<Tulajdonsagok> {
   ve?: number;
   fp?: number;
   pszi?: number;
-  kepzettsegek?: KepzettsegSzintLepes[];
+  kepzettsegek?: KepzettsegSzintlepes[];
 }
 
-export interface KepzettsegSzintLepes {
-  kepzettseg: KepzettsegType;
+export interface KepzettsegSzintlepes {
+  kepzettseg: Kepzettseg;
   szint?: number;
   szazalek?: number;
   kp: number;
-  /** 4-es szintre lépéskor vagy 80% elérése esetén kap a karakter egy extra statot. */
+  /** 4-es szintre lépéskor vagy 80% elérése esetén kap a karakter egy extra tulajdonság pontot. */
   tulajdonsag?: TulajdonsagType;
 }
 
