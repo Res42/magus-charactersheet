@@ -1,5 +1,5 @@
+import { KepzettsegType, alkepzettsegNev } from '../components/kepzettseg';
 import { Faj } from '../components/hatter';
-import { KepzettsegType } from '../components/kepzettseg';
 import { SZOCIALIS_KEPZETTSEG_TYPES } from './kepzettsegek';
 
 export const Fajok = {
@@ -39,8 +39,7 @@ export const Fajok = {
     oktatasok: {
       [KepzettsegType.Allatismeret]: 2,
       [KepzettsegType.Idomitas]: 2,
-      // TODO: az erdőjárás === vadonjárás?
-      [KepzettsegType.Vadonjaras]: 2,
+      [alkepzettsegNev(KepzettsegType.Vadonjaras, 'erdő')]: 2,
       [KepzettsegType.Lovaglas]: 2,
     },
   } as Faj,
@@ -64,8 +63,7 @@ export const Fajok = {
     oktatasok: {
       [KepzettsegType.Allatismeret]: 1,
       [KepzettsegType.Idomitas]: 1,
-      // TODO: az erdőjárás === vadonjárás?
-      [KepzettsegType.Vadonjaras]: 1,
+      [alkepzettsegNev(KepzettsegType.Vadonjaras, 'erdő')]: 1,
       [KepzettsegType.Lovaglas]: 1,
     },
   } as Faj,
@@ -106,7 +104,7 @@ export const Fajok = {
       [KepzettsegType.Epiteszet]: 2,
       [KepzettsegType.Terkepeszet]: 2,
       [KepzettsegType.Mechanika]: 2,
-      [KepzettsegType.MuveszetekSzobraszat]: 2,
+      [alkepzettsegNev(KepzettsegType.Muveszetek, 'szobrászat')]: 2,
       [KepzettsegType.Szakma]: 2,
     },
   } as Faj,

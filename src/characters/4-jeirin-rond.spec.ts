@@ -4,6 +4,7 @@ import { TulajdonsagType } from '../core/components/tulajdonsag';
 import { Fajok } from '../core/data/fajok';
 import { Hatterek } from '../core/data/hatterek';
 import { Iskolak } from '../core/data/iskolak';
+import { Kepzettsegek } from '../core/data/kepzettsegek';
 import { createKarakter } from '../core/karakter';
 
 test('Character: Jeirin Rond', () => {
@@ -25,22 +26,22 @@ test('Character: Jeirin Rond', () => {
     szintlepesek: [
       {
         kepzettsegek: [
-          { kepzettseg: KepzettsegType.Fegyverhasznalat, kp: 15 }, // számszeríj
-          { kepzettseg: KepzettsegType.AlcazasAlruha, kp: 3 },
-          { kepzettseg: KepzettsegType.Elettan, kp: 5 },
-          { kepzettseg: KepzettsegType.Pszi, kp: 10 },
-          { kepzettseg: KepzettsegType.Lopodzas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: Kepzettsegek.Harci.Fegyverhasznalat('Vadász számszeríj'), kp: 15 },
+          { kepzettseg: Kepzettsegek.Alvilagi.AlcazasAlruha, kp: 3 },
+          { kepzettseg: Kepzettsegek.Tudomanyos.Elettan, kp: 5 },
+          { kepzettseg: Kepzettsegek.Misztikus.Pszi, kp: 10 },
+          { kepzettseg: Kepzettsegek.Alvilagi.Lopodzas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
         ],
       },
       {
         kepzettsegek: [
-          { kepzettseg: KepzettsegType.Csapdakereses, kp: 4 },
-          { kepzettseg: KepzettsegType.Rejtozes, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
-          { kepzettseg: KepzettsegType.Rejtekhelykutatas, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
-          { kepzettseg: KepzettsegType.Zarnyitas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
-          { kepzettseg: KepzettsegType.Akrobatika, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
-          { kepzettseg: KepzettsegType.Eses, kp: 3 },
-          { kepzettseg: KepzettsegType.Maszas, kp: 7, tulajdonsag: TulajdonsagType.Ero },
+          { kepzettseg: Kepzettsegek.Alvilagi.Csapdakereses, kp: 4 },
+          { kepzettseg: Kepzettsegek.Alvilagi.Rejtozes, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
+          { kepzettseg: Kepzettsegek.Alvilagi.Rejtekhelykutatas, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
+          { kepzettseg: Kepzettsegek.Alvilagi.Zarnyitas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: Kepzettsegek.Vilagi.Akrobatika, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: Kepzettsegek.Vilagi.Eses, kp: 3 },
+          { kepzettseg: Kepzettsegek.Vilagi.Maszas, kp: 7, tulajdonsag: TulajdonsagType.Ero },
         ],
       },
       { ce: 16, fp: 12, pszi: 1 },
