@@ -1,7 +1,7 @@
-import { KepzettsegType, Oktatasok, mergeOktatasok } from './kepzettseg';
-import { TulajdonsagType, Tulajdonsagok, tulajdonsagLimitNoveles, tulajdonsagNoveles } from './tulajdonsag';
-import { KarakterMapperFn } from './model';
 import { mapObjectValues } from '../utils';
+import { isFokosKepzettseg, Kepzettseg, Kepzettsegek, mergeOktatasok, Oktatasok } from './kepzettseg';
+import { KarakterMapperFn } from './model';
+import { tulajdonsagLimitNoveles, tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
 export interface Hatter {
   nev: string;
@@ -87,7 +87,7 @@ function mapAdottsag(adottsag: Adottsag): KarakterMapperFn {
 }
 
 export interface IskolaAlapKepzettseg {
-  kepzettseg: KepzettsegType;
+  kepzettseg: Kepzettseg;
   szint?: number;
   szazalek?: number;
 }
@@ -105,7 +105,25 @@ function mapIskola(iskola: Iskola): KarakterMapperFn {
     kaszt: [...karakter.kaszt, iskola.nev],
     szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
     oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
+    kepzettsegek: iskola.kepzettsegek.reduce(
+      (kepzettsegek, iskolaKepzettseg) => addIskolaKepzettseg(kepzettsegek, iskolaKepzettseg),
+      karakter.kepzettsegek
+    ),
   });
+}
+
+function addIskolaKepzettseg(karakterKepzettsegek: Kepzettsegek, kepzettseg: IskolaAlapKepzettseg): Kepzettsegek {
+  if (isFokosKepzettseg(kepzettseg.kepzettseg)) {
+    return {
+      ...karakterKepzettsegek,
+      [kepzettseg.kepzettseg.nev]: kepzettseg.szint ?? 0,
+    };
+  }
+
+  return {
+    ...karakterKepzettsegek,
+    [kepzettseg.kepzettseg.nev]: (karakterKepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + (kepzettseg.szazalek ?? 0),
+  };
 }
 
 export type Hatterek = Faj | Adottsag | Hatter | Iskola;

@@ -1,16 +1,34 @@
-import { KepzettsegType } from '../core/components/kepzettseg';
 import { Karakter } from '../core/components/model';
 import { TulajdonsagType } from '../core/components/tulajdonsag';
-import { Fajok } from '../core/data/fajok';
-import { Hatterek } from '../core/data/hatterek';
-import { Iskolak } from '../core/data/iskolak';
-import { Kepzettsegek } from '../core/data/kepzettsegek';
+import { ember } from '../core/data/fajok';
+import { manalato, psziErzekenyseg, vagyon } from '../core/data/hatterek';
+import { besurranoTolvaj } from '../core/data/iskolak';
+import {
+  akrobatika,
+  alcazasAlruha,
+  csapdakereses,
+  elettan,
+  eses,
+  fegyverhasznalat,
+  lopodzas,
+  maszas,
+  pszi,
+  rejtekhelykutatas,
+  rejtozes,
+  zarnyitas,
+} from '../core/data/kepzettsegek';
 import { createKarakter } from '../core/karakter';
 
 test('Character: Jeirin Rond', () => {
   const jeirin = createKarakter({
     nev: 'Jeirin Rond',
-    hatterek: [Fajok.Ember, Iskolak.Tolvaj.Besurrano, Hatterek.PsziErzekenyseg, Hatterek.Manalato2, Hatterek.Vagyon1],
+    hatterek: [
+      ember,
+      besurranoTolvaj({ fegyverVagyFegyverTipus: 'hárítótőr' }),
+      psziErzekenyseg,
+      manalato(2),
+      vagyon(1),
+    ],
     tulajdonsagok: {
       ero: 13,
       gyorsasag: 14,
@@ -26,22 +44,22 @@ test('Character: Jeirin Rond', () => {
     szintlepesek: [
       {
         kepzettsegek: [
-          { kepzettseg: Kepzettsegek.Harci.Fegyverhasznalat('Vadász számszeríj'), kp: 15 },
-          { kepzettseg: Kepzettsegek.Alvilagi.AlcazasAlruha, kp: 3 },
-          { kepzettseg: Kepzettsegek.Tudomanyos.Elettan, kp: 5 },
-          { kepzettseg: Kepzettsegek.Misztikus.Pszi, kp: 10 },
-          { kepzettseg: Kepzettsegek.Alvilagi.Lopodzas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: fegyverhasznalat('Vadász számszeríj'), kp: 15 },
+          { kepzettseg: alcazasAlruha, kp: 3 },
+          { kepzettseg: elettan, kp: 5 },
+          { kepzettseg: pszi, kp: 10 },
+          { kepzettseg: lopodzas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
         ],
       },
       {
         kepzettsegek: [
-          { kepzettseg: Kepzettsegek.Alvilagi.Csapdakereses, kp: 4 },
-          { kepzettseg: Kepzettsegek.Alvilagi.Rejtozes, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
-          { kepzettseg: Kepzettsegek.Alvilagi.Rejtekhelykutatas, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
-          { kepzettseg: Kepzettsegek.Alvilagi.Zarnyitas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
-          { kepzettseg: Kepzettsegek.Vilagi.Akrobatika, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
-          { kepzettseg: Kepzettsegek.Vilagi.Eses, kp: 3 },
-          { kepzettseg: Kepzettsegek.Vilagi.Maszas, kp: 7, tulajdonsag: TulajdonsagType.Ero },
+          { kepzettseg: csapdakereses, kp: 4 },
+          { kepzettseg: rejtozes, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
+          { kepzettseg: rejtekhelykutatas, kp: 7, tulajdonsag: TulajdonsagType.Erzekeles },
+          { kepzettseg: zarnyitas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: akrobatika, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
+          { kepzettseg: eses, kp: 3 },
+          { kepzettseg: maszas, kp: 7, tulajdonsag: TulajdonsagType.Ero },
         ],
       },
       { ce: 16, fp: 12, pszi: 1 },

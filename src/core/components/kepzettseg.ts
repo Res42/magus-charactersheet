@@ -1,5 +1,5 @@
-import { TulajdonsagType } from './tulajdonsag';
 import { mergeWith } from '../utils';
+import { TulajdonsagType } from './tulajdonsag';
 
 export enum KepzettsegType {
   Fajdalomtures = 'Fájdalomtűrés',
@@ -80,17 +80,118 @@ export enum KepzettsegType {
   PolitikaDiplomacia = 'Politika/diplomácia',
   SzexualisKultura = 'Szexuális kultúra',
   Szineszet = 'Színészet',
-  UdvariEtikettIntrika = 'udvariEtikettIntrika',
+  UdvariEtikettIntrika = 'Udvari etikett/intrika',
 
-  Demonologia = 'demonologia',
-  Dragakomagia = 'dragakomagia',
-  Magasmagia = 'magasmagia',
-  Nekromancia = 'nekromancia',
-  OselemiMagia = 'oselemiMagia',
-  Pszi = 'pszi',
-  Runamagia = 'runamagia',
-  TapasztalatiMagia = 'tapasztalatiMagia',
+  Demonologia = 'Démonológia',
+  Dragakomagia = 'Drágakőmágia',
+  Magasmagia = 'Magasmágia',
+  Nekromancia = 'Nekromancia',
+  OselemiMagia = 'Őselemi Mágia',
+  Pszi = 'Pszi',
+  Runamagia = 'Rúnamágia',
+  TapasztalatiMagia = 'Tapasztalati Mágia',
 }
+
+export const HARCI_KEPZETTSEG_TYPES = [
+  KepzettsegType.Fajdalomtures,
+  KepzettsegType.Fegyverhasznalat,
+  KepzettsegType.Fegyverismeret,
+  KepzettsegType.Hadvezetes,
+  KepzettsegType.HarciLaz,
+  KepzettsegType.Harcmuveszet,
+  KepzettsegType.HarcteriGyakorlat,
+  KepzettsegType.Ketkezesharc,
+  KepzettsegType.Pajzshasznalat,
+  KepzettsegType.PusztakezesHarc,
+  KepzettsegType.Pusztitas,
+  KepzettsegType.Taktika,
+  KepzettsegType.Vakharc,
+  KepzettsegType.Vertviselet,
+] as const;
+
+export const ALVILAGI_KEPZETTSEG_TYPES = [
+  KepzettsegType.AlcazasAlruha,
+  KepzettsegType.Hamisitas,
+  KepzettsegType.Jelbeszed,
+  KepzettsegType.KocsmaiVerekedes,
+  KepzettsegType.MeregkeveresSemlegesites,
+  KepzettsegType.Orvtamadas,
+  KepzettsegType.Kinzas,
+  KepzettsegType.Szabadulomuveszet,
+  KepzettsegType.Szerencsejatek,
+  KepzettsegType.Csapdakereses,
+  KepzettsegType.Lopodzas,
+  KepzettsegType.Rejtozes,
+  KepzettsegType.Rejtekhelykutatas,
+  KepzettsegType.Zarnyitas,
+  KepzettsegType.Zsebmetszes,
+  KepzettsegType.Veszelyerzek,
+] as const;
+
+export const VILAGI_KEPZETTSEG_TYPES = [
+  KepzettsegType.Allatismeret,
+  KepzettsegType.CsapdaallitasLeszedes,
+  KepzettsegType.Csomozas,
+  KepzettsegType.Ertekbecsles,
+  KepzettsegType.Futas,
+  KepzettsegType.Hajozas,
+  KepzettsegType.Hangutanzas,
+  KepzettsegType.Helyismeret,
+  KepzettsegType.Idomitas,
+  KepzettsegType.Idojoslas,
+  KepzettsegType.Kocsihajtas,
+  KepzettsegType.Lovaglas,
+  KepzettsegType.Nyomolvasas,
+  KepzettsegType.Szakma,
+  KepzettsegType.Uszas,
+  KepzettsegType.Vadonjaras,
+  KepzettsegType.Akrobatika,
+  KepzettsegType.Eses,
+  KepzettsegType.Maszas,
+] as const;
+
+export const TUDOMANYOS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Alkimia,
+  KepzettsegType.Elettan,
+  KepzettsegType.Epiteszet,
+  KepzettsegType.Herbalizmus,
+  KepzettsegType.IrasOlvasas,
+  KepzettsegType.JogTorvenykezes,
+  KepzettsegType.Legendaismeret,
+  KepzettsegType.Mechanika,
+  KepzettsegType.Oktatas,
+  KepzettsegType.Orvoslas,
+  KepzettsegType.OsiNyelv,
+  KepzettsegType.SzamtanMertan,
+  KepzettsegType.Terkepeszet,
+  KepzettsegType.Tortenelem,
+  KepzettsegType.Vallasismeret,
+] as const;
+
+export const SZOCIALIS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Ekesszolas,
+  KepzettsegType.Heraldika,
+  KepzettsegType.Kultura,
+  KepzettsegType.Lelektan,
+  KepzettsegType.Muveszetek,
+  KepzettsegType.Nyelvtudas,
+  KepzettsegType.Parbaj,
+  KepzettsegType.PolitikaDiplomacia,
+  KepzettsegType.SzexualisKultura,
+  KepzettsegType.Szineszet,
+  KepzettsegType.UdvariEtikettIntrika,
+] as const;
+
+export const MISZTIKUS_KEPZETTSEG_TYPES = [
+  KepzettsegType.Demonologia,
+  KepzettsegType.Dragakomagia,
+  KepzettsegType.Magasmagia,
+  KepzettsegType.Nekromancia,
+  KepzettsegType.OselemiMagia,
+  KepzettsegType.Pszi,
+  KepzettsegType.Runamagia,
+  KepzettsegType.TapasztalatiMagia,
+] as const;
 
 export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
   return alkepzettseg ? `${kepzettsegType} (${alkepzettseg})` : kepzettsegType;
@@ -99,15 +200,15 @@ export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: st
 interface KepzettsegBase {
   kepzettsegType: KepzettsegType;
   nev: string;
-  eros?: KepzettsegType[];
+  eros?: string[];
   erosOperator?: 'and' | 'or';
-  gyenge?: KepzettsegType[];
+  gyenge?: string[];
   gyengeOperator?: 'and' | 'or';
   tulajdonsag?: TulajdonsagType[];
 }
 
 export interface FokosKepzettseg extends KepzettsegBase {
-  fokok: [number, number, number, number, number];
+  fokok: readonly [number, number, number, number, number];
 }
 
 export interface SzazalekosKepzettseg extends KepzettsegBase {
@@ -115,11 +216,18 @@ export interface SzazalekosKepzettseg extends KepzettsegBase {
 }
 
 export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
+export type Kepzettsegek = { [key in string]?: number };
+
+export function isFokosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is FokosKepzettseg {
+  return (kepzettseg as FokosKepzettseg).fokok != null;
+}
+
+export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is SzazalekosKepzettseg {
+  return (kepzettseg as SzazalekosKepzettseg).szazalekPerKp != null;
+}
 
 /** Képzettség név - oktatási KP / százalék bónusz (NEM OKTATÁSI SZINT!) map. */
 export type Oktatasok = { [key in string]?: number };
-
-export type Kepzettsegek = Record<string, number>;
 
 export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
 export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
@@ -139,4 +247,8 @@ export function mergeOktatasok(
     : (v1, v2) => Math.max(v1 ?? 0, v2 ?? 0);
 
   return mergeWith(o1, o2, operation);
+}
+
+export function getOktatasBonusz(oktatasok: Oktatasok, kepzettseg: string): number {
+  return Object.entries(oktatasok).filter(([key]) => kepzettseg.includes(key))?.[0][1] ?? 0;
 }
