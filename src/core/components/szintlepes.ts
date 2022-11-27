@@ -1,6 +1,6 @@
 import { mapObjectValues } from '../utils';
-import { getOktatasBonusz, isFokosKepzettseg, Kepzettseg, Kepzettsegek, Oktatasok } from './kepzettseg';
-import { KarakterMapperFn } from './model';
+import { getOktatasBonusz, isFokosKepzettseg, Kepzettseg, SzazalekosKepzettseg } from './kepzettseg';
+import { Karakter, KarakterMapperFn } from './model';
 import { tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
 export interface Szintlepes extends Partial<Tulajdonsagok> {
@@ -20,6 +20,11 @@ export interface KepzettsegSzintlepes {
   kp: number;
   /** 4-es szintre lépéskor vagy 80% elérése esetén kap a karakter egy extra tulajdonság pontot. */
   tulajdonsag?: TulajdonsagType;
+}
+
+export interface KepzettsegSzintlepesResult {
+  ujSzint: number;
+  shouldAddTulajdonsag: boolean;
 }
 
 function getKapOfSzintlepes(szintlepes: Szintlepes): number {
@@ -59,70 +64,77 @@ function validateSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
   };
 }
 
-function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
-  return (karakter) => ({
-    ...karakter,
-    szint: karakter.szint + 1,
-    maxMana: karakter.maxMana + (szintlepes.mana ?? 0),
-    maxKegy: karakter.maxKegy + (szintlepes.kegy ?? 0),
-    ke: karakter.ke + (szintlepes.ke ?? 0),
-    ce: karakter.ce + (szintlepes.ce ?? 0),
-    te: karakter.te + (szintlepes.te ?? 0),
-    ve: karakter.ve + (szintlepes.ve ?? 0),
-    maxFp: karakter.maxFp + (szintlepes.fp ?? 0),
-    maxPszi: karakter.maxPszi + (szintlepes.pszi ?? 0),
-    tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) =>
-      tulajdonsagNoveles(
-        karakter,
-        tulajdonsag,
-        (szintlepes[tulajdonsag] ?? 0) +
-          (szintlepes.kepzettsegek?.filter((k) => k.tulajdonsag === tulajdonsag).length ?? 0)
-      )
-    ),
-    asztralTME: karakter.asztralTME + karakter.szintenkentiAsztralTME,
-    mentalTME: karakter.mentalTME + karakter.szintenkentiMentalTME,
-    kepzettsegek:
-      szintlepes.kepzettsegek?.reduce(
-        (kepzettsegek, ujKepzettseg) => kepzettsegSzintlepes(kepzettsegek, karakter.oktatasok, ujKepzettseg),
-        karakter.kepzettsegek
-      ) ?? karakter.kepzettsegek,
-    // TODO: képzettség szintlépés
-  });
+function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn[] {
+  // Sorrend:
+  //  1. tulajdonságok
+  //  2. képzettségek a megfelelő sorrendben: hogy ha kapna belőle tulajdonságot, akkor azt egy másik képzettségnél már figyelembe vegye
+  //  3. összes többi dolog, főleg a "szintenkénti X" hozzáadása
+  return [
+    (karakter) => ({
+      ...karakter,
+      tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) =>
+        tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)
+      ),
+    }),
+    // TODO: képzettség sorrendezés, bónusz tulajdonságok miatt
+    ...(szintlepes.kepzettsegek?.map(kepzettsegSzintlepes) ?? []),
+    (karakter) => ({
+      ...karakter,
+      szint: karakter.szint + 1,
+      maxMana: karakter.maxMana + (szintlepes.mana ?? 0),
+      maxKegy: karakter.maxKegy + (szintlepes.kegy ?? 0),
+      ke: karakter.ke + (szintlepes.ke ?? 0),
+      ce: karakter.ce + (szintlepes.ce ?? 0),
+      te: karakter.te + (szintlepes.te ?? 0),
+      ve: karakter.ve + (szintlepes.ve ?? 0),
+      maxFp: karakter.maxFp + (szintlepes.fp ?? 0),
+      maxPszi: karakter.maxPszi + (szintlepes.pszi ?? 0),
+      asztralTME: karakter.asztralTME + karakter.szintenkentiAsztralTME,
+      mentalTME: karakter.mentalTME + karakter.szintenkentiMentalTME,
+    }),
+  ];
 }
 
-function kepzettsegSzintlepes(
-  kepzettsegek: Kepzettsegek,
-  oktatasok: Oktatasok,
-  szintlepes: KepzettsegSzintlepes
-): Kepzettsegek {
-  if (isFokosKepzettseg(szintlepes.kepzettseg)) {
-    return {
-      ...kepzettsegek,
-      [szintlepes.kepzettseg.nev]: fokosKepzettsegUjSzint(kepzettsegek, oktatasok, szintlepes),
-    };
-  }
+function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperFn {
+  return (karakter) => {
+    const { ujSzint, shouldAddTulajdonsag } = isFokosKepzettseg(szintlepes.kepzettseg)
+      ? fokosKepzettsegSzintlepes(karakter, szintlepes)
+      : szazalekosKepzettsegSzintlepes(karakter, szintlepes);
 
-  return {
-    ...kepzettsegek,
-    // TODO: oktatás
-    [szintlepes.kepzettseg.nev]:
-      (kepzettsegek[szintlepes.kepzettseg.nev] ?? 0) + szintlepes.kp * szintlepes.kepzettseg.szazalekPerKp,
+    if (shouldAddTulajdonsag && szintlepes.tulajdonsag == null && szintlepes.kepzettseg.tulajdonsag?.length) {
+      throw new Error(
+        `A '${szintlepes.kepzettseg.nev}' képzettségnövelés bónusz tulajdonságot ad, de ez nem lett megadva!`
+      );
+    }
+
+    const tulajdonsag = shouldAddTulajdonsag
+      ? { [szintlepes.tulajdonsag!]: tulajdonsagNoveles(karakter, szintlepes.tulajdonsag!, 1) }
+      : {};
+
+    return {
+      ...karakter,
+      kepzettsegek: {
+        ...karakter.kepzettsegek,
+        [szintlepes.kepzettseg.nev]: ujSzint,
+      },
+      tulajdonsagok: {
+        ...karakter.tulajdonsagok,
+        ...tulajdonsag,
+      },
+    };
   };
 }
 
-function fokosKepzettsegUjSzint(
-  kepzettsegek: Kepzettsegek,
-  oktatasok: Oktatasok,
-  szintlepes: KepzettsegSzintlepes
-): number {
+function fokosKepzettsegSzintlepes(karakter: Karakter, szintlepes: KepzettsegSzintlepes): KepzettsegSzintlepesResult {
   if (!isFokosKepzettseg(szintlepes.kepzettseg)) {
     throw new Error('Ez a képzettség nem fokos, nem lehet így növelni a szintjét.');
   }
   // TODO: refaktor, nagyon csúnya
   // TODO: oktatás számolás rossz
   let kp = szintlepes.kp;
-  let aktualisSzint = kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
-  const oktatasBonusz = getOktatasBonusz(oktatasok, szintlepes.kepzettseg.nev);
+  const regiSzint = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
+  let aktualisSzint = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
+  const oktatasBonusz = getOktatasBonusz(karakter.oktatasok, szintlepes.kepzettseg.nev);
   let kovetkezoSzinthezSzuksegesKp =
     szintlepes.kepzettseg.fokok[aktualisSzint] -
     (aktualisSzint > 0 ? szintlepes.kepzettseg.fokok[aktualisSzint - 1] : 0) -
@@ -137,15 +149,31 @@ function fokosKepzettsegUjSzint(
       oktatasBonusz;
   }
 
-  if ((kepzettsegek[szintlepes.kepzettseg.nev] ?? 0) === aktualisSzint) {
+  if ((karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0) === aktualisSzint) {
     console.warn(
       `A megadott ${szintlepes.kp} KP-ból nem sikerült a '${szintlepes.kepzettseg.nev}' képzettségben fokot növelni. A szükséges KP ${kovetkezoSzinthezSzuksegesKp}.`
     );
   }
 
-  return aktualisSzint;
+  return { ujSzint: aktualisSzint, shouldAddTulajdonsag: aktualisSzint >= 4 && regiSzint < 4 };
+}
+
+function szazalekosKepzettsegSzintlepes(
+  karakter: Karakter,
+  szintlepes: KepzettsegSzintlepes
+): KepzettsegSzintlepesResult {
+  // TODO: ez nem teljesen korrekt számolás, mert az oktatás 4 pl csak 80%ig ad bónuszt, utána nem
+  const oktatasBonusz = karakter.oktatasok[szintlepes.kepzettseg.nev] ?? 0;
+  const regiSzazalek = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
+  const ujSzazalek =
+    regiSzazalek + szintlepes.kp * ((szintlepes.kepzettseg as SzazalekosKepzettseg).szazalekPerKp + oktatasBonusz);
+
+  return {
+    ujSzint: ujSzazalek,
+    shouldAddTulajdonsag: ujSzazalek >= 80 && regiSzazalek < 80,
+  };
 }
 
 export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapperFn[] {
-  return szintlepesek.flatMap((szintlepes) => [validateSzintlepes(szintlepes), mapSzintlepes(szintlepes)]);
+  return szintlepesek.flatMap((szintlepes) => [validateSzintlepes(szintlepes), ...mapSzintlepes(szintlepes)]);
 }

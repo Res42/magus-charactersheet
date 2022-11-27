@@ -68,12 +68,12 @@ export function adottsag(tulajdonsag: TulajdonsagType, ertek: number): Adottsag 
   return { nev: `Adottság (${tulajdonsag}) ${ertek}`, kap: ertek, tulajdonsag };
 }
 
-export function sajatKultura(kulturaNev: string, nyelv?: string, hely?: string): SajatKultura {
+export function sajatKultura(kulturaNev: string, anyanyelv?: string, szulofold?: string): SajatKultura {
   return {
     kepzettsegek: [
       { kepzettseg: kultura(kulturaNev), szint: 3 },
-      { kepzettseg: nyelvtudas(nyelv ?? kulturaNev), szint: 3 },
-      { kepzettseg: helyismeret(hely ?? kulturaNev), szint: 3 },
+      { kepzettseg: nyelvtudas(anyanyelv ?? kulturaNev), szint: 3 },
+      { kepzettseg: helyismeret(szulofold ?? kulturaNev), szint: 3 },
     ],
   };
 }
