@@ -292,11 +292,13 @@ export function hangutanzas(allatCsoportok?: string[]): FokosKepzettseg {
   };
 }
 
-export const helyismeret: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.Helyismeret,
-  nev: KepzettsegType.Helyismeret,
-  fokok: ELSO_NEHEZSEGI_SZINTU_FOKOK,
-};
+export function helyismeret(hely: string): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.Helyismeret,
+    nev: alkepzettsegNev(KepzettsegType.Helyismeret, hely),
+    fokok: ELSO_NEHEZSEGI_SZINTU_FOKOK,
+  };
+}
 
 export const idomitas: FokosKepzettseg = {
   kepzettsegType: KepzettsegType.Idomitas,

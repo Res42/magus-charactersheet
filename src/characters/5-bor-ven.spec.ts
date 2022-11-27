@@ -112,6 +112,7 @@ test('Character: Bor Ven', () => {
       Vallásismeret: 4,
       Lélektan: 2,
       Ékesszólás: 2,
+      'Helyismeret (shadoni)': 3,
       'Kultúra (shadoni)': 4,
       'Írás/Olvasás': 3,
       'Nyelvtudás (shadoni)': 4,
