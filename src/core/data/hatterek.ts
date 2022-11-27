@@ -1,6 +1,7 @@
-import { Adottsag, Hatter } from '../components/hatter';
+import { Adottsag, Hatter, SajatKultura } from '../components/hatter';
 import { SZOCIALIS_KEPZETTSEG_TYPES } from '../components/kepzettseg';
 import { TulajdonsagType } from '../components/tulajdonsag';
+import { kultura, nyelvtudas } from './kepzettsegek';
 
 export const holtakSzeme: Hatter = { nev: 'Holtak szeme', kap: 1 };
 
@@ -65,4 +66,13 @@ export function adottsag(tulajdonsag: TulajdonsagType.Asztral, ertek: 1 | 2 | 3 
 export function adottsag(tulajdonsag: TulajdonsagType.Erzekeles, ertek: 1 | 2): Adottsag;
 export function adottsag(tulajdonsag: TulajdonsagType, ertek: number): Adottsag {
   return { nev: `Adottság (${tulajdonsag}) ${ertek}`, kap: ertek, tulajdonsag };
+}
+
+export function sajatKultura(kulturaNev: string): SajatKultura {
+  return {
+    kepzettsegek: [
+      { kepzettseg: kultura(kulturaNev), szint: 3 },
+      { kepzettseg: nyelvtudas(kulturaNev), szint: 3 },
+    ],
+  };
 }

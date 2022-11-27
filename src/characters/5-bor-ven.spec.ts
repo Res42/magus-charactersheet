@@ -1,5 +1,6 @@
 import { TulajdonsagType } from '../core/components/tulajdonsag';
 import { ember } from '../core/data/fajok';
+import { sajatKultura } from '../core/data/hatterek';
 import { domvikPap } from '../core/data/iskolak';
 import { kultura, nyelvtudas, vallasismeret } from '../core/data/kepzettsegek';
 import { createKarakter } from '../core/karakter';
@@ -7,7 +8,11 @@ import { createKarakter } from '../core/karakter';
 test('Character: Bor Ven', () => {
   const bor = createKarakter({
     nev: 'Bor Ven',
-    hatterek: [ember, domvikPap({ fegyverVagyFegyverTipus: 'tőr', nyelvtudas3: 'shadoni', nyelvtudas2: 'közös' })],
+    hatterek: [
+      ember,
+      sajatKultura('shadoni'),
+      domvikPap({ fegyverVagyFegyverTipus: 'tőr', nyelvtudas3: 'közös', nyelvtudas2: 'X' }),
+    ],
     tulajdonsagok: {
       ero: 12,
       gyorsasag: 13,
@@ -23,12 +28,11 @@ test('Character: Bor Ven', () => {
     szintlepesek: [
       {
         kepzettsegek: [
-          { kepzettseg: nyelvtudas('közös'), kp: 3 },
           { kepzettseg: nyelvtudas('shadoni'), kp: 5 },
           { kepzettseg: kultura('shadoni'), kp: 5 },
           { kepzettseg: vallasismeret, kp: 8, tulajdonsag: TulajdonsagType.Asztral },
         ],
-        kegy: 12,
+        kegy: 13,
       },
     ],
   });
@@ -69,7 +73,7 @@ test('Character: Bor Ven', () => {
     maxFp: 28,
     maxPszi: 0,
     maxMana: 0,
-    maxKegy: 14,
+    maxKegy: 15,
     ke: 27,
     te: 38,
     ce: 26,
@@ -109,9 +113,10 @@ test('Character: Bor Ven', () => {
       Lélektan: 2,
       Ékesszólás: 2,
       'Kultúra (shadoni)': 4,
-      'Írás/Olvasás (shadoni)': 3,
+      'Írás/Olvasás': 3,
       'Nyelvtudás (shadoni)': 4,
       'Nyelvtudás (közös)': 3,
+      'Nyelvtudás (X)': 2,
       Történelem: 2,
       Legendaismeret: 1,
       'Jog/Törvénykezés': 2,

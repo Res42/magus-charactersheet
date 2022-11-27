@@ -1,4 +1,4 @@
-import { Iskola, IskolaAlapKepzettseg } from '../components/hatter';
+import { AlapKepzettseg, Iskola } from '../components/hatter';
 import { KepzettsegType, Oktatasok } from '../components/kepzettseg';
 import {
   akrobatika,
@@ -34,7 +34,7 @@ import {
   zsebmetszes,
 } from './kepzettsegek';
 
-function besurranoTolvajKepzettsegek(options: { fegyverVagyFegyverTipus: string }): IskolaAlapKepzettseg[] {
+function besurranoTolvajKepzettsegek(options: { fegyverVagyFegyverTipus: string }): AlapKepzettseg[] {
   return [
     { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
     { kepzettseg: alcazasAlruha, szint: 2 },
@@ -101,13 +101,13 @@ function papKepzettsegek(options: {
   fegyverVagyFegyverTipus: string;
   nyelvtudas3: string;
   nyelvtudas2: string;
-}): IskolaAlapKepzettseg[] {
+}): AlapKepzettseg[] {
   return [
     { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
     { kepzettseg: vallasismeret, szint: 3 },
     { kepzettseg: lelektan, szint: 2 },
     { kepzettseg: ekesszolas, szint: 2 },
-    { kepzettseg: irasOlvasas(options.nyelvtudas3), szint: 3 },
+    { kepzettseg: irasOlvasas, szint: 3 },
     { kepzettseg: nyelvtudas(options.nyelvtudas3), szint: 3 },
     { kepzettseg: nyelvtudas(options.nyelvtudas2), szint: 2 },
     { kepzettseg: tortenelem, szint: 2 },

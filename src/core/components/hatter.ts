@@ -86,7 +86,7 @@ function mapAdottsag(adottsag: Adottsag): KarakterMapperFn {
   };
 }
 
-export interface IskolaAlapKepzettseg {
+export interface AlapKepzettseg {
   kepzettseg: Kepzettseg;
   szint?: number;
   szazalek?: number;
@@ -95,7 +95,7 @@ export interface IskolaAlapKepzettseg {
 export interface Iskola {
   nev: string;
   kap: number;
-  kepzettsegek: IskolaAlapKepzettseg[];
+  kepzettsegek: AlapKepzettseg[];
   oktatasok: Oktatasok;
 }
 
@@ -106,13 +106,13 @@ function mapIskola(iskola: Iskola): KarakterMapperFn {
     szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
     oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
     kepzettsegek: iskola.kepzettsegek.reduce(
-      (kepzettsegek, iskolaKepzettseg) => addIskolaKepzettseg(kepzettsegek, iskolaKepzettseg),
+      (kepzettsegek, kepzettseg) => addKepzettseg(kepzettsegek, kepzettseg),
       karakter.kepzettsegek
     ),
   });
 }
 
-function addIskolaKepzettseg(karakterKepzettsegek: Kepzettsegek, kepzettseg: IskolaAlapKepzettseg): Kepzettsegek {
+function addKepzettseg(karakterKepzettsegek: Kepzettsegek, kepzettseg: AlapKepzettseg): Kepzettsegek {
   if (isFokosKepzettseg(kepzettseg.kepzettseg)) {
     return {
       ...karakterKepzettsegek,
@@ -126,7 +126,21 @@ function addIskolaKepzettseg(karakterKepzettsegek: Kepzettsegek, kepzettseg: Isk
   };
 }
 
-export type Hatterek = Faj | Adottsag | Hatter | Iskola;
+export interface SajatKultura {
+  kepzettsegek: AlapKepzettseg[];
+}
+
+export function mapSajatKultura(sajatKultura: SajatKultura): KarakterMapperFn {
+  return (karakter) => ({
+    ...karakter,
+    kepzettsegek: sajatKultura.kepzettsegek.reduce(
+      (kepzettsegek, kepzettseg) => addKepzettseg(kepzettsegek, kepzettseg),
+      karakter.kepzettsegek
+    ),
+  });
+}
+
+export type Hatterek = Faj | Adottsag | Hatter | Iskola | SajatKultura;
 
 function isFaj(hatter: Hatterek): hatter is Faj {
   return (hatter as Faj).tulajdonsagLimitek != null;
@@ -137,7 +151,11 @@ function isAdottsag(hatter: Hatterek): hatter is Adottsag {
 }
 
 function isIskola(hatter: Hatterek): hatter is Iskola {
-  return (hatter as Iskola).kepzettsegek != null;
+  return (hatter as Iskola).oktatasok != null;
+}
+
+function isSajatKultura(hatter: Hatterek): hatter is SajatKultura {
+  return (hatter as SajatKultura).kepzettsegek != null;
 }
 
 function isOktatasOsszeadodikFajiOktatassalHatter(
@@ -150,6 +168,7 @@ function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
   if (isFaj(hatter)) return mapFaj(hatter);
   if (isAdottsag(hatter)) return mapAdottsag(hatter);
   if (isIskola(hatter)) return mapIskola(hatter);
+  if (isSajatKultura(hatter)) return mapSajatKultura(hatter);
 
   return mapHatter(hatter);
 }

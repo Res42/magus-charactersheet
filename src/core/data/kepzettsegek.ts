@@ -417,16 +417,13 @@ export const herbalizmus: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia],
 };
 
-// TODO: az írás olvasás az alképzettséges per nyelv vagy nem?
-export function irasOlvasas(nyelv: string): FokosKepzettseg {
-  return {
-    kepzettsegType: KepzettsegType.IrasOlvasas,
-    nev: alkepzettsegNev(KepzettsegType.IrasOlvasas, nyelv),
-    fokok: HARMADIK_NEHEZSEGI_SZINTU_FOKOK,
-    eros: [alkepzettsegNev(KepzettsegType.Nyelvtudas, nyelv)],
-    tulajdonsag: [TulajdonsagType.Intelligencia],
-  };
-}
+export const irasOlvasas: FokosKepzettseg = {
+  kepzettsegType: KepzettsegType.IrasOlvasas,
+  nev: KepzettsegType.IrasOlvasas,
+  fokok: HARMADIK_NEHEZSEGI_SZINTU_FOKOK,
+  eros: [KepzettsegType.IrasOlvasas],
+  tulajdonsag: [TulajdonsagType.Intelligencia],
+};
 
 export const jogTorvenykezes: FokosKepzettseg = {
   kepzettsegType: KepzettsegType.JogTorvenykezes,
