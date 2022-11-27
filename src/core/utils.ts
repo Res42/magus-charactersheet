@@ -19,3 +19,7 @@ export function mergeWith<T, TResult, TKey extends string | number>(
     return obj;
   }, {} as Record<TKey, TResult>);
 }
+
+export function identity<T>(value: T): T {
+  return value;
+}

@@ -1,4 +1,4 @@
-import { mapObjectValues } from '../utils';
+import { identity, mapObjectValues } from '../utils';
 import { FokosKepzettseg, getOktatasBonusz, isFokosKepzettseg, Kepzettseg, SzazalekosKepzettseg } from './kepzettseg';
 import { Karakter, KarakterMapperFn } from './model';
 import { tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
@@ -114,7 +114,7 @@ function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperF
         : {};
 
     const bonusz: KarakterMapperFn =
-      (szintlepes.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? ((karakter) => karakter);
+      (szintlepes.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? identity;
 
     return bonusz({
       ...karakter,
