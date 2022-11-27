@@ -108,9 +108,10 @@ function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperF
       );
     }
 
-    const tulajdonsag = shouldAddTulajdonsag
-      ? { [szintlepes.tulajdonsag!]: tulajdonsagNoveles(karakter, szintlepes.tulajdonsag!, 1) }
-      : {};
+    const tulajdonsag =
+      shouldAddTulajdonsag && szintlepes.tulajdonsag != null
+        ? { [szintlepes.tulajdonsag]: tulajdonsagNoveles(karakter, szintlepes.tulajdonsag, 1) }
+        : {};
 
     const bonusz: KarakterMapperFn =
       (szintlepes.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? ((karakter) => karakter);
