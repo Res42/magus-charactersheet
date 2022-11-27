@@ -1,7 +1,7 @@
-import { InitKarakter, Karakter, KarakterMapperFn, emptykarakter } from './components/model';
-import { TULAJDONSAG_MAPPERS } from './components/tulajdonsag';
 import { mapHatterek } from './components/hatter';
+import { emptykarakter, InitKarakter, Karakter, KarakterMapperFn } from './components/model';
 import { mapSzintlepesek } from './components/szintlepes';
+import { TULAJDONSAG_MAPPERS } from './components/tulajdonsag';
 
 export function createKarakter(init: InitKarakter): Karakter {
   let karakter: Karakter = {
@@ -14,7 +14,6 @@ export function createKarakter(init: InitKarakter): Karakter {
   const mappers: KarakterMapperFn[] = [
     ...mapHatterek(init.hatterek),
     ...mapSzintlepesek(init.szintlepesek),
-    // TODO: saját nyelv, kultúra, helyismeret
     // TODO: kezdő KP = intelligencia kezelése KÉRDÉS: ez nő, ha az intelligencia stat nő?
     // TODO: erő sebzés bónusz
     // TODO: státusz mapper

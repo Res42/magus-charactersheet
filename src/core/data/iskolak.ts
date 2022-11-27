@@ -1,28 +1,63 @@
-import { Iskola, IskolaAlapKepzettseg } from '../components/hatter';
+import { AlapKepzettseg, Iskola } from '../components/hatter';
 import { KepzettsegType, Oktatasok } from '../components/kepzettseg';
+import {
+  akrobatika,
+  alcazasAlruha,
+  csapdakereses,
+  csomozas,
+  ekesszolas,
+  elettan,
+  ertekbecsles,
+  eses,
+  fegyverhasznalat,
+  herbalizmus,
+  irasOlvasas,
+  jelbeszed,
+  jogTorvenykezes,
+  legendaismeret,
+  lelektan,
+  lopodzas,
+  maszas,
+  mechanika,
+  nyelvtudas,
+  orvoslas,
+  orvtamadas,
+  osiNyelv,
+  rejtekhelykutatas,
+  rejtozes,
+  szabadulomuveszet,
+  szamtanMertan,
+  tortenelem,
+  vallasismeret,
+  veszelyerzek,
+  zarnyitas,
+  zsebmetszes,
+} from './kepzettsegek';
 
-const BESURRANO_TOLVAJ_KEPZETTSEGEK: IskolaAlapKepzettseg[] = [
-  { kepzettseg: KepzettsegType.Fegyverhasznalat, szint: 2 },
-  { kepzettseg: KepzettsegType.AlcazasAlruha, szint: 2 },
-  { kepzettseg: KepzettsegType.Mechanika, szint: 2 },
-  { kepzettseg: KepzettsegType.SzamtanMertan, szint: 2 },
-  { kepzettseg: KepzettsegType.Ertekbecsles, szint: 3 },
-  { kepzettseg: KepzettsegType.Orvtamadas, szint: 1 },
-  { kepzettseg: KepzettsegType.Jelbeszed, szint: 1 },
-  { kepzettseg: KepzettsegType.Szabadulomuveszet, szint: 1 },
-  { kepzettseg: KepzettsegType.Csomozas, szint: 1 },
-  { kepzettseg: KepzettsegType.Lelektan, szint: 1 },
-  { kepzettseg: KepzettsegType.Rejtekhelykutatas, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Zarnyitas, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Zsebmetszes, szazalek: 10 },
-  { kepzettseg: KepzettsegType.Lopodzas, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Rejtozes, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Maszas, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Eses, szazalek: 15 },
-  { kepzettseg: KepzettsegType.Akrobatika, szazalek: 30 },
-  { kepzettseg: KepzettsegType.Csapdakereses, szazalek: 20 },
-  { kepzettseg: KepzettsegType.Veszelyerzek, szazalek: 15 },
-];
+function besurranoTolvajKepzettsegek(options: { fegyverVagyFegyverTipus: string }): AlapKepzettseg[] {
+  return [
+    { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
+    { kepzettseg: alcazasAlruha, szint: 2 },
+    { kepzettseg: mechanika, szint: 2 },
+    { kepzettseg: szamtanMertan, szint: 2 },
+    { kepzettseg: ertekbecsles, szint: 3 },
+    { kepzettseg: orvtamadas, szint: 1 },
+    { kepzettseg: jelbeszed, szint: 1 },
+    { kepzettseg: szabadulomuveszet, szint: 1 },
+    { kepzettseg: csomozas, szint: 1 },
+    { kepzettseg: lelektan, szint: 1 },
+    { kepzettseg: rejtekhelykutatas, szazalek: 30 },
+    { kepzettseg: zarnyitas, szazalek: 30 },
+    { kepzettseg: zsebmetszes, szazalek: 10 },
+    { kepzettseg: lopodzas, szazalek: 30 },
+    { kepzettseg: rejtozes, szazalek: 30 },
+    { kepzettseg: maszas, szazalek: 30 },
+    { kepzettseg: eses, szazalek: 15 },
+    { kepzettseg: akrobatika, szazalek: 30 },
+    { kepzettseg: csapdakereses, szazalek: 20 },
+    { kepzettseg: veszelyerzek, szazalek: 15 },
+  ];
+}
 
 const TOLVAJ_OKTATASOK: Oktatasok = {
   akrobatika: 2,
@@ -62,7 +97,83 @@ const TOLVAJ_OKTATASOK: Oktatasok = {
   zsebmetszes: 2,
 };
 
-/** UTK + HBG alapjáni iskolák. */
+function papKepzettsegek(options: {
+  fegyverVagyFegyverTipus: string;
+  nyelvtudas3: string;
+  nyelvtudas2: string;
+}): AlapKepzettseg[] {
+  return [
+    { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
+    { kepzettseg: vallasismeret, szint: 3 },
+    { kepzettseg: lelektan, szint: 2 },
+    { kepzettseg: ekesszolas, szint: 2 },
+    { kepzettseg: irasOlvasas, szint: 3 },
+    { kepzettseg: nyelvtudas(options.nyelvtudas3), szint: 3 },
+    { kepzettseg: nyelvtudas(options.nyelvtudas2), szint: 2 },
+    { kepzettseg: tortenelem, szint: 2 },
+    { kepzettseg: legendaismeret, szint: 1 },
+  ];
+}
+
+const PAP_OKTATASOK: Oktatasok = {
+  [KepzettsegType.Ekesszolas]: 2,
+  [KepzettsegType.Elettan]: 2,
+  [KepzettsegType.Fegyverhasznalat]: 2,
+  [KepzettsegType.Heraldika]: 2,
+  [KepzettsegType.Herbalizmus]: 2,
+  [KepzettsegType.IrasOlvasas]: 2,
+  [KepzettsegType.JogTorvenykezes]: 2,
+  [KepzettsegType.Kultura]: 2,
+  [KepzettsegType.Legendaismeret]: 2,
+  [KepzettsegType.Lelektan]: 2,
+  [KepzettsegType.Muveszetek]: 2,
+  [KepzettsegType.Nyelvtudas]: 2,
+  [KepzettsegType.Orvoslas]: 2,
+  [KepzettsegType.OsiNyelv]: 2,
+  [KepzettsegType.PolitikaDiplomacia]: 2,
+  [KepzettsegType.Pszi]: 2,
+  [KepzettsegType.SzamtanMertan]: 2,
+  [KepzettsegType.Terkepeszet]: 2,
+  [KepzettsegType.Tortenelem]: 2,
+  [KepzettsegType.UdvariEtikettIntrika]: 2,
+  [KepzettsegType.Vallasismeret]: 2,
+};
+
+export function domvikPap(options: {
+  fegyverVagyFegyverTipus: string;
+  nyelvtudas3: string;
+  nyelvtudas2: string;
+}): Iskola {
+  return {
+    nev: 'Pap (Domvik)',
+    kap: 7,
+    kepzettsegek: [
+      ...papKepzettsegek(options),
+      { kepzettseg: jogTorvenykezes, szint: 2 },
+      { kepzettseg: osiNyelv('lingua domini'), szint: 3 },
+      { kepzettseg: herbalizmus, szint: 2 },
+      { kepzettseg: orvoslas, szint: 2 },
+      { kepzettseg: elettan, szint: 2 },
+    ],
+    oktatasok: {
+      ...PAP_OKTATASOK,
+      [KepzettsegType.Hadvezetes]: 2,
+      [KepzettsegType.Oktatas]: 2,
+      [KepzettsegType.OsiNyelv]: 2,
+    },
+  };
+}
+
+export function besurranoTolvaj(options: { fegyverVagyFegyverTipus: string }): Iskola {
+  return {
+    nev: 'Tolvaj (Besurranó)',
+    kap: 6,
+    kepzettsegek: besurranoTolvajKepzettsegek(options),
+    oktatasok: TOLVAJ_OKTATASOK,
+  };
+}
+
+/** UTK + HBG alapján iskolák. */
 export const Iskolak = {
   Harcos: {
     Alap: { nev: 'Harcos', kap: 4, kepzettsegek: [], oktatasok: {} } as Iskola,
@@ -118,12 +229,6 @@ export const Iskolak = {
     Alap: { nev: 'Tolvaj', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
     Zsebes: { nev: 'Tolvaj (Zsebes)', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
     Hamisito: { nev: 'Tolvaj (Hamisító)', kap: 6, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
-    Besurrano: {
-      nev: 'Tolvaj (Besurranó)',
-      kap: 6,
-      kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
-      oktatasok: TOLVAJ_OKTATASOK,
-    } as Iskola,
 
     Kobrak: {
       Alap: { nev: 'Tolvaj (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
@@ -132,7 +237,8 @@ export const Iskolak = {
       Besurrano: {
         nev: 'Tolvaj (Kobrák, Besurranó)',
         kap: 7,
-        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        // TODO: fix
+        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
         oktatasok: {},
       } as Iskola,
     },
@@ -144,7 +250,8 @@ export const Iskolak = {
       Besurrano: {
         nev: 'Tolvaj (Talavar csodaművesei, Besurranó)',
         kap: 7,
-        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        // TODO: fix
+        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
         oktatasok: {},
       } as Iskola,
     },
@@ -156,7 +263,8 @@ export const Iskolak = {
       Besurrano: {
         nev: 'Tolvaj (Szürkecsuklyások, Besurranó)',
         kap: 6,
-        kepzettsegek: BESURRANO_TOLVAJ_KEPZETTSEGEK,
+        // TODO: fix
+        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
         oktatasok: {},
       } as Iskola,
     },
@@ -180,7 +288,6 @@ export const Iskolak = {
   },
 
   Pap: {
-    Domvik: { nev: 'Pap (Domvik)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
     Ranagol: { nev: 'Pap (Ranagol)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
     Arel: { nev: 'Pap (Arel)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
     Kyel: { nev: 'Pap (Kyel)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
