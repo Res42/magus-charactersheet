@@ -510,14 +510,15 @@ export const vallasismeret: FokosKepzettseg = {
   fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
   eros: [KepzettsegType.Kultura],
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Asztral],
-  szintenkentiBonusz: (karakter, regiKepzettsegSzint, ujKepzettsegiSzint) => {
+  szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
     const bonusz = Math.max(ujKepzettsegiSzint - 2, 0) - Math.max(regiKepzettsegSzint - 2, 0);
-    return {
+
+    return (karakter) => ({
       ...karakter,
       szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + bonusz,
       szintenkentiMentalTME: karakter.szintenkentiMentalTME + bonusz,
       szintenkentiKegy: karakter.szintenkentiKegy + bonusz,
-    };
+    });
   },
 };
 

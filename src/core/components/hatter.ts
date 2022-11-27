@@ -1,5 +1,5 @@
 import { mapObjectValues } from '../utils';
-import { isFokosKepzettseg, Kepzettseg, Kepzettsegek, mergeOktatasok, Oktatasok } from './kepzettseg';
+import { FokosKepzettseg, isFokosKepzettseg, Kepzettseg, mergeOktatasok, Oktatasok } from './kepzettseg';
 import { KarakterMapperFn } from './model';
 import { tulajdonsagLimitNoveles, tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
@@ -99,30 +99,34 @@ export interface Iskola {
   oktatasok: Oktatasok;
 }
 
-function mapIskola(iskola: Iskola): KarakterMapperFn {
-  return (karakter) => ({
-    ...karakter,
-    kaszt: [...karakter.kaszt, iskola.nev],
-    szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
-    oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
-    kepzettsegek: iskola.kepzettsegek.reduce(
-      (kepzettsegek, kepzettseg) => addKepzettseg(kepzettsegek, kepzettseg),
-      karakter.kepzettsegek
-    ),
-  });
+function mapIskola(iskola: Iskola): KarakterMapperFn[] {
+  return [
+    (karakter) => ({
+      ...karakter,
+      kaszt: [...karakter.kaszt, iskola.nev],
+      szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
+      oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
+    }),
+    ...iskola.kepzettsegek.map(addKepzettseg),
+  ];
 }
 
-function addKepzettseg(karakterKepzettsegek: Kepzettsegek, kepzettseg: AlapKepzettseg): Kepzettsegek {
-  if (isFokosKepzettseg(kepzettseg.kepzettseg)) {
-    return {
-      ...karakterKepzettsegek,
-      [kepzettseg.kepzettseg.nev]: kepzettseg.szint ?? 0,
-    };
-  }
+function addKepzettseg(kepzettseg: AlapKepzettseg): KarakterMapperFn {
+  return (karakter) => {
+    const regiSzint = karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0;
+    const ujSzint = isFokosKepzettseg(kepzettseg.kepzettseg)
+      ? kepzettseg.szint ?? 0
+      : (karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + (kepzettseg.szazalek ?? 0);
+    const bonusz: KarakterMapperFn =
+      (kepzettseg.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? ((karakter) => karakter);
 
-  return {
-    ...karakterKepzettsegek,
-    [kepzettseg.kepzettseg.nev]: (karakterKepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + (kepzettseg.szazalek ?? 0),
+    return bonusz({
+      ...karakter,
+      kepzettsegek: {
+        ...karakter.kepzettsegek,
+        [kepzettseg.kepzettseg.nev]: ujSzint,
+      },
+    });
   };
 }
 
@@ -130,14 +134,8 @@ export interface SajatKultura {
   kepzettsegek: AlapKepzettseg[];
 }
 
-export function mapSajatKultura(sajatKultura: SajatKultura): KarakterMapperFn {
-  return (karakter) => ({
-    ...karakter,
-    kepzettsegek: sajatKultura.kepzettsegek.reduce(
-      (kepzettsegek, kepzettseg) => addKepzettseg(kepzettsegek, kepzettseg),
-      karakter.kepzettsegek
-    ),
-  });
+export function mapSajatKultura(sajatKultura: SajatKultura): KarakterMapperFn[] {
+  return sajatKultura.kepzettsegek.map(addKepzettseg);
 }
 
 export type Hatterek = Faj | Adottsag | Hatter | Iskola | SajatKultura;
@@ -164,13 +162,13 @@ function isOktatasOsszeadodikFajiOktatassalHatter(
   return (hatter as Hatter).oktatasOsszeadodikFajiOktatassal === true;
 }
 
-function getHatterMapper(hatter: Hatterek): KarakterMapperFn {
-  if (isFaj(hatter)) return mapFaj(hatter);
-  if (isAdottsag(hatter)) return mapAdottsag(hatter);
+function getHatterMapper(hatter: Hatterek): KarakterMapperFn[] {
+  if (isFaj(hatter)) return [mapFaj(hatter)];
+  if (isAdottsag(hatter)) return [mapAdottsag(hatter)];
   if (isIskola(hatter)) return mapIskola(hatter);
   if (isSajatKultura(hatter)) return mapSajatKultura(hatter);
 
-  return mapHatter(hatter);
+  return [mapHatter(hatter)];
 }
 
 function sortHatterek(a: Hatterek, b: Hatterek): number {
@@ -198,5 +196,5 @@ function sortHatterek(a: Hatterek, b: Hatterek): number {
  * 4. többi háttér
  */
 export function mapHatterek(hatterek: Hatterek[]): KarakterMapperFn[] {
-  return [validateFaj(hatterek), ...hatterek.sort(sortHatterek).map(getHatterMapper)];
+  return [validateFaj(hatterek), ...hatterek.sort(sortHatterek).flatMap(getHatterMapper)];
 }

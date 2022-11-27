@@ -1,3 +1,4 @@
+import { Karakter } from '../core/components/model';
 import { TulajdonsagType } from '../core/components/tulajdonsag';
 import { ember } from '../core/data/fajok';
 import { sajatKultura } from '../core/data/hatterek';
@@ -37,7 +38,7 @@ test('Character: Bor Ven', () => {
     ],
   });
 
-  const expected = {
+  const expected: Karakter = {
     nev: 'Bor Ven',
     jellem: '',
     faj: 'ember',
@@ -80,8 +81,9 @@ test('Character: Bor Ven', () => {
     ve: 86,
     asztralTME: 18,
     mentalTME: 17,
-    szintenkentiAsztralTME: 0,
-    szintenkentiMentalTME: 0,
+    szintenkentiAsztralTME: 2,
+    szintenkentiMentalTME: 2,
+    szintenkentiKegy: 2,
     oktatasok: {
       Ékesszólás: 2,
       Élettan: 2,

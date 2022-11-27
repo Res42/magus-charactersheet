@@ -1,5 +1,5 @@
 import { mergeWith } from '../utils';
-import { Karakter } from './model';
+import { KarakterMapperFn } from './model';
 import { TulajdonsagType } from './tulajdonsag';
 
 export enum KepzettsegType {
@@ -210,7 +210,7 @@ interface KepzettsegBase {
 
 export interface FokosKepzettseg extends KepzettsegBase {
   fokok: readonly [number, number, number, number, number];
-  szintenkentiBonusz?: (karakter: Karakter, tapasztalatiSzint: number, kepzettsegSzint: number) => Karakter;
+  szintenkentiBonusz?: (tapasztalatiSzint: number, kepzettsegSzint: number) => KarakterMapperFn;
 }
 
 export interface SzazalekosKepzettseg extends KepzettsegBase {

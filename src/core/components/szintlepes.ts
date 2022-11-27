@@ -1,5 +1,5 @@
 import { mapObjectValues } from '../utils';
-import { getOktatasBonusz, isFokosKepzettseg, Kepzettseg, SzazalekosKepzettseg } from './kepzettseg';
+import { FokosKepzettseg, getOktatasBonusz, isFokosKepzettseg, Kepzettseg, SzazalekosKepzettseg } from './kepzettseg';
 import { Karakter, KarakterMapperFn } from './model';
 import { tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
@@ -82,7 +82,7 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn[] {
       ...karakter,
       szint: karakter.szint + 1,
       maxMana: karakter.maxMana + (szintlepes.mana ?? 0),
-      maxKegy: karakter.maxKegy + (szintlepes.kegy ?? 0),
+      maxKegy: karakter.maxKegy + (szintlepes.kegy ?? 0) + karakter.szintenkentiKegy,
       ke: karakter.ke + (szintlepes.ke ?? 0),
       ce: karakter.ce + (szintlepes.ce ?? 0),
       te: karakter.te + (szintlepes.te ?? 0),
@@ -97,6 +97,7 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn[] {
 
 function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperFn {
   return (karakter) => {
+    const regiSzint = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
     const { ujSzint, shouldAddTulajdonsag } = isFokosKepzettseg(szintlepes.kepzettseg)
       ? fokosKepzettsegSzintlepes(karakter, szintlepes)
       : szazalekosKepzettsegSzintlepes(karakter, szintlepes);
@@ -111,7 +112,10 @@ function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperF
       ? { [szintlepes.tulajdonsag!]: tulajdonsagNoveles(karakter, szintlepes.tulajdonsag!, 1) }
       : {};
 
-    return {
+    const bonusz: KarakterMapperFn =
+      (szintlepes.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? ((karakter) => karakter);
+
+    return bonusz({
       ...karakter,
       kepzettsegek: {
         ...karakter.kepzettsegek,
@@ -121,7 +125,7 @@ function kepzettsegSzintlepes(szintlepes: KepzettsegSzintlepes): KarakterMapperF
         ...karakter.tulajdonsagok,
         ...tulajdonsag,
       },
-    };
+    });
   };
 }
 
