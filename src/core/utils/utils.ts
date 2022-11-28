@@ -7,10 +7,16 @@ export function mapObjectValues<T, TResult, TKey extends string | number>(
   ) as Record<TKey, TResult>;
 }
 
+export type MergeWithFn<T, TResult, TKey extends string | number> = (
+  value1: T | undefined,
+  value2: T | undefined,
+  key: TKey
+) => TResult;
+
 export function mergeWith<T, TResult, TKey extends string | number>(
   obj1: Partial<Record<TKey, T>>,
   obj2: Partial<Record<TKey, T>>,
-  callbackFn: (value1: T | undefined, value2: T | undefined, key: TKey) => TResult
+  callbackFn: MergeWithFn<T, TResult, TKey>
 ): Record<TKey, TResult> {
   const allKeys = [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])] as TKey[];
 

@@ -1,17 +1,17 @@
 import {
-  Parser,
-  Token,
   alt,
   apply,
   buildLexer,
   expectEOF,
   expectSingleResult,
   opt,
+  Parser,
   rep_sc,
   seq,
   tok,
+  Token,
 } from 'typescript-parsec';
-import { mergeWith } from '../utils';
+import { mergeWith } from './utils';
 
 /**
  * Kockadobásos sebzés típus.

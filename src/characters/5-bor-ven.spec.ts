@@ -1,10 +1,10 @@
-import { Karakter } from '../core/components/model';
-import { TulajdonsagType } from '../core/components/tulajdonsag';
+import { createKarakter } from '../core/create-karakter';
 import { ember } from '../core/data/fajok';
 import { sajatKultura } from '../core/data/hatterek';
 import { domvikPap } from '../core/data/iskolak';
 import { kultura, nyelvtudas, vallasismeret } from '../core/data/kepzettsegek';
-import { createKarakter } from '../core/karakter';
+import { Karakter } from '../core/models/karakter';
+import { TulajdonsagType } from '../core/models/tulajdonsag';
 
 test('Character: Bor Ven', () => {
   const bor = createKarakter({

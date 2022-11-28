@@ -1,5 +1,6 @@
-import { AlapKepzettseg, Iskola } from '../components/hatter';
-import { KepzettsegType, Oktatasok } from '../components/kepzettseg';
+import { AlapKepzettseg, Iskola } from '../models/hatter';
+import { KepzettsegType } from '../models/kepzettseg';
+import { Oktatasok } from '../models/oktatas';
 import {
   akrobatika,
   alcazasAlruha,

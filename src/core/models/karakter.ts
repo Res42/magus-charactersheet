@@ -1,5 +1,6 @@
 import { Hatterek } from './hatter';
-import { Kepzettsegek, Oktatasok } from './kepzettseg';
+import { Kepzettsegek } from './kepzettseg';
+import { Oktatasok } from './oktatas';
 import { Szintlepes } from './szintlepes';
 import { Tulajdonsagok } from './tulajdonsag';
 

@@ -1,5 +1,5 @@
-import { Faj } from '../components/hatter';
-import { alkepzettsegNev, KepzettsegType, SZOCIALIS_KEPZETTSEG_TYPES } from '../components/kepzettseg';
+import { Faj } from '../models/hatter';
+import { alkepzettsegNev, KepzettsegType, SZOCIALIS_KEPZETTSEG_TYPES } from '../models/kepzettseg';
 
 export const ember: Faj = {
   nev: 'ember',

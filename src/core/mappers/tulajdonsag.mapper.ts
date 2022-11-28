@@ -1,19 +1,5 @@
-import { Karakter, KarakterMapperFn, MAX_TULAJDONSAG_SZINT } from './model';
-
-export enum TulajdonsagType {
-  Ero = 'ero',
-  Gyorsasag = 'gyorsasag',
-  Ugyesseg = 'ugyesseg',
-  Allokepesseg = 'allokepesseg',
-  Karizma = 'karizma',
-  Egeszseg = 'egeszseg',
-  Intelligencia = 'intelligencia',
-  Akaratero = 'akaratero',
-  Asztral = 'asztral',
-  Erzekeles = 'erzekeles',
-}
-
-export type Tulajdonsagok = Record<TulajdonsagType, number>;
+import { psziErzekenyseg } from '../data/hatterek';
+import { KarakterMapperFn } from '../models/karakter';
 
 function mapEro(): KarakterMapperFn {
   return (karakter) => ({
@@ -73,8 +59,8 @@ function mapAsztral(): KarakterMapperFn {
 function mapIntelligencia(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
-    // TODO: csak akkor, ha megvan a Pszi érzékenység háttér
-    maxPszi: karakter.maxPszi + karakter.tulajdonsagok.intelligencia,
+    maxPszi:
+      karakter.maxPszi + (karakter.hatterek.includes(psziErzekenyseg.nev) ? karakter.tulajdonsagok.intelligencia : 0),
   });
 }
 
@@ -96,19 +82,3 @@ export const TULAJDONSAG_MAPPERS: KarakterMapperFn[] = [
   mapAsztral(),
   mapErzekeles(),
 ];
-
-export function tulajdonsagLimitNoveles(karakter: Karakter, tulajdonsag: TulajdonsagType, noveles: number): number {
-  return Math.min(karakter.tulajdonsagLimitek[tulajdonsag] + noveles, MAX_TULAJDONSAG_SZINT);
-}
-
-export function tulajdonsagNoveles(
-  karakter: Karakter,
-  tulajdonsag: TulajdonsagType,
-  noveles: number,
-  tulajdonsagLimit?: number
-): number {
-  return Math.min(
-    karakter.tulajdonsagok[tulajdonsag] + noveles,
-    tulajdonsagLimit ?? karakter.tulajdonsagLimitek[tulajdonsag]
-  );
-}

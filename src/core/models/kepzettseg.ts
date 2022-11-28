@@ -1,5 +1,4 @@
-import { mergeWith } from '../utils';
-import { KarakterMapperFn } from './model';
+import { KarakterMapperFn } from './karakter';
 import { TulajdonsagType } from './tulajdonsag';
 
 export enum KepzettsegType {
@@ -194,10 +193,6 @@ export const MISZTIKUS_KEPZETTSEG_TYPES = [
   KepzettsegType.TapasztalatiMagia,
 ] as const;
 
-export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
-  return alkepzettseg ? `${kepzettsegType} (${alkepzettseg})` : kepzettsegType;
-}
-
 interface KepzettsegBase {
   kepzettsegType: KepzettsegType;
   nev: string;
@@ -228,29 +223,6 @@ export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is Sz
   return (kepzettseg as SzazalekosKepzettseg).szazalekPerKp != null;
 }
 
-/** Képzettség név - oktatási KP / százalék bónusz (NEM OKTATÁSI SZINT!) map. */
-export type Oktatasok = { [key in string]?: number };
-
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok | undefined, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined, osszeadodik?: boolean): undefined;
-export function mergeOktatasok(
-  o1: Oktatasok | undefined,
-  o2: Oktatasok | undefined,
-  osszeadodik = false
-): Oktatasok | undefined {
-  if (o1 == null && o2 == null) return undefined;
-  if (o1 == null) return o2;
-  if (o2 == null) return o1;
-
-  const operation: (v1: number | undefined, v2: number | undefined) => number = osszeadodik
-    ? (v1, v2) => (v1 ?? 0) + (v2 ?? 0)
-    : (v1, v2) => Math.max(v1 ?? 0, v2 ?? 0);
-
-  return mergeWith(o1, o2, operation);
-}
-
-export function getOktatasBonusz(oktatasok: Oktatasok, kepzettseg: string): number {
-  return Object.entries(oktatasok).filter(([key]) => kepzettseg.includes(key))?.[0][1] ?? 0;
+export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
+  return alkepzettseg ? `${kepzettsegType} (${alkepzettseg})` : kepzettsegType;
 }

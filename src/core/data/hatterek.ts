@@ -1,6 +1,6 @@
-import { Adottsag, Hatter, SajatKultura } from '../components/hatter';
-import { SZOCIALIS_KEPZETTSEG_TYPES } from '../components/kepzettseg';
-import { TulajdonsagType } from '../components/tulajdonsag';
+import { Adottsag, Hatter, SajatKultura } from '../models/hatter';
+import { SZOCIALIS_KEPZETTSEG_TYPES } from '../models/kepzettseg';
+import { TulajdonsagType } from '../models/tulajdonsag';
 import { helyismeret, kultura, nyelvtudas } from './kepzettsegek';
 
 export const holtakSzeme: Hatter = { nev: 'Holtak szeme', kap: 1 };

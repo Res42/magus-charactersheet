@@ -1,5 +1,5 @@
-import { alkepzettsegNev, FokosKepzettseg, KepzettsegType, SzazalekosKepzettseg } from '../components/kepzettseg';
-import { TulajdonsagType } from '../components/tulajdonsag';
+import { alkepzettsegNev, FokosKepzettseg, KepzettsegType, SzazalekosKepzettseg } from '../models/kepzettseg';
+import { TulajdonsagType } from '../models/tulajdonsag';
 
 const ELSO_NEHEZSEGI_SZINTU_FOKOK = [1, 3, 8, 15, 25] as const;
 const MASODIK_NEHEZSEGI_SZINTU_FOKOK = [1, 5, 10, 20, 30] as const;

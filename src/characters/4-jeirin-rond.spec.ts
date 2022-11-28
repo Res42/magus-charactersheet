@@ -1,7 +1,6 @@
-import { Karakter } from '../core/components/model';
-import { TulajdonsagType } from '../core/components/tulajdonsag';
+import { createKarakter } from '../core/create-karakter';
 import { ember } from '../core/data/fajok';
-import { manalato, psziErzekenyseg, vagyon } from '../core/data/hatterek';
+import { manalato, psziErzekenyseg, sajatKultura, vagyon } from '../core/data/hatterek';
 import { besurranoTolvaj } from '../core/data/iskolak';
 import {
   akrobatika,
@@ -17,13 +16,15 @@ import {
   rejtozes,
   zarnyitas,
 } from '../core/data/kepzettsegek';
-import { createKarakter } from '../core/karakter';
+import { Karakter } from '../core/models/karakter';
+import { TulajdonsagType } from '../core/models/tulajdonsag';
 
 test('Character: Jeirin Rond', () => {
   const jeirin = createKarakter({
     nev: 'Jeirin Rond',
     hatterek: [
       ember,
+      sajatKultura('saját'),
       besurranoTolvaj({ fegyverVagyFegyverTipus: 'hárítótőr' }),
       psziErzekenyseg,
       manalato(2),
@@ -44,7 +45,7 @@ test('Character: Jeirin Rond', () => {
     szintlepesek: [
       {
         kepzettsegek: [
-          { kepzettseg: fegyverhasznalat('Vadász számszeríj'), kp: 15 },
+          { kepzettseg: fegyverhasznalat('vadász számszeríj'), kp: 15 },
           { kepzettseg: alcazasAlruha, kp: 3 },
           { kepzettseg: elettan, kp: 5 },
           { kepzettseg: pszi, kp: 10 },
@@ -68,7 +69,7 @@ test('Character: Jeirin Rond', () => {
 
   const expected: Karakter = {
     nev: 'Jeirin Rond',
-    faj: 'Ember',
+    faj: 'ember',
     szint: 3,
     jellem: '',
     kaszt: ['Tolvaj (Besurranó)'],
@@ -109,6 +110,7 @@ test('Character: Jeirin Rond', () => {
     mentalTME: 14,
     szintenkentiAsztralTME: 0,
     szintenkentiMentalTME: 0,
+    szintenkentiKegy: 0,
     szintenkentiKap: 40,
     oktatasok: {
       akrobatika: 2,
@@ -148,8 +150,8 @@ test('Character: Jeirin Rond', () => {
       zsebmetszes: 2,
     },
     kepzettsegek: {
-      'Fegyverhasználat (tőr)': 3,
-      'Fegyverhasználat (számszeríj)': 3,
+      'Fegyverhasználat (hárítótőr)': 3,
+      'Fegyverhasználat (vadász számszeríj)': 3,
       'Álcázás/álruha': 3,
       Jelbeszéd: 1,
       Orvtámadás: 3,
@@ -172,6 +174,7 @@ test('Character: Jeirin Rond', () => {
       Mechanika: 2,
       'Számtan/Mértan': 2,
       'Kultúra (saját)': 3,
+      'Helyismeret (saját)': 3,
       Lélektan: 1,
       Pszi: 2,
     },

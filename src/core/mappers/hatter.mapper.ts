@@ -1,16 +1,21 @@
-import { identity, mapObjectValues } from '../utils';
-import { FokosKepzettseg, isFokosKepzettseg, Kepzettseg, mergeOktatasok, Oktatasok } from './kepzettseg';
-import { KarakterMapperFn } from './model';
-import { tulajdonsagLimitNoveles, tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
-
-export interface Hatter {
-  nev: string;
-  kap: number;
-  szintenkentiAsztralTME?: number;
-  szintenkentiMentalTME?: number;
-  oktatasok?: Oktatasok;
-  oktatasOsszeadodikFajiOktatassal?: boolean;
-}
+import {
+  Adottsag,
+  AlapKepzettseg,
+  Faj,
+  Hatter,
+  Hatterek,
+  isAdottsag,
+  isFaj,
+  isIskola,
+  Iskola,
+  isSajatKultura,
+  SajatKultura,
+} from '../models/hatter';
+import { KarakterMapperFn } from '../models/karakter';
+import { FokosKepzettseg, isFokosKepzettseg } from '../models/kepzettseg';
+import { mergeOktatasok } from '../models/oktatas';
+import { tulajdonsagLimitNoveles, tulajdonsagNoveles } from '../models/tulajdonsag';
+import { identity } from '../utils/utils';
 
 function mapHatter(hatter: Hatter): KarakterMapperFn {
   return (karakter) => ({
@@ -21,15 +26,6 @@ function mapHatter(hatter: Hatter): KarakterMapperFn {
     szintenkentiMentalTME: karakter.szintenkentiMentalTME + (hatter.szintenkentiMentalTME ?? 0),
     oktatasok: mergeOktatasok(karakter.oktatasok, hatter.oktatasok, hatter.oktatasOsszeadodikFajiOktatassal),
   });
-}
-
-export interface Faj {
-  nev: string;
-  kap: number;
-  tulajdonsagLimitek: Tulajdonsagok;
-  oktatasok?: Oktatasok;
-  ce?: number;
-  // TODO: elf/félelf nekromancia elleni gyengeség
 }
 
 function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
@@ -50,53 +46,33 @@ function mapFaj(faj: Faj): KarakterMapperFn {
       ...karakter,
       faj: faj.nev,
       szintenkentiKap: karakter.szintenkentiKap - faj.kap,
-      tulajdonsagLimitek: mapObjectValues(faj.tulajdonsagLimitek, (tulajdonsag, ertek) =>
-        tulajdonsagLimitNoveles(karakter, tulajdonsag, ertek)
-      ),
+      tulajdonsagLimitek: { ...faj.tulajdonsagLimitek },
       ce: karakter.ce + (faj.ce ?? 0),
       oktatasok: mergeOktatasok(karakter.oktatasok, faj.oktatasok),
     };
   };
 }
 
-export interface Adottsag {
-  nev: string;
-  kap: number;
-  tulajdonsag: TulajdonsagType;
-}
-
-function mapAdottsag(adottsag: Adottsag): KarakterMapperFn {
-  return (karakter) => {
-    // mivel itt a limit is nő, ezért az új limittel kell majd számolni a `tulajdonsagNoveles`-nél, mert a karakterben levő limit még a régi
-    const ujTulajdonsagLimit = tulajdonsagLimitNoveles(karakter, adottsag.tulajdonsag, adottsag.kap);
-
-    return {
+function mapAdottsag(adottsag: Adottsag): KarakterMapperFn[] {
+  return [
+    // mivel itt a limit is nő, ezért először azt állítjuk be, hogy utána a tulajdonság növelés már az új limittel számoljon
+    (karakter) => ({
       ...karakter,
       hatterek: [...karakter.hatterek, adottsag.nev],
       szintenkentiKap: karakter.szintenkentiKap - adottsag.kap,
       tulajdonsagLimitek: {
         ...karakter.tulajdonsagLimitek,
-        [adottsag.tulajdonsag]: ujTulajdonsagLimit,
+        [adottsag.tulajdonsag]: tulajdonsagLimitNoveles(karakter, adottsag.tulajdonsag, adottsag.kap),
       },
+    }),
+    (karakter) => ({
+      ...karakter,
       tulajdonsagok: {
         ...karakter.tulajdonsagok,
-        [adottsag.tulajdonsag]: tulajdonsagNoveles(karakter, adottsag.tulajdonsag, adottsag.kap, ujTulajdonsagLimit),
+        [adottsag.tulajdonsag]: tulajdonsagNoveles(karakter, adottsag.tulajdonsag, adottsag.kap),
       },
-    };
-  };
-}
-
-export interface AlapKepzettseg {
-  kepzettseg: Kepzettseg;
-  szint?: number;
-  szazalek?: number;
-}
-
-export interface Iskola {
-  nev: string;
-  kap: number;
-  kepzettsegek: AlapKepzettseg[];
-  oktatasok: Oktatasok;
+    }),
+  ];
 }
 
 function mapIskola(iskola: Iskola): KarakterMapperFn[] {
@@ -130,30 +106,8 @@ function addKepzettseg(kepzettseg: AlapKepzettseg): KarakterMapperFn {
   };
 }
 
-export interface SajatKultura {
-  kepzettsegek: AlapKepzettseg[];
-}
-
-export function mapSajatKultura(sajatKultura: SajatKultura): KarakterMapperFn[] {
+function mapSajatKultura(sajatKultura: SajatKultura): KarakterMapperFn[] {
   return sajatKultura.kepzettsegek.map(addKepzettseg);
-}
-
-export type Hatterek = Faj | Adottsag | Hatter | Iskola | SajatKultura;
-
-function isFaj(hatter: Hatterek): hatter is Faj {
-  return (hatter as Faj).tulajdonsagLimitek != null;
-}
-
-function isAdottsag(hatter: Hatterek): hatter is Adottsag {
-  return (hatter as Adottsag).tulajdonsag != null;
-}
-
-function isIskola(hatter: Hatterek): hatter is Iskola {
-  return (hatter as Iskola).oktatasok != null;
-}
-
-function isSajatKultura(hatter: Hatterek): hatter is SajatKultura {
-  return (hatter as SajatKultura).kepzettsegek != null;
 }
 
 function isOktatasOsszeadodikFajiOktatassalHatter(
@@ -164,7 +118,7 @@ function isOktatasOsszeadodikFajiOktatassalHatter(
 
 function getHatterMapper(hatter: Hatterek): KarakterMapperFn[] {
   if (isFaj(hatter)) return [mapFaj(hatter)];
-  if (isAdottsag(hatter)) return [mapAdottsag(hatter)];
+  if (isAdottsag(hatter)) return mapAdottsag(hatter);
   if (isIskola(hatter)) return mapIskola(hatter);
   if (isSajatKultura(hatter)) return mapSajatKultura(hatter);
 
