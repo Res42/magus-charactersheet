@@ -90,9 +90,7 @@ function mapIskola(iskola: Iskola): KarakterMapperFn[] {
 function addKepzettseg(kepzettseg: AlapKepzettseg): KarakterMapperFn {
   return (karakter) => {
     const regiSzint = karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0;
-    const ujSzint = isFokosAlapKepzettseg(kepzettseg)
-      ? kepzettseg.szint
-      : (karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + kepzettseg.szazalek;
+    const ujSzint = isFokosAlapKepzettseg(kepzettseg) ? kepzettseg.szint : regiSzint + kepzettseg.szazalek;
     const bonusz = getSzintenkentiBonuszFn(kepzettseg.kepzettseg)(regiSzint, ujSzint);
 
     return bonusz({
