@@ -1,7 +1,7 @@
 import { createKarakter } from '../core/create-karakter';
 import { ember } from '../core/data/fajok';
 import { manalato, psziErzekenyseg, sajatKultura, vagyon } from '../core/data/hatterek';
-import { besurranoTolvaj } from '../core/data/iskolak';
+import { tolvajBesurrano } from '../core/data/iskolak';
 import {
   akrobatika,
   alcazasAlruha,
@@ -25,7 +25,7 @@ test('Character: Jeirin Rond', () => {
     hatterek: [
       ember,
       sajatKultura('saját'),
-      besurranoTolvaj({ fegyverVagyFegyverTipus: 'hárítótőr' }),
+      tolvajBesurrano({ fegyverhasznalat2: 'hárítótőr' }),
       psziErzekenyseg,
       manalato(2),
       vagyon(1),

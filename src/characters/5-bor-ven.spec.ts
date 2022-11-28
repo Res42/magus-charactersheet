@@ -1,7 +1,7 @@
 import { createKarakter } from '../core/create-karakter';
 import { ember } from '../core/data/fajok';
 import { sajatKultura } from '../core/data/hatterek';
-import { domvikPap } from '../core/data/iskolak';
+import { papDomvik } from '../core/data/iskolak';
 import { kultura, nyelvtudas, vallasismeret } from '../core/data/kepzettsegek';
 import { Karakter } from '../core/models/karakter';
 import { TulajdonsagType } from '../core/models/tulajdonsag';
@@ -12,7 +12,7 @@ test('Character: Bor Ven', () => {
     hatterek: [
       ember,
       sajatKultura('shadoni'),
-      domvikPap({ fegyverVagyFegyverTipus: 'tőr', nyelvtudas3: 'közös', nyelvtudas2: 'X' }),
+      papDomvik({ fegyverVagyFegyverTipus: 'tőr', nyelvtudas3: 'közös', nyelvtudas2: 'X' }),
     ],
     tulajdonsagok: {
       ero: 12,

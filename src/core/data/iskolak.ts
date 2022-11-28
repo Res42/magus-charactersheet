@@ -1,3 +1,5 @@
+/** UTK + HBG alapján iskolák. */
+
 import { AlapKepzettseg, Iskola } from '../models/hatter';
 import { KepzettsegType } from '../models/kepzettseg';
 import { Oktatasok } from '../models/oktatas';
@@ -35,9 +37,171 @@ import {
   zsebmetszes,
 } from './kepzettsegek';
 
-function besurranoTolvajKepzettsegek(options: { fegyverVagyFegyverTipus: string }): AlapKepzettseg[] {
+export const harcos: Iskola = { nev: 'Harcos', kap: 4, kepzettsegek: [], oktatasok: {} };
+
+export const harcosAmazon: Iskola = { nev: 'Harcos (Amazon)', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const harcosBarbar: Iskola = { nev: 'Harcos (Barbár)', kap: 7, kepzettsegek: [], oktatasok: {} };
+
+export const harcosErigowiSzamszerijasz: Iskola = {
+  nev: 'Harcos (Erigowi Számszeríjász)',
+  kap: 4,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const harcosSiedon: Iskola = { nev: 'Harcos (Siedon)', kap: 5, kepzettsegek: [], oktatasok: {} };
+
+export const harcosPredociVertes: Iskola = { nev: 'Harcos (Predoci Vértes)', kap: 5, kepzettsegek: [], oktatasok: {} };
+
+export const lovag: Iskola = { nev: 'Lovag', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const lovagFeketerend: Iskola = { nev: 'Lovag (Feketerend)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const lovagMaricoConRabora: Iskola = {
+  nev: 'Lovag (Marico con Rabora)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const lovagShadoniElsoArc: Iskola = { nev: 'Lovag (Shadoni Első Arc)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const lovagShadoniMasodikArc: Iskola = {
+  nev: 'Lovag (Shadoni Második Arc)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const lovagShadoniHarmadikArc: Iskola = {
+  nev: 'Lovag (Shadoni Harmadik Arc)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const lovagShadoniNegyedikArc: Iskola = {
+  nev: 'Lovag (Shadoni Negyedik Arc)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+export const lovagShadoniOtodikArc: Iskola = {
+  nev: 'Lovag (Shadoni Ötödik Arc)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const lovagShadoniHatodikkArc: Iskola = {
+  nev: 'Lovag (Shadoni Hatodik Arc)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const lovagErigowiKrad: Iskola = { nev: 'Lovag (Erigowi Krad)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const fejvadaszHarcos: Iskola = { nev: 'Fejvadász (Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} };
+
+export const fejvadaszOrgyilkos: Iskola = { nev: 'Fejvadász (Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const fejvadaszFelderito: Iskola = { nev: 'Fejvadász (Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const fejvadaszTestor: Iskola = { nev: 'Fejvadász (Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} };
+
+export const fejvadaszVertestverHarcos: Iskola = {
+  nev: 'Fejvadász (Vértestvér, Harcos)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszVertestverOrgyilkos: Iskola = {
+  nev: 'Fejvadász (Vértestvér, Orgyilkos)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszVertestverFelderito: Iskola = {
+  nev: 'Fejvadász (Vértestvér, Felderítő)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszVertestverTestor: Iskola = {
+  nev: 'Fejvadász (Vértestvér, Testőr)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszAnatAkhanHarcos: Iskola = {
+  nev: 'Fejvadász (Anat-Akhan, Harcos)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszAnatAkhanOrgyilkos: Iskola = {
+  nev: 'Fejvadász (Anat-Akhan, Orgyilkos)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszAnatAkhanFelderito: Iskola = {
+  nev: 'Fejvadász (Anat-Akhan, Felderítő)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszAnatAkhanTestor: Iskola = {
+  nev: 'Fejvadász (Anat-Akhan, Testőr)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszIkrekHarcos: Iskola = {
+  nev: 'Fejvadász (Ikrek, Harcos)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszIkrekOrgyilkos: Iskola = {
+  nev: 'Fejvadász (Ikrek, Orgyilkos)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszIkrekFelderito: Iskola = {
+  nev: 'Fejvadász (Ikrek, Felderítő)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszIkrekTestor: Iskola = {
+  nev: 'Fejvadász (Ikrek, Testőr)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export interface BesurranoTolvajKepzettsegekOptions {
+  fegyverhasznalat2: string;
+}
+
+function besurranoTolvajKepzettsegek(options: BesurranoTolvajKepzettsegekOptions): AlapKepzettseg[] {
   return [
-    { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
+    { kepzettseg: fegyverhasznalat(options.fegyverhasznalat2), szint: 2 },
     { kepzettseg: alcazasAlruha, szint: 2 },
     { kepzettseg: mechanika, szint: 2 },
     { kepzettseg: szamtanMertan, szint: 2 },
@@ -98,6 +262,158 @@ const TOLVAJ_OKTATASOK: Oktatasok = {
   zsebmetszes: 2,
 };
 
+export const tolvaj: Iskola = { nev: 'Tolvaj', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK };
+
+export const tolvajZsebes: Iskola = { nev: 'Tolvaj (Zsebes)', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK };
+
+export const tolvajHamisito: Iskola = {
+  nev: 'Tolvaj (Hamisító)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: TOLVAJ_OKTATASOK,
+};
+
+export function tolvajBesurrano(options: BesurranoTolvajKepzettsegekOptions): Iskola {
+  return {
+    nev: 'Tolvaj (Besurranó)',
+    kap: 6,
+    kepzettsegek: besurranoTolvajKepzettsegek(options),
+    oktatasok: TOLVAJ_OKTATASOK,
+  };
+}
+
+export const tolvajKobrak: Iskola = { nev: 'Tolvaj (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const tolvajKobrakZsebes: Iskola = { nev: 'Tolvaj (Kobrák, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const tolvajKobrakHamisito: Iskola = {
+  nev: 'Tolvaj (Kobrák, Hamisító)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export function tolvajKobrakBesurrano(options: BesurranoTolvajKepzettsegekOptions): Iskola {
+  return {
+    nev: 'Tolvaj (Kobrák, Besurranó)',
+    kap: 7,
+    kepzettsegek: besurranoTolvajKepzettsegek(options),
+    oktatasok: {},
+  };
+}
+
+export const tolvajTalavarCsodamuvesei: Iskola = {
+  nev: 'Tolvaj (Talavar csodaművesei)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const tolvajTalavarCsodamuveseiZsebes: Iskola = {
+  nev: 'Tolvaj (Talavar csodaművesei, Zsebes)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const tolvajTalavarCsodamuveseiHamisito: Iskola = {
+  nev: 'Tolvaj (Talavar csodaművesei, Hamisító)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export function tolvajTalavarCsodamuveseiBesurrano(options: BesurranoTolvajKepzettsegekOptions): Iskola {
+  return {
+    nev: 'Tolvaj (Talavar csodaművesei, Besurranó)',
+    kap: 7,
+    kepzettsegek: besurranoTolvajKepzettsegek(options),
+    oktatasok: {},
+  };
+}
+
+export const tolvajSzurkecsuklyasok: Iskola = {
+  nev: 'Tolvaj (Szürkecsuklyások)',
+  kap: 5,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const tolvajSzurkecsuklyasokZsebes: Iskola = {
+  nev: 'Tolvaj (Szürkecsuklyások, Zsebes)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const tolvajSzurkecsuklyasokHamisito: Iskola = {
+  nev: 'Tolvaj (Szürkecsuklyások, Hamisító)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export function tolvajSzurkecsuklyasokBesurrano(options: BesurranoTolvajKepzettsegekOptions): Iskola {
+  return {
+    nev: 'Tolvaj (Szürkecsuklyások, Besurranó)',
+    kap: 6,
+    kepzettsegek: besurranoTolvajKepzettsegek(options),
+    oktatasok: {},
+  };
+}
+
+export const bard: Iskola = { nev: 'Bárd', kap: 5, kepzettsegek: [], oktatasok: {} };
+
+export const bardAszisziEnekmondo: Iskola = {
+  nev: 'Bárd (Asziszi Énekmondó)',
+  kap: 5,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const bardLombhullasArvai: Iskola = { nev: 'Bárd (Lombhullás Árvái)', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const bardVandorloDalnok: Iskola = { nev: 'Bárd (Vándorló dalnok)', kap: 5, kepzettsegek: [], oktatasok: {} };
+
+export const bardSotet: Iskola = { nev: 'Bárd (Sötét bárd)', kap: 5, kepzettsegek: [], oktatasok: {} };
+
+export const harcmuveszShienKaTo: Iskola = { nev: 'Harcművész (Shien-ka-to)', kap: 7, kepzettsegek: [], oktatasok: {} };
+
+export const harcmuveszDartNidKinito: Iskola = {
+  nev: 'Harcművész (Dart-nid-kinito)',
+  kap: 5,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const harcmuveszAvadKaKinito: Iskola = {
+  nev: 'Harcművész (Avad-ka-kinito)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const harcmuveszNisenNidTo: Iskola = {
+  nev: 'Harcművész (Nisen-nid-to)',
+  kap: 6,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const harcmuveszUdvariKardmuvesz: Iskola = {
+  nev: 'Harcművész (Udvari Kardművész)',
+  kap: 9,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const harcmuveszHarcUtjaKardmuvesz: Iskola = {
+  nev: 'Harcművész (Harc útja Kardművész)',
+  kap: 9,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
 function papKepzettsegek(options: {
   fegyverVagyFegyverTipus: string;
   nyelvtudas3: string;
@@ -140,7 +456,7 @@ const PAP_OKTATASOK: Oktatasok = {
   [KepzettsegType.Vallasismeret]: 2,
 };
 
-export function domvikPap(options: {
+export function papDomvik(options: {
   fegyverVagyFegyverTipus: string;
   nyelvtudas3: string;
   nyelvtudas2: string;
@@ -165,188 +481,120 @@ export function domvikPap(options: {
   };
 }
 
-export function besurranoTolvaj(options: { fegyverVagyFegyverTipus: string }): Iskola {
-  return {
-    nev: 'Tolvaj (Besurranó)',
-    kap: 6,
-    kepzettsegek: besurranoTolvajKepzettsegek(options),
-    oktatasok: TOLVAJ_OKTATASOK,
-  };
-}
+export const papRanagol: Iskola = { nev: 'Pap (Ranagol)', kap: 7, kepzettsegek: [], oktatasok: {} };
 
-/** UTK + HBG alapján iskolák. */
-export const Iskolak = {
-  Harcos: {
-    Alap: { nev: 'Harcos', kap: 4, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Amazon: { nev: 'Amazon', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Barbar: { nev: 'Barbár', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ErigowiSzamszerijasz: { nev: 'Erigowi számszeríjász', kap: 4, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Siedon: { nev: 'Siedon', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-    PredociVertes: { nev: 'Predoci vértes', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
+export const papArel: Iskola = { nev: 'Pap (Arel)', kap: 7, kepzettsegek: [], oktatasok: {} };
 
-  Lovag: {
-    Alap: { nev: 'Lovag', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Feketerend: { nev: 'Feketerend', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    MaricoConRabora: { nev: 'Marico con Rabora', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniElsoArc: { nev: 'Shadoni Első Arc', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniMasodikArc: { nev: 'Shadoni Második Arc', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniHarmadikArc: { nev: 'Shadoni Harmadik Arc', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniNegyedikArc: { nev: 'Shadoni Negyedik Arc', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniOtodikArc: { nev: 'Shadoni Ötödik Arc', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ShadoniHatodikkArc: { nev: 'Shadoni Hatodik Arc', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    ErigowiKrad: { nev: 'Erigowi Krad', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
+export const papKyel: Iskola = { nev: 'Pap (Kyel)', kap: 8, kepzettsegek: [], oktatasok: {} };
 
-  Fejvadasz: {
-    Harcos: { nev: 'Fejvadász (Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Orgyilkos: { nev: 'Fejvadász (Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Felderito: { nev: 'Fejvadász (Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Testor: { nev: 'Fejvadász (Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
+export const papSogron: Iskola = { nev: 'Pap (Sogron)', kap: 7, kepzettsegek: [], oktatasok: {} };
 
-    Vertestver: {
-      Harcos: { nev: 'Fejvadász (Vértestvér, Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Orgyilkos: { nev: 'Fejvadász (Vértestvér, Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Felderito: { nev: 'Fejvadász (Vértestvér, Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Testor: { nev: 'Fejvadász (Vértestvér, Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    },
+export const papTharr: Iskola = { nev: 'Pap (Tharr)', kap: 7, kepzettsegek: [], oktatasok: {} };
 
-    AnatAkhan: {
-      Harcos: { nev: 'Fejvadász (Anat-Akhan, Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Orgyilkos: { nev: 'Fejvadász (Anat-Akhan, Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Felderito: { nev: 'Fejvadász (Anat-Akhan, Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Testor: { nev: 'Fejvadász (Anat-Akhan, Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    },
+export const paplovagDarton: Iskola = { nev: 'Paplovag (Darton)', kap: 8, kepzettsegek: [], oktatasok: {} };
 
-    Ikrek: {
-      Harcos: { nev: 'Fejvadász (Ikrek, Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Orgyilkos: { nev: 'Fejvadász (Ikrek, Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Felderito: { nev: 'Fejvadász (Ikrek, Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Testor: { nev: 'Fejvadász (Ikrek, Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    },
-  },
+export const paplovagDomvik: Iskola = { nev: 'Paplovag (Domvik)', kap: 9, kepzettsegek: [], oktatasok: {} };
 
-  Tolvaj: {
-    Alap: { nev: 'Tolvaj', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
-    Zsebes: { nev: 'Tolvaj (Zsebes)', kap: 5, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
-    Hamisito: { nev: 'Tolvaj (Hamisító)', kap: 6, kepzettsegek: [], oktatasok: TOLVAJ_OKTATASOK } as Iskola,
+export const paplovagDreina: Iskola = { nev: 'Paplovag (Dreina)', kap: 8, kepzettsegek: [], oktatasok: {} };
 
-    Kobrak: {
-      Alap: { nev: 'Tolvaj (Kobrák)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Zsebes: { nev: 'Tolvaj (Kobrák, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Hamisito: { nev: 'Tolvaj (Kobrák, Hamisító)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Besurrano: {
-        nev: 'Tolvaj (Kobrák, Besurranó)',
-        kap: 7,
-        // TODO: fix
-        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
-        oktatasok: {},
-      } as Iskola,
-    },
-
-    TalavarCsodamuvesei: {
-      Alap: { nev: 'Tolvaj (Talavar csodaművesei)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Zsebes: { nev: 'Tolvaj (Talavar csodaművesei, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Hamisito: { nev: 'Tolvaj (Talavar csodaművesei, Hamisító)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Besurrano: {
-        nev: 'Tolvaj (Talavar csodaművesei, Besurranó)',
-        kap: 7,
-        // TODO: fix
-        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
-        oktatasok: {},
-      } as Iskola,
-    },
-
-    Szurkecsuklyasok: {
-      Alap: { nev: 'Tolvaj (Szürkecsuklyások)', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Zsebes: { nev: 'Tolvaj (Szürkecsuklyások, Zsebes)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Hamisito: { nev: 'Tolvaj (Szürkecsuklyások, Hamisító)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-      Besurrano: {
-        nev: 'Tolvaj (Szürkecsuklyások, Besurranó)',
-        kap: 6,
-        // TODO: fix
-        kepzettsegek: besurranoTolvajKepzettsegek({ fegyverVagyFegyverTipus: '' }),
-        oktatasok: {},
-      } as Iskola,
-    },
-  },
-
-  Bard: {
-    Alap: { nev: 'Bárd', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AszisziEnekmondo: { nev: 'Bárd (Asziszi Énekmondó)', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-    LombhullasArvai: { nev: 'Bárd (Lombhullás Árvái)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    VandorloDalnok: { nev: 'Bárd (Vándorló dalnok)', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-    SotetBard: { nev: 'Bárd (Sötét bárd)', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Harcmuvesz: {
-    ShienKaTo: { nev: 'Harcművész (Shien-ka-to)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    DartNidKinito: { nev: 'Harcművész (Dart-nid-kinito)', kap: 5, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AvadKaKinito: { nev: 'Harcművész (Avad-ka-kinito)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    NisenNidTo: { nev: 'Harcművész (Nisen-nid-to)', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    UdvariKardmuvesz: { nev: 'Harcművész (Udvari Kardművész)', kap: 9, kepzettsegek: [], oktatasok: {} } as Iskola,
-    HarcUtjaKardmuvesz: { nev: 'Harcművész (Harc útja Kardművész)', kap: 9, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Pap: {
-    Ranagol: { nev: 'Pap (Ranagol)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Arel: { nev: 'Pap (Arel)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Kyel: { nev: 'Pap (Kyel)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Sogron: { nev: 'Pap (Sogron)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Tharr: { nev: 'Pap (Tharr)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Paplovag: {
-    Darton: { nev: 'Paplovag (Darton)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Domvik: { nev: 'Paplovag (Domvik)', kap: 9, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Dreina: { nev: 'Paplovag (Dreina)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AranykorKrad: { nev: 'Paplovag (Aranykör (Krad))', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Ranagol: { nev: 'Paplovag (Ranagol)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    FonixSogron: { nev: 'Paplovag (Főnix (Sogron))', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    BosszuangyalUwel: { nev: 'Paplovag (Bosszúangyal (Uwel))', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Boszorkany: {
-    Alap: { nev: 'Boszorkány', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    LiviniaiGyulekezet: { nev: 'Boszorkány (Liviniai Gyülekezet)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    MaidaSaluquas: { nev: 'Boszorkány (Maida Saluquas)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    StellaProsylens: { nev: 'Boszorkány (Stella Prosylens)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AlidaxiBoszorkanyrend: {
-      nev: 'Boszorkány (Alidaxi boszorkányrend)',
-      kap: 7,
-      kepzettsegek: [],
-      oktatasok: {},
-    } as Iskola,
-    EzerFatyolNoverei: { nev: 'Boszorkány (Ezer Fátyol Nővérei)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Boszorkanymester: {
-    Alap: { nev: 'Boszorkánymester', kap: 6, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AszisziVerkelyhesek: {
-      nev: 'Boszorkánymester (Asziszi Vérkelyhesek)',
-      kap: 9,
-      kepzettsegek: [],
-      oktatasok: {},
-    } as Iskola,
-    AscensMorga: { nev: 'Boszorkánymester (Ascens Morga)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    HergoliVillammester: {
-      nev: 'Boszorkánymester (Hergoli Villámmester)',
-      kap: 8,
-      kepzettsegek: [],
-      oktatasok: {},
-    } as Iskola,
-  },
-
-  Tuzvarazslo: {
-    Ordani: { nev: 'Tűzvarázsló (Ordani)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Renegat: { nev: 'Tűzvarázsló (Renegát)', kap: 7, kepzettsegek: [], oktatasok: {} } as Iskola,
-    AschaonTuzmesterei: { nev: 'Tűzvarázsló (Aschaon Tűzmesterei)', kap: 8, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
-
-  Varazslo: {
-    Alap: { nev: 'Varázsló', kap: 9, kepzettsegek: [], oktatasok: {} } as Iskola,
-    LarDori: { nev: 'Varázsló (Lar-Dori)', kap: 10, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Pyarroni: { nev: 'Varázsló (Pyarroni)', kap: 10, kepzettsegek: [], oktatasok: {} } as Iskola,
-    Dorani: { nev: 'Varázsló (Dorani)', kap: 10, kepzettsegek: [], oktatasok: {} } as Iskola,
-  },
+export const paplovagAranykorKrad: Iskola = {
+  nev: 'Paplovag (Aranykör (Krad))',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
 };
+
+export const paplovagRanagol: Iskola = { nev: 'Paplovag (Ranagol)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const paplovagFonixSogron: Iskola = {
+  nev: 'Paplovag (Főnix (Sogron))',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const paplovagBosszuangyalUwel: Iskola = {
+  nev: 'Paplovag (Bosszúangyal (Uwel))',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkany: Iskola = { nev: 'Boszorkány', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const boszorkanyLiviniaiGyulekezet: Iskola = {
+  nev: 'Boszorkány (Liviniai Gyülekezet)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanyMaidaSaluquas: Iskola = {
+  nev: 'Boszorkány (Maida Saluquas)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanyStellaProsylens: Iskola = {
+  nev: 'Boszorkány (Stella Prosylens)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanyAlidaxiBoszorkanyrend: Iskola = {
+  nev: 'Boszorkány (Alidaxi boszorkányrend)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanyEzerFatyolNoverei: Iskola = {
+  nev: 'Boszorkány (Ezer Fátyol Nővérei)',
+  kap: 7,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanymester: Iskola = { nev: 'Boszorkánymester', kap: 6, kepzettsegek: [], oktatasok: {} };
+
+export const boszorkanymesterAszisziVerkelyhesek: Iskola = {
+  nev: 'Boszorkánymester (Asziszi Vérkelyhesek)',
+  kap: 9,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanymesterAscensMorga: Iskola = {
+  nev: 'Boszorkánymester (Ascens Morga)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const boszorkanymesterHergoliVillammester: Iskola = {
+  nev: 'Boszorkánymester (Hergoli Villámmester)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const tuzvarazsloOrdani: Iskola = { nev: 'Tűzvarázsló (Ordani)', kap: 8, kepzettsegek: [], oktatasok: {} };
+
+export const tuzvarazsloRenegat: Iskola = { nev: 'Tűzvarázsló (Renegát)', kap: 7, kepzettsegek: [], oktatasok: {} };
+
+export const tuzvarazsloAschaonTuzmesterei: Iskola = {
+  nev: 'Tűzvarázsló (Aschaon Tűzmesterei)',
+  kap: 8,
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const varazslo: Iskola = { nev: 'Varázsló', kap: 9, kepzettsegek: [], oktatasok: {} };
+
+export const LarDori: Iskola = { nev: 'Varázsló (Lar-Dori)', kap: 10, kepzettsegek: [], oktatasok: {} };
+
+export const Pyarroni: Iskola = { nev: 'Varázsló (Pyarroni)', kap: 10, kepzettsegek: [], oktatasok: {} };
+
+export const Dorani: Iskola = { nev: 'Varázsló (Dorani)', kap: 10, kepzettsegek: [], oktatasok: {} };
