@@ -6,16 +6,16 @@ import {
   Hatterek,
   isAdottsag,
   isFaj,
+  isFokosAlapKepzettseg,
   isIskola,
   Iskola,
   isSajatKultura,
   SajatKultura,
 } from '../models/hatter';
 import { KarakterMapperFn } from '../models/karakter';
-import { FokosKepzettseg, isFokosKepzettseg } from '../models/kepzettseg';
+import { getSzintenkentiBonuszFn } from '../models/kepzettseg';
 import { mergeOktatasok } from '../models/oktatas';
 import { tulajdonsagLimitNoveles, tulajdonsagNoveles } from '../models/tulajdonsag';
-import { identity } from '../utils/utils';
 
 function mapHatter(hatter: Hatter): KarakterMapperFn {
   return (karakter) => ({
@@ -90,11 +90,10 @@ function mapIskola(iskola: Iskola): KarakterMapperFn[] {
 function addKepzettseg(kepzettseg: AlapKepzettseg): KarakterMapperFn {
   return (karakter) => {
     const regiSzint = karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0;
-    const ujSzint = isFokosKepzettseg(kepzettseg.kepzettseg)
-      ? kepzettseg.szint ?? 0
-      : (karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + (kepzettseg.szazalek ?? 0);
-    const bonusz: KarakterMapperFn =
-      (kepzettseg.kepzettseg as FokosKepzettseg).szintenkentiBonusz?.(regiSzint, ujSzint) ?? identity;
+    const ujSzint = isFokosAlapKepzettseg(kepzettseg)
+      ? kepzettseg.szint
+      : (karakter.kepzettsegek[kepzettseg.kepzettseg.nev] ?? 0) + kepzettseg.szazalek;
+    const bonusz = getSzintenkentiBonuszFn(kepzettseg.kepzettseg)(regiSzint, ujSzint);
 
     return bonusz({
       ...karakter,

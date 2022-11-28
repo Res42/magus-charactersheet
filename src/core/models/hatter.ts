@@ -1,4 +1,4 @@
-import { Kepzettseg } from './kepzettseg';
+import { FokosKepzettseg, SzazalekosKepzettseg } from './kepzettseg';
 import { Oktatasok } from './oktatas';
 import { Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
@@ -26,10 +26,24 @@ export interface Adottsag {
   tulajdonsag: TulajdonsagType;
 }
 
-export interface AlapKepzettseg {
-  kepzettseg: Kepzettseg;
-  szint?: number;
-  szazalek?: number;
+export interface FokosAlapKepzettseg {
+  kepzettseg: FokosKepzettseg;
+  szint: number;
+}
+
+export interface SzazalekosAlapKepzettseg {
+  kepzettseg: SzazalekosKepzettseg;
+  szazalek: number;
+}
+
+export type AlapKepzettseg = FokosAlapKepzettseg | SzazalekosAlapKepzettseg;
+
+export function isFokosAlapKepzettseg(alapKepzettseg: AlapKepzettseg): alapKepzettseg is FokosAlapKepzettseg {
+  return (alapKepzettseg as FokosAlapKepzettseg).szint != null;
+}
+
+export function isSzazalekosAlapKepzettseg(alapKepzettseg: AlapKepzettseg): alapKepzettseg is SzazalekosAlapKepzettseg {
+  return (alapKepzettseg as SzazalekosAlapKepzettseg).szazalek != null;
 }
 
 export interface Iskola {

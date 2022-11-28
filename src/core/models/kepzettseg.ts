@@ -1,3 +1,4 @@
+import { identity } from '../utils/utils';
 import { KarakterMapperFn } from './karakter';
 import { TulajdonsagType } from './tulajdonsag';
 
@@ -203,9 +204,11 @@ interface KepzettsegBase {
   tulajdonsag?: TulajdonsagType[];
 }
 
+export type SzintenkentiBonuszFn = (tapasztalatiSzint: number, kepzettsegSzint: number) => KarakterMapperFn;
+
 export interface FokosKepzettseg extends KepzettsegBase {
   fokok: readonly [number, number, number, number, number];
-  szintenkentiBonusz?: (tapasztalatiSzint: number, kepzettsegSzint: number) => KarakterMapperFn;
+  szintenkentiBonusz?: SzintenkentiBonuszFn;
 }
 
 export interface SzazalekosKepzettseg extends KepzettsegBase {
@@ -225,4 +228,8 @@ export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is Sz
 
 export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
   return alkepzettseg ? `${kepzettsegType} (${alkepzettseg})` : kepzettsegType;
+}
+
+export function getSzintenkentiBonuszFn(kepzettseg: Kepzettseg): SzintenkentiBonuszFn {
+  return (kepzettseg as FokosKepzettseg).szintenkentiBonusz ?? (() => identity);
 }
