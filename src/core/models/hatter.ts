@@ -50,6 +50,7 @@ export interface Iskola {
   nev: string;
   kap: number;
   kepzettsegek: AlapKepzettseg[];
+  hatterek?: Hatter[];
   oktatasok: Oktatasok;
 }
 
@@ -74,3 +75,6 @@ export function isIskola(hatter: Hatterek): hatter is Iskola {
 export function isSajatKultura(hatter: Hatterek): hatter is SajatKultura {
   return (hatter as SajatKultura).kepzettsegek != null;
 }
+
+/** Háttér név -> szint dictionary. */
+export type KarakterHatterek = Record<string, number>;

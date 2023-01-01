@@ -226,6 +226,11 @@ export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is Sz
   return (kepzettseg as SzazalekosKepzettseg).szazalekPerKp != null;
 }
 
+export type AlkepzettsegNev<
+  TKepzettsegType extends KepzettsegType,
+  TAlkepzettseg extends string | undefined
+> = TAlkepzettseg extends undefined ? TKepzettsegType : `${TKepzettsegType} (${TAlkepzettseg})`;
+
 export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
   return alkepzettseg ? `${kepzettsegType} (${alkepzettseg})` : kepzettsegType;
 }

@@ -17,15 +17,20 @@ import { getSzintenkentiBonuszFn } from '../models/kepzettseg';
 import { mergeOktatasok } from '../models/oktatas';
 import { tulajdonsagLimitNoveles, tulajdonsagNoveles } from '../models/tulajdonsag';
 
-function mapHatter(hatter: Hatter): KarakterMapperFn {
-  return (karakter) => ({
-    ...karakter,
-    hatterek: [...karakter.hatterek, hatter.nev],
-    szintenkentiKap: karakter.szintenkentiKap - hatter.kap,
-    szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + (hatter.szintenkentiAsztralTME ?? 0),
-    szintenkentiMentalTME: karakter.szintenkentiMentalTME + (hatter.szintenkentiMentalTME ?? 0),
-    oktatasok: mergeOktatasok(karakter.oktatasok, hatter.oktatasok, hatter.oktatasOsszeadodikFajiOktatassal),
-  });
+function mapHatter(hatter: Hatter, ingyenes = false): KarakterMapperFn {
+  return (karakter) => {
+    const elozoSzint = karakter.hatterek[hatter.nev] ?? 0;
+    const kapKoltseg = ingyenes ? 0 : hatter.kap - elozoSzint;
+
+    return {
+      ...karakter,
+      hatterek: { ...karakter.hatterek, [hatter.nev]: hatter.kap },
+      szintenkentiKap: karakter.szintenkentiKap - kapKoltseg,
+      szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + (hatter.szintenkentiAsztralTME ?? 0),
+      szintenkentiMentalTME: karakter.szintenkentiMentalTME + (hatter.szintenkentiMentalTME ?? 0),
+      oktatasok: mergeOktatasok(karakter.oktatasok, hatter.oktatasok, hatter.oktatasOsszeadodikFajiOktatassal),
+    };
+  };
 }
 
 function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
@@ -58,7 +63,7 @@ function mapAdottsag(adottsag: Adottsag): KarakterMapperFn[] {
     // mivel itt a limit is nő, ezért először azt állítjuk be, hogy utána a tulajdonság növelés már az új limittel számoljon
     (karakter) => ({
       ...karakter,
-      hatterek: [...karakter.hatterek, adottsag.nev],
+      hatterek: { ...karakter.hatterek, [adottsag.nev]: adottsag.kap },
       szintenkentiKap: karakter.szintenkentiKap - adottsag.kap,
       tulajdonsagLimitek: {
         ...karakter.tulajdonsagLimitek,
@@ -83,6 +88,7 @@ function mapIskola(iskola: Iskola): KarakterMapperFn[] {
       szintenkentiKap: karakter.szintenkentiKap - iskola.kap,
       oktatasok: mergeOktatasok(karakter.oktatasok, iskola.oktatasok),
     }),
+    ...(iskola.hatterek?.map((hatter) => mapHatter(hatter, true)) ?? []),
     ...iskola.kepzettsegek.map(addKepzettseg),
   ];
 }

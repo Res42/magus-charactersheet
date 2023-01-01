@@ -1,4 +1,4 @@
-import { Hatterek } from './hatter';
+import { Hatterek, KarakterHatterek } from './hatter';
 import { Kepzettsegek } from './kepzettseg';
 import { Oktatasok } from './oktatas';
 import { Szintlepes } from './szintlepes';
@@ -27,7 +27,7 @@ export interface Karakter {
   szintenkentiKap: number;
   tulajdonsagLimitek: Tulajdonsagok;
   tulajdonsagok: Tulajdonsagok;
-  hatterek: string[];
+  hatterek: KarakterHatterek;
   szint: number;
   ke: number;
   te: number;
@@ -54,7 +54,7 @@ export function emptykarakter(): Karakter {
     faj: '',
     kaszt: [],
     szintenkentiKap: DEFAULT_KAP,
-    hatterek: [],
+    hatterek: {},
     szint: 0,
     tulajdonsagLimitek: {
       ero: 0,

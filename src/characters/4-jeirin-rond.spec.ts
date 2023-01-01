@@ -48,7 +48,7 @@ test('Character: Jeirin Rond', () => {
           { kepzettseg: fegyverhasznalat('vadász számszeríj'), kp: 15 },
           { kepzettseg: alcazasAlruha, kp: 3 },
           { kepzettseg: elettan, kp: 5 },
-          { kepzettseg: pszi, kp: 10 },
+          { kepzettseg: pszi('pyarroni'), kp: 10 },
           { kepzettseg: lopodzas, kp: 7, tulajdonsag: TulajdonsagType.Ugyesseg },
         ],
       },
@@ -178,7 +178,7 @@ test('Character: Jeirin Rond', () => {
       Lélektan: 1,
       Pszi: 2,
     },
-    hatterek: ['Pszi érzékenység', 'Manalátó 2', 'Vagyon 1'],
+    hatterek: { 'Pszi érzékenység': 1, Manalátó: 2, Vagyon: 1 },
   };
 
   expect(jeirin).toEqual(expected);

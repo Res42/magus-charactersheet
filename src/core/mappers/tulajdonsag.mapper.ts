@@ -60,7 +60,8 @@ function mapIntelligencia(): KarakterMapperFn {
   return (karakter) => ({
     ...karakter,
     maxPszi:
-      karakter.maxPszi + (karakter.hatterek.includes(psziErzekenyseg.nev) ? karakter.tulajdonsagok.intelligencia : 0),
+      karakter.maxPszi +
+      (Object.keys(karakter.hatterek).includes(psziErzekenyseg.nev) ? karakter.tulajdonsagok.intelligencia : 0),
   });
 }
 

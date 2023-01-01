@@ -44,7 +44,7 @@ test('Character: Bor Ven', () => {
     faj: 'ember',
     kaszt: ['Pap (Domvik)'],
     szintenkentiKap: 43,
-    hatterek: [],
+    hatterek: {},
     szint: 1,
     tulajdonsagLimitek: {
       ero: 18,

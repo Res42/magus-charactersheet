@@ -555,12 +555,14 @@ export const lelektan: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Asztral, TulajdonsagType.Erzekeles],
 };
 
-export const muveszetek: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.Muveszetek,
-  nev: KepzettsegType.Muveszetek,
-  fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
-  // TODO: lásd a leírást
-};
+export function muveszetek(muveszetiAg: string): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.Muveszetek,
+    nev: alkepzettsegNev(KepzettsegType.Muveszetek, muveszetiAg),
+    fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
+    // TODO: lásd a leírást
+  };
+}
 
 export function nyelvtudas(nyelv: string): FokosKepzettseg {
   return {
@@ -650,12 +652,14 @@ export const oselemiMagia: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
 };
 
-export const pszi: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.Pszi,
-  nev: KepzettsegType.Pszi,
-  fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
-  tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
-};
+export function pszi(psziTipus: 'kyr' | 'Godoni Örökség' | 'pyarroni'): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.Pszi,
+    nev: alkepzettsegNev(KepzettsegType.Pszi, psziTipus),
+    fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
+    tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
+  };
+}
 
 export const runamagia: FokosKepzettseg = {
   kepzettsegType: KepzettsegType.Runamagia,
