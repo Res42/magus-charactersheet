@@ -6,6 +6,10 @@ const MASODIK_NEHEZSEGI_SZINTU_FOKOK = [1, 5, 10, 20, 30] as const;
 const HARMADIK_NEHEZSEGI_SZINTU_FOKOK = [2, 8, 15, 30, 45] as const;
 const NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK = [3, 10, 20, 35, 55] as const;
 
+// TODO: vannak olyan alképzettséges képzettségek, amik az elején egy általános dologra vannak
+// de utána a szintek növekedésével specializálódik, pl fegyverhasználat
+// ekkor szintlépéskor megmarad az alacsony szintű általános és megkapja mellé a specializált nagyobb képzettséget
+
 export const fajdalomtures: FokosKepzettseg = {
   kepzettsegType: KepzettsegType.Fajdalomtures,
   nev: KepzettsegType.Fajdalomtures,
@@ -504,23 +508,25 @@ export const tortenelem: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia],
 };
 
-export const vallasismeret: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.Vallasismeret,
-  nev: KepzettsegType.Vallasismeret,
-  fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
-  eros: [KepzettsegType.Kultura],
-  tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Asztral],
-  szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
-    const bonusz = Math.max(ujKepzettsegiSzint - 2, 0) - Math.max(regiKepzettsegSzint - 2, 0);
+export function vallasismeret(vallas: string): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.Vallasismeret,
+    nev: alkepzettsegNev(KepzettsegType.Vallasismeret, vallas),
+    fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
+    eros: [KepzettsegType.Kultura],
+    tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Asztral],
+    szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
+      const bonusz = Math.max(ujKepzettsegiSzint - 2, 0) - Math.max(regiKepzettsegSzint - 2, 0);
 
-    return (karakter) => ({
-      ...karakter,
-      szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + bonusz,
-      szintenkentiMentalTME: karakter.szintenkentiMentalTME + bonusz,
-      szintenkentiKegy: karakter.szintenkentiKegy + bonusz,
-    });
-  },
-};
+      return (karakter) => ({
+        ...karakter,
+        szintenkentiAsztralTME: karakter.szintenkentiAsztralTME + bonusz,
+        szintenkentiMentalTME: karakter.szintenkentiMentalTME + bonusz,
+        szintenkentiKegy: karakter.szintenkentiKegy + bonusz,
+      });
+    },
+  };
+}
 
 export const ekesszolas: FokosKepzettseg = {
   kepzettsegType: KepzettsegType.Ekesszolas,
@@ -652,7 +658,7 @@ export const oselemiMagia: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
 };
 
-export function pszi(psziTipus: 'kyr' | 'Godoni Örökség' | 'pyarroni'): FokosKepzettseg {
+export function pszi(psziTipus: 'kyr' | 'Godoni Örökség' | 'pyarroni' | 'Slan Út'): FokosKepzettseg {
   return {
     kepzettsegType: KepzettsegType.Pszi,
     nev: alkepzettsegNev(KepzettsegType.Pszi, psziTipus),
@@ -669,9 +675,11 @@ export const runamagia: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
 };
 
-export const tapasztalatiMagia: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.TapasztalatiMagia,
-  nev: KepzettsegType.TapasztalatiMagia,
-  fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
-  tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
-};
+export function tapasztalatiMagia(magiaTipus: string): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.TapasztalatiMagia,
+    nev: alkepzettsegNev(KepzettsegType.TapasztalatiMagia, magiaTipus),
+    fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
+    tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
+  };
+}

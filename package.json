@@ -26,7 +26,15 @@
     "preset": "ts-jest/presets/default-esm",
     "testEnvironment": "node",
     "transform": {
-      "^.*\\.ts$": ["ts-jest", { "useESM": true }]
+      "^.*\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
     }
+  },
+  "volta": {
+    "node": "16.20.1"
   }
 }

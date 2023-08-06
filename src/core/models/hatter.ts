@@ -1,39 +1,39 @@
 import { FokosKepzettseg, SzazalekosKepzettseg } from './kepzettseg';
 import { Oktatasok } from './oktatas';
-import { Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
+import { TulajdonsagType, Tulajdonsagok } from './tulajdonsag';
 
 export interface Hatter {
-  nev: string;
-  kap: number;
-  szintenkentiAsztralTME?: number;
-  szintenkentiMentalTME?: number;
-  oktatasok?: Oktatasok;
-  oktatasOsszeadodikFajiOktatassal?: boolean;
+  readonly nev: string;
+  readonly kap: number;
+  readonly szintenkentiAsztralTME?: number;
+  readonly szintenkentiMentalTME?: number;
+  readonly oktatasok?: Oktatasok;
+  readonly oktatasOsszeadodikFajiOktatassal?: boolean;
 }
 
 export interface Faj {
-  nev: string;
-  kap: number;
-  tulajdonsagLimitek: Tulajdonsagok;
-  oktatasok?: Oktatasok;
-  ce?: number;
+  readonly nev: string;
+  readonly kap: number;
+  readonly tulajdonsagLimitek: Tulajdonsagok;
+  readonly oktatasok?: Oktatasok;
+  readonly ce?: number;
   // TODO: elf/félelf nekromancia elleni gyengeség
 }
 
 export interface Adottsag {
-  nev: string;
-  kap: number;
-  tulajdonsag: TulajdonsagType;
+  readonly nev: string;
+  readonly kap: number;
+  readonly tulajdonsag: TulajdonsagType;
 }
 
 export interface FokosAlapKepzettseg {
-  kepzettseg: FokosKepzettseg;
-  szint: number;
+  readonly kepzettseg: FokosKepzettseg;
+  readonly szint: number;
 }
 
 export interface SzazalekosAlapKepzettseg {
-  kepzettseg: SzazalekosKepzettseg;
-  szazalek: number;
+  readonly kepzettseg: SzazalekosKepzettseg;
+  readonly szazalek: number;
 }
 
 export type AlapKepzettseg = FokosAlapKepzettseg | SzazalekosAlapKepzettseg;
@@ -47,15 +47,17 @@ export function isSzazalekosAlapKepzettseg(alapKepzettseg: AlapKepzettseg): alap
 }
 
 export interface Iskola {
-  nev: string;
-  kap: number;
-  kepzettsegek: AlapKepzettseg[];
-  hatterek?: Hatter[];
-  oktatasok: Oktatasok;
+  readonly nev: string;
+  readonly kap: number;
+  readonly kepzettsegek: AlapKepzettseg[];
+  readonly hatterek?: Hatter[];
+  readonly oktatasok: Oktatasok;
+  // TODO: tiltott képzettségek kezelése
+  readonly tiltottKepzettsegek?: string[];
 }
 
 export interface SajatKultura {
-  kepzettsegek: AlapKepzettseg[];
+  readonly kepzettsegek: AlapKepzettseg[];
 }
 
 export type Hatterek = Faj | Adottsag | Hatter | Iskola | SajatKultura;

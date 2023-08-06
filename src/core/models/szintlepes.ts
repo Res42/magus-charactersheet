@@ -2,27 +2,27 @@ import { Kepzettseg } from './kepzettseg';
 import { Tulajdonsagok, TulajdonsagType } from './tulajdonsag';
 
 export interface Szintlepes extends Partial<Tulajdonsagok> {
-  mana?: number;
-  kegy?: number;
-  ke?: number;
-  ce?: number;
-  te?: number;
-  ve?: number;
-  fp?: number;
-  pszi?: number;
-  kepzettsegek?: KepzettsegSzintlepes[];
+  readonly mana?: number;
+  readonly kegy?: number;
+  readonly ke?: number;
+  readonly ce?: number;
+  readonly te?: number;
+  readonly ve?: number;
+  readonly fp?: number;
+  readonly pszi?: number;
+  readonly kepzettsegek?: KepzettsegSzintlepes[];
 }
 
 export interface KepzettsegSzintlepes {
-  kepzettseg: Kepzettseg;
-  kp: number;
+  readonly kepzettseg: Kepzettseg;
+  readonly kp: number;
   /** 4-es szintre lépéskor vagy 80% elérése esetén kap a karakter egy extra tulajdonság pontot. */
-  tulajdonsag?: TulajdonsagType;
+  readonly tulajdonsag?: TulajdonsagType;
 }
 
 export interface KepzettsegSzintlepesResult {
-  ujSzint: number;
-  shouldAddTulajdonsag: boolean;
+  readonly ujSzint: number;
+  readonly shouldAddTulajdonsag: boolean;
 }
 
 export function getKapOfSzintlepes(szintlepes: Szintlepes): number {

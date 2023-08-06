@@ -31,7 +31,7 @@ test('Character: Bor Ven', () => {
         kepzettsegek: [
           { kepzettseg: nyelvtudas('shadoni'), kp: 5 },
           { kepzettseg: kultura('shadoni'), kp: 5 },
-          { kepzettseg: vallasismeret, kp: 8, tulajdonsag: TulajdonsagType.Asztral },
+          { kepzettseg: vallasismeret('Domvik'), kp: 8, tulajdonsag: TulajdonsagType.Asztral },
         ],
         kegy: 13,
       },

@@ -195,24 +195,24 @@ export const MISZTIKUS_KEPZETTSEG_TYPES = [
 ] as const;
 
 interface KepzettsegBase {
-  kepzettsegType: KepzettsegType;
-  nev: string;
-  eros?: string[];
-  erosOperator?: 'and' | 'or';
-  gyenge?: string[];
-  gyengeOperator?: 'and' | 'or';
-  tulajdonsag?: TulajdonsagType[];
+  readonly kepzettsegType: KepzettsegType;
+  readonly nev: string;
+  readonly eros?: string[];
+  readonly erosOperator?: 'and' | 'or';
+  readonly gyenge?: string[];
+  readonly gyengeOperator?: 'and' | 'or';
+  readonly tulajdonsag?: TulajdonsagType[];
 }
 
 export type SzintenkentiBonuszFn = (tapasztalatiSzint: number, kepzettsegSzint: number) => KarakterMapperFn;
 
 export interface FokosKepzettseg extends KepzettsegBase {
-  fokok: readonly [number, number, number, number, number];
-  szintenkentiBonusz?: SzintenkentiBonuszFn;
+  readonly fokok: readonly [number, number, number, number, number];
+  readonly szintenkentiBonusz?: SzintenkentiBonuszFn;
 }
 
 export interface SzazalekosKepzettseg extends KepzettsegBase {
-  szazalekPerKp: number;
+  readonly szazalekPerKp: number;
 }
 
 export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
@@ -228,7 +228,7 @@ export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is Sz
 
 export type AlkepzettsegNev<
   TKepzettsegType extends KepzettsegType,
-  TAlkepzettseg extends string | undefined
+  TAlkepzettseg extends string | undefined,
 > = TAlkepzettseg extends undefined ? TKepzettsegType : `${TKepzettsegType} (${TAlkepzettseg})`;
 
 export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: string | undefined): string {
