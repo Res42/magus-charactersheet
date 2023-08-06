@@ -14,10 +14,11 @@ import {
 } from '../models/kepzettseg';
 import { Oktatasok, mergeOktatasok } from '../models/oktatas';
 import { mapObjectValues } from '../utils/utils';
-import { magiatagadas, magikusFogekonysag, nemesiVer, psziErzekenyseg, vagyon } from './hatterek';
+import { kegyelt, magiatagadas, magikusFogekonysag, nemesiVer, psziErzekenyseg, vagyon } from './hatterek';
 import {
   akrobatika,
   alcazasAlruha,
+  alkimia,
   allatismeret,
   csapdaallitasLeszedes,
   csapdakereses,
@@ -52,12 +53,15 @@ import {
   magasmagia,
   maszas,
   mechanika,
+  meregkeveresSemlegesites,
   muveszetek,
+  nekromancia,
   nyelvtudas,
   nyomolvasas,
   oktatas,
   orvoslas,
   orvtamadas,
+  oselemiMagia,
   osiNyelv,
   pajzshasznalat,
   parbaj,
@@ -851,41 +855,41 @@ export const fejvadaszIkrekTestor: Iskola = {
 /* #region Tolvaj */
 
 const TOLVAJ_OKTATASOK: Oktatasok = {
-  akrobatika: 2,
-  alcazasAlruha: 2,
-  csapdakereses: 2,
-  csomozas: 2,
-  ekesszolas: 2,
-  elettan: 2,
-  epiteszet: 2,
-  ertekbecsles: 2,
-  eses: 2,
-  fegyverhasznalat: 2,
-  hamisitas: 2,
-  helyismeret: 2,
-  heraldika: 2,
-  irasOlvasas: 2,
-  jelbeszed: 2,
-  ketkezesharc: 2,
-  kocsmaiVerekedes: 2,
-  kultura: 2,
-  legendaismeret: 2,
-  lelektan: 2,
-  lopodzas: 2,
-  maszas: 2,
-  mechanika: 2,
-  muveszetek: 2,
-  nyomolvasas: 2,
-  orvtamadas: 2,
-  rejtekhelykutatas: 2,
-  rejtozes: 2,
-  szabadulomuveszet: 2,
-  szamtanMertan: 2,
-  szerencsejatek: 2,
-  szineszet: 2,
-  udvariEtikettIntrika: 2,
-  zarnyitas: 2,
-  zsebmetszes: 2,
+  [KepzettsegType.Akrobatika]: 2,
+  [KepzettsegType.AlcazasAlruha]: 2,
+  [KepzettsegType.Csapdakereses]: 2,
+  [KepzettsegType.Csomozas]: 2,
+  [KepzettsegType.Ekesszolas]: 2,
+  [KepzettsegType.Elettan]: 2,
+  [KepzettsegType.Epiteszet]: 2,
+  [KepzettsegType.Ertekbecsles]: 2,
+  [KepzettsegType.Eses]: 2,
+  [KepzettsegType.Fegyverhasznalat]: 2,
+  [KepzettsegType.Hamisitas]: 2,
+  [KepzettsegType.Helyismeret]: 2,
+  [KepzettsegType.Heraldika]: 2,
+  [KepzettsegType.IrasOlvasas]: 2,
+  [KepzettsegType.Jelbeszed]: 2,
+  [KepzettsegType.Ketkezesharc]: 2,
+  [KepzettsegType.KocsmaiVerekedes]: 2,
+  [KepzettsegType.Kultura]: 2,
+  [KepzettsegType.Legendaismeret]: 2,
+  [KepzettsegType.Lelektan]: 2,
+  [KepzettsegType.Lopodzas]: 2,
+  [KepzettsegType.Maszas]: 2,
+  [KepzettsegType.Mechanika]: 2,
+  [KepzettsegType.Muveszetek]: 2,
+  [KepzettsegType.Nyomolvasas]: 2,
+  [KepzettsegType.Orvtamadas]: 2,
+  [KepzettsegType.Rejtekhelykutatas]: 2,
+  [KepzettsegType.Rejtozes]: 2,
+  [KepzettsegType.Szabadulomuveszet]: 2,
+  [KepzettsegType.SzamtanMertan]: 2,
+  [KepzettsegType.Szerencsejatek]: 2,
+  [KepzettsegType.Szineszet]: 2,
+  [KepzettsegType.UdvariEtikettIntrika]: 2,
+  [KepzettsegType.Zarnyitas]: 2,
+  [KepzettsegType.Zsebmetszes]: 2,
 };
 
 export interface TolvajKepzettsegekOptions {
@@ -1576,14 +1580,15 @@ export const harcmuveszHarcUtjaKardmuvesz: Iskola = {
 
 /* #endregion */
 
-/* #region TODO: Pap */
+/* #region Pap */
 
-function papKepzettsegek(options: {
+export interface PapOptions {
   fegyverVagyFegyverTipus: string;
   nyelvtudas3: string;
   nyelvtudas2: string;
-  vallas: string;
-}): AlapKepzettseg[] {
+}
+
+function papKepzettsegek(options: PapOptions & { vallas: string }): AlapKepzettseg[] {
   return [
     { kepzettseg: fegyverhasznalat(options.fegyverVagyFegyverTipus), szint: 2 },
     { kepzettseg: vallasismeret(options.vallas), szint: 3 },
@@ -1621,11 +1626,7 @@ const PAP_OKTATASOK: Oktatasok = {
   [KepzettsegType.Vallasismeret]: 2,
 };
 
-export function papDomvik(options: {
-  fegyverVagyFegyverTipus: string;
-  nyelvtudas3: string;
-  nyelvtudas2: string;
-}): Iskola {
+export function papDomvik(options: PapOptions): Iskola {
   return {
     nev: 'Pap (Domvik)',
     kap: 7,
@@ -1637,24 +1638,152 @@ export function papDomvik(options: {
       { kepzettseg: orvoslas, szint: 2 },
       { kepzettseg: elettan, szint: 2 },
     ],
-    oktatasok: {
-      ...PAP_OKTATASOK,
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
       [KepzettsegType.Hadvezetes]: 2,
       [KepzettsegType.Oktatas]: 2,
-      [KepzettsegType.OsiNyelv]: 2,
-    },
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'lingua domini')]: 2,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'godoni')]: 2,
+    }),
+    hatterek: [kegyelt],
   };
 }
 
-export const papRanagol: Iskola = { nev: 'Pap (Ranagol)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export function papRanagol(options: PapOptions): Iskola {
+  return {
+    nev: 'Pap (Ranagol)',
+    kap: 7,
+    kepzettsegek: [
+      ...papKepzettsegek({ ...options, vallas: 'Ranagol' }),
+      { kepzettseg: osiNyelv('aquir'), szint: 2 },
+      { kepzettseg: pszi('pyarroni'), szint: 3 },
+      { kepzettseg: kinzas, szint: 2 },
+      { kepzettseg: elettan, szint: 2 },
+      { kepzettseg: meregkeveresSemlegesites, szint: 2 },
+      { kepzettseg: alkimia, szint: 1 },
+      { kepzettseg: herbalizmus, szint: 1 },
+    ],
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
+      [KepzettsegType.Alkimia]: 2,
+      [KepzettsegType.Kinzas]: 2,
+      [KepzettsegType.Muveszetek]: 2,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'aquir')]: 2,
+    }),
+    hatterek: [kegyelt],
+  };
+}
 
-export const papArel: Iskola = { nev: 'Pap (Arel)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export interface PapArelOptions extends PapOptions {
+  fegyverhasznalatIj: string;
+  vadonjarasTereptipus: string;
+}
 
-export const papKyel: Iskola = { nev: 'Pap (Kyel)', kap: 8, kepzettsegek: [], oktatasok: {} };
+export function papArel(options: PapArelOptions): Iskola {
+  return {
+    nev: 'Pap (Arel)',
+    kap: 7,
+    kepzettsegek: [
+      ...papKepzettsegek({ ...options, vallas: 'Arel' }).filter(
+        (ak) => ak.kepzettseg.kepzettsegType !== KepzettsegType.IrasOlvasas
+      ),
+      { kepzettseg: fegyverhasznalat(options.fegyverhasznalatIj), szint: 3 },
+      { kepzettseg: harcteriGyakorlat, szint: 2 },
+      { kepzettseg: lovaglas, szint: 3 },
+      { kepzettseg: vadonjaras(options.vadonjarasTereptipus), szint: 2 },
+      { kepzettseg: herbalizmus, szint: 2 },
+      { kepzettseg: allatismeret('hátas állatok'), szint: 2 },
+      { kepzettseg: idomitas, szint: 2 },
+      { kepzettseg: szakma('Vadászat'), szint: 3 },
+    ],
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
+      [KepzettsegType.Allatismeret]: 2,
+      [KepzettsegType.Hadvezetes]: 2,
+      [KepzettsegType.HarciLaz]: 2,
+      [KepzettsegType.HarcteriGyakorlat]: 2,
+      [KepzettsegType.Fajdalomtures]: 2,
+      [KepzettsegType.Fegyverismeret]: 2,
+      [KepzettsegType.Idomitas]: 2,
+      [KepzettsegType.KocsmaiVerekedes]: 2,
+      [KepzettsegType.Lovaglas]: 2,
+      [KepzettsegType.Nyomolvasas]: 2,
+      [alkepzettsegNev(KepzettsegType.Szakma, 'Vadászat')]: 2,
+      [KepzettsegType.Szerencsejatek]: 2,
+      [KepzettsegType.Vadonjaras]: 2,
+    }),
+    hatterek: [kegyelt],
+  };
+}
 
-export const papSogron: Iskola = { nev: 'Pap (Sogron)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export function papKyel(options: PapOptions): Iskola {
+  return {
+    nev: 'Pap (Kyel)',
+    kap: 8,
+    kepzettsegek: [
+      ...papKepzettsegek({ ...options, vallas: 'Kyel' }),
+      { kepzettseg: vertviselet, szint: 2 },
+      { kepzettseg: hadvezetes, szint: 1 },
+      { kepzettseg: harcteriGyakorlat, szint: 1 },
+      { kepzettseg: pajzshasznalat, szint: 2 },
+      { kepzettseg: pusztitas, szint: 2 },
+      { kepzettseg: elettan, szint: 1 },
+      { kepzettseg: jogTorvenykezes, szint: 3 },
+      { kepzettseg: pszi('pyarroni'), szint: 2 },
+    ],
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
+      [KepzettsegType.Fegyverismeret]: 2,
+      [KepzettsegType.Hadvezetes]: 2,
+      [KepzettsegType.HarcteriGyakorlat]: 2,
+      [KepzettsegType.Pajzshasznalat]: 2,
+      [KepzettsegType.Pusztitas]: 2,
+      [KepzettsegType.Vertviselet]: 2,
+    }),
+    hatterek: [kegyelt, psziErzekenyseg],
+  };
+}
 
-export const papTharr: Iskola = { nev: 'Pap (Tharr)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export function papSogron(options: PapOptions): Iskola {
+  return {
+    nev: 'Pap (Sogron)',
+    kap: 7,
+    kepzettsegek: [
+      ...papKepzettsegek({ ...options, vallas: 'Sogron' }),
+      { kepzettseg: hadvezetes, szint: 2 },
+      { kepzettseg: vertviselet, szint: 1 },
+      { kepzettseg: oselemiMagia('tűz'), szint: 2 },
+      { kepzettseg: osiNyelv('kyr'), szint: 2 },
+    ],
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
+      [KepzettsegType.Hadvezetes]: 2,
+      [alkepzettsegNev(KepzettsegType.TapasztalatiMagia, 'tűzvarázsló')]: 2,
+      [KepzettsegType.Vertviselet]: 2,
+    }),
+    hatterek: [kegyelt],
+  };
+}
+
+export function papTharr(options: PapOptions): Iskola {
+  return {
+    nev: 'Pap (Tharr)',
+    kap: 7,
+    kepzettsegek: [
+      ...papKepzettsegek({ ...options, vallas: 'Tharr' }),
+      { kepzettseg: elettan, szint: 2 },
+      { kepzettseg: kinzas, szint: 2 },
+      { kepzettseg: politikaDiplomacia, szint: 2 },
+      { kepzettseg: orvtamadas, szint: 2 },
+      { kepzettseg: meregkeveresSemlegesites, szint: 2 },
+      { kepzettseg: herbalizmus, szint: 1 },
+      { kepzettseg: alkimia, szint: 1 },
+      { kepzettseg: udvariEtikettIntrika, szint: 2 },
+    ],
+    oktatasok: mergeOktatasok(PAP_OKTATASOK, {
+      [KepzettsegType.Alkimia]: 2,
+      [KepzettsegType.Kinzas]: 2,
+      [KepzettsegType.MeregkeveresSemlegesites]: 2,
+      [KepzettsegType.Orvtamadas]: 2,
+    }),
+    hatterek: [kegyelt],
+  };
+}
 
 /* #endregion */
 
@@ -1734,7 +1863,35 @@ export const boszorkanyEzerFatyolNoverei: Iskola = {
 
 /* #region TODO: Boszorkánymester */
 
-export const boszorkanymester: Iskola = { nev: 'Boszorkánymester', kap: 6, kepzettsegek: [], oktatasok: {} };
+export interface BoszorkanymesterOptions {
+  fegyverhasznalat2: string;
+  nyelvtudas2: string;
+}
+
+export function boszorkanymesterKepzettsegek(options: BoszorkanymesterOptions): AlapKepzettseg[] {
+  return [
+    { kepzettseg: fegyverhasznalat(options.fegyverhasznalat2), szint: 2 },
+    { kepzettseg: nyelvtudas(options.nyelvtudas2), szint: 2 },
+    { kepzettseg: alkimia, szint: 2 },
+    { kepzettseg: elettan, szint: 2 },
+    { kepzettseg: herbalizmus, szint: 2 },
+    { kepzettseg: irasOlvasas, szint: 2 },
+    { kepzettseg: meregkeveresSemlegesites, szint: 2 },
+    { kepzettseg: szamtanMertan, szint: 2 },
+    { kepzettseg: nekromancia, szint: 2 },
+    { kepzettseg: pszi('pyarroni'), szint: 2 },
+    { kepzettseg: tapasztalatiMagia('boszorkánymester'), szint: 2 },
+  ];
+}
+
+export function boszorkanymester(options: BoszorkanymesterOptions): Iskola {
+  return {
+    nev: 'Boszorkánymester',
+    kap: 6,
+    kepzettsegek: boszorkanymesterKepzettsegek(options),
+    oktatasok: {},
+  };
+}
 
 export const boszorkanymesterAszisziVerkelyhesek: Iskola = {
   nev: 'Boszorkánymester (Asziszi Vérkelyhesek)',

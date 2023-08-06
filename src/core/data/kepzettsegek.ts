@@ -650,13 +650,15 @@ export const nekromancia: FokosKepzettseg = {
   tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
 };
 
-export const oselemiMagia: FokosKepzettseg = {
-  kepzettsegType: KepzettsegType.OselemiMagia,
-  nev: KepzettsegType.OselemiMagia,
-  fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
-  eros: [KepzettsegType.OsiNyelv],
-  tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
-};
+export function oselemiMagia(tipus: string): FokosKepzettseg {
+  return {
+    kepzettsegType: KepzettsegType.OselemiMagia,
+    nev: alkepzettsegNev(KepzettsegType.OselemiMagia, tipus),
+    fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
+    eros: [KepzettsegType.OsiNyelv],
+    tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
+  };
+}
 
 export function pszi(psziTipus: 'kyr' | 'Godoni Örökség' | 'pyarroni' | 'Slan Út'): FokosKepzettseg {
   return {
