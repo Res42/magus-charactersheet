@@ -759,17 +759,49 @@ export function lovagErigowiKrad(options: LovagErigowiKradOptions): Iskola {
 
 /* #region TODO: Fejvadász */
 
-export const fejvadaszHarcos: Iskola = { nev: 'Fejvadász (Harcos)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export interface FejvadaszHarcosOptions {
+  fegyverhasznalat3: string;
+  fegyverhasznalat2: string;
+}
 
-export const fejvadaszOrgyilkos: Iskola = { nev: 'Fejvadász (Orgyilkos)', kap: 8, kepzettsegek: [], oktatasok: {} };
+export function fejvadaszHarcos(options: FejvadaszHarcosOptions): Iskola {
+  return {
+    nev: 'Fejvadász (Harcos)',
+    kap: 7,
+    hatterek: [psziErzekenyseg],
+    kepzettsegek: [],
+    oktatasok: {},
+  };
+}
 
-export const fejvadaszFelderito: Iskola = { nev: 'Fejvadász (Felderítő)', kap: 8, kepzettsegek: [], oktatasok: {} };
+export const fejvadaszOrgyilkos: Iskola = {
+  nev: 'Fejvadász (Orgyilkos)',
+  kap: 8,
+  hatterek: [psziErzekenyseg],
+  kepzettsegek: [],
+  oktatasok: {},
+};
 
-export const fejvadaszTestor: Iskola = { nev: 'Fejvadász (Testőr)', kap: 7, kepzettsegek: [], oktatasok: {} };
+export const fejvadaszFelderito: Iskola = {
+  nev: 'Fejvadász (Felderítő)',
+  kap: 8,
+  hatterek: [psziErzekenyseg],
+  kepzettsegek: [],
+  oktatasok: {},
+};
+
+export const fejvadaszTestor: Iskola = {
+  nev: 'Fejvadász (Testőr)',
+  kap: 7,
+  hatterek: [psziErzekenyseg],
+  kepzettsegek: [],
+  oktatasok: {},
+};
 
 export const fejvadaszVertestverHarcos: Iskola = {
   nev: 'Fejvadász (Vértestvér, Harcos)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -777,6 +809,7 @@ export const fejvadaszVertestverHarcos: Iskola = {
 export const fejvadaszVertestverOrgyilkos: Iskola = {
   nev: 'Fejvadász (Vértestvér, Orgyilkos)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -784,6 +817,7 @@ export const fejvadaszVertestverOrgyilkos: Iskola = {
 export const fejvadaszVertestverFelderito: Iskola = {
   nev: 'Fejvadász (Vértestvér, Felderítő)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -791,6 +825,7 @@ export const fejvadaszVertestverFelderito: Iskola = {
 export const fejvadaszVertestverTestor: Iskola = {
   nev: 'Fejvadász (Vértestvér, Testőr)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -798,6 +833,7 @@ export const fejvadaszVertestverTestor: Iskola = {
 export const fejvadaszAnatAkhanHarcos: Iskola = {
   nev: 'Fejvadász (Anat-Akhan, Harcos)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -805,6 +841,7 @@ export const fejvadaszAnatAkhanHarcos: Iskola = {
 export const fejvadaszAnatAkhanOrgyilkos: Iskola = {
   nev: 'Fejvadász (Anat-Akhan, Orgyilkos)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -812,6 +849,7 @@ export const fejvadaszAnatAkhanOrgyilkos: Iskola = {
 export const fejvadaszAnatAkhanFelderito: Iskola = {
   nev: 'Fejvadász (Anat-Akhan, Felderítő)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -819,6 +857,7 @@ export const fejvadaszAnatAkhanFelderito: Iskola = {
 export const fejvadaszAnatAkhanTestor: Iskola = {
   nev: 'Fejvadász (Anat-Akhan, Testőr)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -826,6 +865,7 @@ export const fejvadaszAnatAkhanTestor: Iskola = {
 export const fejvadaszIkrekHarcos: Iskola = {
   nev: 'Fejvadász (Ikrek, Harcos)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -833,6 +873,7 @@ export const fejvadaszIkrekHarcos: Iskola = {
 export const fejvadaszIkrekOrgyilkos: Iskola = {
   nev: 'Fejvadász (Ikrek, Orgyilkos)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -840,6 +881,7 @@ export const fejvadaszIkrekOrgyilkos: Iskola = {
 export const fejvadaszIkrekFelderito: Iskola = {
   nev: 'Fejvadász (Ikrek, Felderítő)',
   kap: 8,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };
@@ -847,6 +889,7 @@ export const fejvadaszIkrekFelderito: Iskola = {
 export const fejvadaszIkrekTestor: Iskola = {
   nev: 'Fejvadász (Ikrek, Testőr)',
   kap: 7,
+  hatterek: [psziErzekenyseg],
   kepzettsegek: [],
   oktatasok: {},
 };

@@ -1,16 +1,18 @@
 import { Karakter, KarakterMapperFn } from '../models/karakter';
-import { getSzintenkentiBonuszFn, isFokosKepzettseg, SzazalekosKepzettseg } from '../models/kepzettseg';
+import { SzazalekosKepzettseg, getSzintenkentiBonuszFn, isFokosKepzettseg } from '../models/kepzettseg';
 import { getOktatasBonusz } from '../models/oktatas';
-import { getKapOfSzintlepes, KepzettsegSzintlepes, KepzettsegSzintlepesResult, Szintlepes } from '../models/szintlepes';
+import { KepzettsegSzintlepes, KepzettsegSzintlepesResult, Szintlepes, getKapOfSzintlepes } from '../models/szintlepes';
 import { tulajdonsagNoveles } from '../models/tulajdonsag';
 import { mapObjectValues } from '../utils/utils';
 
-function validateSzintlepes(szintlepes: Szintlepes): KarakterMapperFn {
+function validateSzintlepes(szintlepes: Szintlepes, index: number): KarakterMapperFn {
   return (karakter) => {
     const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
     if (kapOfSzintlepes !== karakter.szintenkentiKap) {
       console.warn(
-        `A szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${karakter.szintenkentiKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
+        `A(z) ${index + 1}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${
+          karakter.szintenkentiKap
+        }, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
       );
     }
 
@@ -93,10 +95,12 @@ function fokosKepzettsegSzintlepes(karakter: Karakter, szintlepes: KepzettsegSzi
   const regiSzint = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
   let aktualisSzint = karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0;
   const oktatasBonusz = getOktatasBonusz(karakter.oktatasok, szintlepes.kepzettseg.nev);
-  let kovetkezoSzinthezSzuksegesKp =
+  let kovetkezoSzinthezSzuksegesKp = Math.max(
+    1,
     szintlepes.kepzettseg.fokok[aktualisSzint] -
-    (aktualisSzint > 0 ? szintlepes.kepzettseg.fokok[aktualisSzint - 1] : 0) -
-    oktatasBonusz;
+      (aktualisSzint > 0 ? szintlepes.kepzettseg.fokok[aktualisSzint - 1] : 0) -
+      oktatasBonusz
+  );
 
   while (kp >= kovetkezoSzinthezSzuksegesKp) {
     kp -= kovetkezoSzinthezSzuksegesKp;
@@ -133,5 +137,8 @@ function szazalekosKepzettsegSzintlepes(
 }
 
 export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapperFn[] {
-  return szintlepesek.flatMap((szintlepes) => [validateSzintlepes(szintlepes), ...mapSzintlepes(szintlepes)]);
+  return szintlepesek.flatMap((szintlepes, index) => [
+    validateSzintlepes(szintlepes, index),
+    ...mapSzintlepes(szintlepes),
+  ]);
 }
