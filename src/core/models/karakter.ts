@@ -43,6 +43,8 @@ export interface Karakter {
   szintenkentiAsztralTME: number;
   szintenkentiMentalTME: number;
   szintenkentiKegy: number;
+  szintenkentiPszi: number;
+  szintenkentiFp: number;
   oktatasok: Oktatasok;
   kepzettsegek: Kepzettsegek;
 }
@@ -94,6 +96,8 @@ export function emptykarakter(): Karakter {
     szintenkentiAsztralTME: 0,
     szintenkentiMentalTME: 0,
     szintenkentiKegy: 0,
+    szintenkentiPszi: 0,
+    szintenkentiFp: 0,
     oktatasok: {},
     kepzettsegek: {},
   };

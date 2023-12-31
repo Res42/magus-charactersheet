@@ -1476,8 +1476,8 @@ const HARCMUVESZ_KEPZETTSEGEK: AlapKepzettseg[] = [
   { kepzettseg: orvoslas, szint: 2 },
   { kepzettseg: elettan, szint: 2 },
   { kepzettseg: herbalizmus, szint: 2 },
-  { kepzettseg: eses, szazalek: 2 },
-  { kepzettseg: akrobatika, szazalek: 2 },
+  { kepzettseg: eses, szazalek: 10 },
+  { kepzettseg: akrobatika, szazalek: 10 },
 ];
 
 const HARCMUVESZ_OKTATASOK: Oktatasok = {

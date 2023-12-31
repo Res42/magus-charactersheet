@@ -238,3 +238,8 @@ export function alkepzettsegNev(kepzettsegType: KepzettsegType, alkepzettseg: st
 export function getSzintenkentiBonuszFn(kepzettseg: Kepzettseg): SzintenkentiBonuszFn {
   return (kepzettseg as FokosKepzettseg).szintenkentiBonusz ?? (() => identity);
 }
+
+/** Általános 3as szinttől kezdődő 1-2-3 extra stat bónusz számoló függvény. */
+export function ujSzintenkenti123Bonusz(regiKepzettsegSzint: number, ujKepzettsegiSzint: number) {
+  return Math.max(ujKepzettsegiSzint - 2, 0) - Math.max(regiKepzettsegSzint - 2, 0);
+}

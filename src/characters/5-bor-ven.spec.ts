@@ -84,6 +84,8 @@ test('Character: Bor Ven', () => {
     szintenkentiAsztralTME: 2,
     szintenkentiMentalTME: 2,
     szintenkentiKegy: 2,
+    szintenkentiPszi: 0,
+    szintenkentiFp: 0,
     oktatasok: {
       Ékesszólás: 2,
       Élettan: 2,

@@ -111,6 +111,8 @@ test('Character: Jeirin Rond', () => {
     szintenkentiAsztralTME: 0,
     szintenkentiMentalTME: 0,
     szintenkentiKegy: 0,
+    szintenkentiPszi: 0,
+    szintenkentiFp: 0,
     szintenkentiKap: 40,
     oktatasok: {
       akrobatika: 2,

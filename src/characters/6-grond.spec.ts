@@ -112,6 +112,8 @@ test('Character: Grond', () => {
     szintenkentiAsztralTME: 2,
     szintenkentiMentalTME: 2,
     szintenkentiKegy: 0,
+    szintenkentiPszi: 0,
+    szintenkentiFp: 0,
     oktatasok: {
       Építészet: 2,
       Térképészet: 2,

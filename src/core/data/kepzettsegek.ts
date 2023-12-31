@@ -1,4 +1,10 @@
-import { alkepzettsegNev, FokosKepzettseg, KepzettsegType, SzazalekosKepzettseg } from '../models/kepzettseg';
+import {
+  alkepzettsegNev,
+  FokosKepzettseg,
+  KepzettsegType,
+  SzazalekosKepzettseg,
+  ujSzintenkenti123Bonusz,
+} from '../models/kepzettseg';
 import { TulajdonsagType } from '../models/tulajdonsag';
 
 const ELSO_NEHEZSEGI_SZINTU_FOKOK = [1, 3, 8, 15, 25] as const;
@@ -15,6 +21,14 @@ export const fajdalomtures: FokosKepzettseg = {
   nev: KepzettsegType.Fajdalomtures,
   fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
   tulajdonsag: [TulajdonsagType.Allokepesseg, TulajdonsagType.Akaratero],
+  szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
+    const bonusz = ujSzintenkenti123Bonusz(regiKepzettsegSzint, ujKepzettsegiSzint);
+
+    return (karakter) => ({
+      ...karakter,
+      szintenkentiFp: karakter.szintenkentiFp + bonusz,
+    });
+  },
 };
 
 export function fegyverhasznalat(fegyverVagyFegyverTipus: string): FokosKepzettseg {
@@ -516,7 +530,7 @@ export function vallasismeret(vallas: string): FokosKepzettseg {
     eros: [KepzettsegType.Kultura],
     tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Asztral],
     szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
-      const bonusz = Math.max(ujKepzettsegiSzint - 2, 0) - Math.max(regiKepzettsegSzint - 2, 0);
+      const bonusz = ujSzintenkenti123Bonusz(regiKepzettsegSzint, ujKepzettsegiSzint);
 
       return (karakter) => ({
         ...karakter,
@@ -666,6 +680,14 @@ export function pszi(psziTipus: 'kyr' | 'Godoni Örökség' | 'pyarroni' | 'Slan
     nev: alkepzettsegNev(KepzettsegType.Pszi, psziTipus),
     fokok: NEGYEDIK_NEHEZSEGI_SZINTU_FOKOK,
     tulajdonsag: [TulajdonsagType.Intelligencia, TulajdonsagType.Akaratero, TulajdonsagType.Asztral],
+    szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
+      const bonusz = ujSzintenkenti123Bonusz(regiKepzettsegSzint, ujKepzettsegiSzint);
+
+      return (karakter) => ({
+        ...karakter,
+        szintenkentiPszi: karakter.szintenkentiPszi + bonusz,
+      });
+    },
   };
 }
 
