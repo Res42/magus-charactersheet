@@ -14,7 +14,7 @@ import {
 } from '../models/kepzettseg';
 import { Oktatasok, mergeOktatasok } from '../models/oktatas';
 import { mapObjectValues } from '../utils/utils';
-import { kegyelt, magiatagadas, magikusFogekonysag, nemesiVer, psziErzekenyseg, vagyon } from './hatterek';
+import { kegyelt, magiatagadas, magikusFogekonysag, nemesiVer, psziErzekenyseg, sugallat, vagyon } from './hatterek';
 import {
   akrobatika,
   alcazasAlruha,
@@ -1963,44 +1963,135 @@ export function paplovagBosszuangyalUwel(): Iskola {
 
 /* #endregion */
 
-/* #region TODO: Boszorkány */
+/* #region Boszorkány */
 
-export const boszorkany: Iskola = { nev: 'Boszorkány', kap: 6, kepzettsegek: [], oktatasok: {} };
+export interface BoszorkanyOptions {
+  muveszetek2: string;
+  nyelvtudas3: string;
+}
 
-export const boszorkanyLiviniaiGyulekezet: Iskola = {
-  nev: 'Boszorkány (Liviniai Gyülekezet)',
-  kap: 7,
-  kepzettsegek: [],
-  oktatasok: {},
+function boszorkanyKepzettsegek(options: BoszorkanyOptions): AlapKepzettseg[] {
+  return [
+    { kepzettseg: lelektan, szint: 2 },
+    { kepzettseg: muveszetek(options.muveszetek2), szint: 2 },
+    { kepzettseg: nyelvtudas(options.nyelvtudas3), szint: 3 },
+    { kepzettseg: szexualisKultura, szint: 2 },
+    { kepzettseg: udvariEtikettIntrika, szint: 2 },
+    { kepzettseg: alkimia, szint: 2 },
+    { kepzettseg: herbalizmus, szint: 3 },
+    { kepzettseg: irasOlvasas, szint: 2 },
+    { kepzettseg: legendaismeret, szint: 2 },
+    { kepzettseg: pszi('pyarroni'), szint: 2 },
+    { kepzettseg: tapasztalatiMagia('boszorkány'), szint: 3 },
+  ];
+}
+
+const BOSZORKANY_OKTATASOK: Oktatasok = {
+  [KepzettsegType.Alkimia]: 2,
+  [KepzettsegType.Allatismeret]: 2,
+  [KepzettsegType.Ekesszolas]: 2,
+  [KepzettsegType.Elettan]: 2,
+  [KepzettsegType.Ertekbecsles]: 2,
+  [KepzettsegType.Fegyverhasznalat]: 2,
+  [KepzettsegType.Lelektan]: 2,
+  [KepzettsegType.Heraldika]: 2,
+  [KepzettsegType.Herbalizmus]: 2,
+  [KepzettsegType.Idomitas]: 2,
+  [KepzettsegType.Idojoslas]: 2,
+  [KepzettsegType.IrasOlvasas]: 2,
+  [KepzettsegType.Kultura]: 2,
+  [KepzettsegType.Legendaismeret]: 2,
+  [KepzettsegType.MeregkeveresSemlegesites]: 2,
+  [KepzettsegType.Muveszetek]: 2,
+  [KepzettsegType.Nyelvtudas]: 2,
+  [KepzettsegType.Orvoslas]: 2,
+  [alkepzettsegNev(KepzettsegType.Pszi, 'pyarroni')]: 2,
+  [KepzettsegType.Szakma]: 2,
+  [KepzettsegType.SzamtanMertan]: 2,
+  [KepzettsegType.SzexualisKultura]: 2,
+  [alkepzettsegNev(KepzettsegType.TapasztalatiMagia, 'boszorkány')]: 2,
+  [KepzettsegType.Tortenelem]: 2,
+  [KepzettsegType.UdvariEtikettIntrika]: 2,
+  [KepzettsegType.Vallasismeret]: 2,
 };
 
-export const boszorkanyMaidaSaluquas: Iskola = {
-  nev: 'Boszorkány (Maida Saluquas)',
-  kap: 7,
-  kepzettsegek: [],
-  oktatasok: {},
-};
+export function boszorkany(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány',
+    kap: 6,
+    kepzettsegek: boszorkanyKepzettsegek(options),
+    oktatasok: BOSZORKANY_OKTATASOK,
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
 
-export const boszorkanyStellaProsylens: Iskola = {
-  nev: 'Boszorkány (Stella Prosylens)',
-  kap: 8,
-  kepzettsegek: [],
-  oktatasok: {},
-};
+export function boszorkanyLiviniaiGyulekezet(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány (Liviniai Gyülekezet)',
+    kap: 7,
+    kepzettsegek: boszorkanyKepzettsegek(options),
+    oktatasok: mergeOktatasok(BOSZORKANY_OKTATASOK, {
+      // TODO: ez nem teljesen jó, mert ezeket csak Oktatás 2-vel tanítják
+      [KepzettsegType.PolitikaDiplomacia]: 1,
+      [KepzettsegType.JogTorvenykezes]: 1,
+      [KepzettsegType.Szineszet]: 1,
+      [KepzettsegType.Szakma]: 1,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'kyr')]: 1,
+      [KepzettsegType.Runamagia]: 1,
+      [KepzettsegType.Dragakomagia]: 1,
+    }),
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
 
-export const boszorkanyAlidaxiBoszorkanyrend: Iskola = {
-  nev: 'Boszorkány (Alidaxi boszorkányrend)',
-  kap: 7,
-  kepzettsegek: [],
-  oktatasok: {},
-};
+export function boszorkanyMaidaSaluquas(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány (Maida Saluquas)',
+    kap: 7,
+    kepzettsegek: boszorkanyKepzettsegek(options),
+    oktatasok: mergeOktatasok(BOSZORKANY_OKTATASOK, {
+      // TODO: ez nem teljesen jó, mert ezeket csak Oktatás 2-vel tanítják
+      [KepzettsegType.PolitikaDiplomacia]: 1,
+      [KepzettsegType.JogTorvenykezes]: 1,
+      [KepzettsegType.Szineszet]: 1,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'aquir')]: 1,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'godoni')]: 1,
+      [KepzettsegType.Runamagia]: 1,
+    }),
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
 
-export const boszorkanyEzerFatyolNoverei: Iskola = {
-  nev: 'Boszorkány (Ezer Fátyol Nővérei)',
-  kap: 7,
-  kepzettsegek: [],
-  oktatasok: {},
-};
+export function boszorkanyStellaProsylens(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány (Stella Prosylens)',
+    kap: 8,
+    kepzettsegek: boszorkanyKepzettsegek(options),
+    oktatasok: BOSZORKANY_OKTATASOK,
+    hatterek: [magikusFogekonysag, psziErzekenyseg, sugallat],
+  };
+}
+
+export function boszorkanyAlidaxiBoszorkanyrend(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány (Alidaxi boszorkányrend)',
+    kap: 7,
+    kepzettsegek: boszorkanyKepzettsegek(options),
+    oktatasok: BOSZORKANY_OKTATASOK,
+    // TODO: 3as szint felett kapnak extra oktatásokat
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
+
+export function boszorkanyEzerFatyolNoverei(options: BoszorkanyOptions): Iskola {
+  return {
+    nev: 'Boszorkány (Ezer Fátyol Nővérei)',
+    kap: 7,
+    kepzettsegek: boszorkanyKepzettsegek(options).filter((k) => k.kepzettseg !== szexualisKultura),
+    oktatasok: BOSZORKANY_OKTATASOK,
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
 
 /* #endregion */
 
