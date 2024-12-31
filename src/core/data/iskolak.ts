@@ -1324,7 +1324,6 @@ export const bardLombhullasArvai: Iskola = {
     { kepzettseg: fegyverhasznalat('tőr jellegű fegyverek'), szint: 2 },
     { kepzettseg: muveszetek('Éneklés'), szint: 3 },
     { kepzettseg: muveszetek('Zenélés'), szint: 2 },
-    // TODO: ez nem az alap színészet képesség kéne legyen?
     { kepzettseg: muveszetek('Színészet'), szint: 2 },
     { kepzettseg: muveszetek('Irodalom'), szint: 2 },
     { kepzettseg: parbaj, szint: 2 },
