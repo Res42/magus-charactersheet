@@ -2263,25 +2263,84 @@ export function boszorkanymesterHergoliVillammester(options: BoszorkanymesterHer
 
 /* #endregion */
 
-/* #region TODO: Tűzvarázsló */
+/* #region Tűzvarázsló */
 
-export const tuzvarazsloOrdani: Iskola = { nev: 'Tűzvarázsló (Ordani)', kap: 8, kepzettsegek: [], oktatasok: {} };
+export interface TuzvarazsloOptions {
+  nyelvtudas3: string;
+}
 
-export const tuzvarazsloRenegat: Iskola = { nev: 'Tűzvarázsló (Renegát)', kap: 7, kepzettsegek: [], oktatasok: {} };
+function tuzvarazsloKepzettsegek(options: TuzvarazsloOptions): AlapKepzettseg[] {
+  return [
+    { kepzettseg: fegyverhasznalat('egykezes kardok'), szint: 2 },
+    { kepzettseg: fegyverhasznalat('tőr jellegű fegyverek'), szint: 2 },
+    { kepzettseg: nyelvtudas(options.nyelvtudas3), szint: 3 },
+    { kepzettseg: irasOlvasas, szint: 3 },
+    { kepzettseg: osiNyelv('godoni'), szint: 3 },
+    { kepzettseg: vallasismeret('Sogron'), szint: 2 },
+    { kepzettseg: oselemiMagia('tűz'), szint: 2 },
+    { kepzettseg: pszi('pyarroni'), szint: 3 },
+    { kepzettseg: tapasztalatiMagia('tűzmágia'), szint: 3 },
+  ];
+}
 
-export const tuzvarazsloAschaonTuzmesterei: Iskola = {
-  nev: 'Tűzvarázsló (Aschaon Tűzmesterei)',
-  kap: 8,
-  kepzettsegek: [],
-  oktatasok: mergeOktatasok(
-    // TODO: alap tűzvarázsló oktatások
-    {},
-    {
-      [alkepzettsegNev(KepzettsegType.TapasztalatiMagia, 'Boszkorkánymesteri mágia')]: 1,
-    }
-  ),
-  hatterek: [magikusFogekonysag, psziErzekenyseg],
+const TUZVARAZSLO_OKTATASOK: Oktatasok = {
+  [KepzettsegType.Csomozas]: 2,
+  [KepzettsegType.Fegyverhasznalat]: 2,
+  [KepzettsegType.Hadvezetes]: 2,
+  [KepzettsegType.Hajozas]: 2,
+  [KepzettsegType.Heraldika]: 2,
+  [KepzettsegType.Idojoslas]: 2,
+  [KepzettsegType.IrasOlvasas]: 2,
+  [KepzettsegType.Kultura]: 2,
+  [KepzettsegType.Lelektan]: 2,
+  [alkepzettsegNev(KepzettsegType.Muveszetek, 'Rajz')]: 2,
+  [KepzettsegType.Nyelvtudas]: 2,
+  [alkepzettsegNev(KepzettsegType.OsiNyelv, 'godoni')]: 2,
+  [alkepzettsegNev(KepzettsegType.OsiNyelv, 'kyr')]: 2,
+  [alkepzettsegNev(KepzettsegType.OselemiMagia, 'tűz')]: 2,
+  [KepzettsegType.PolitikaDiplomacia]: 2,
+  [alkepzettsegNev(KepzettsegType.Pszi, 'pyarroni')]: 2,
+  [KepzettsegType.Runamagia]: 2,
+  [KepzettsegType.SzamtanMertan]: 2,
+  [alkepzettsegNev(KepzettsegType.TapasztalatiMagia, 'tűzmágia')]: 2,
+  [KepzettsegType.Terkepeszet]: 2,
+  [KepzettsegType.Tortenelem]: 2,
+  [KepzettsegType.UdvariEtikettIntrika]: 2,
+  [KepzettsegType.Uszas]: 2,
+  [KepzettsegType.Vallasismeret]: 2,
 };
+
+export function tuzvarazsloOrdani(options: TuzvarazsloOptions): Iskola {
+  return {
+    nev: 'Tűzvarázsló (Ordani)',
+    kap: 8,
+    kepzettsegek: tuzvarazsloKepzettsegek(options),
+    oktatasok: TUZVARAZSLO_OKTATASOK,
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
+export function tuzvarazsloRenegatoptions(options: TuzvarazsloOptions): Iskola {
+  return {
+    nev: 'Tűzvarázsló (Renegát)',
+    kap: 7,
+    kepzettsegek: tuzvarazsloKepzettsegek(options),
+    oktatasok: TUZVARAZSLO_OKTATASOK,
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
+
+export function tuzvarazsloAschaonTuzmesterei(options: TuzvarazsloOptions): Iskola {
+  return {
+    nev: 'Tűzvarázsló (Aschaon Tűzmesterei)',
+    kap: 8,
+    kepzettsegek: tuzvarazsloKepzettsegek(options),
+    oktatasok: mergeOktatasok(TUZVARAZSLO_OKTATASOK, {
+      // TODO: 3as szintű oktatás
+      [alkepzettsegNev(KepzettsegType.TapasztalatiMagia, 'Boszkorkánymesteri mágia')]: 1,
+    }),
+    hatterek: [magikusFogekonysag, psziErzekenyseg],
+  };
+}
 
 /* #endregion */
 
