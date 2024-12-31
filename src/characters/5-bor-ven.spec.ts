@@ -44,7 +44,9 @@ test('Character: Bor Ven', () => {
     faj: 'ember',
     kaszt: ['Pap (Domvik)'],
     szintenkentiKap: 43,
-    hatterek: {},
+    hatterek: {
+      Kegyelt: 1,
+    },
     szint: 1,
     tulajdonsagLimitek: {
       ero: 18,
@@ -86,6 +88,7 @@ test('Character: Bor Ven', () => {
     szintenkentiKegy: 2,
     szintenkentiPszi: 0,
     szintenkentiFp: 0,
+    szintenkentiHm: 0,
     oktatasok: {
       Ékesszólás: 2,
       Élettan: 2,
@@ -101,6 +104,8 @@ test('Character: Bor Ven', () => {
       Nyelvtudás: 2,
       Orvoslás: 2,
       'Ősi nyelv': 2,
+      'Ősi nyelv (godoni)': 2,
+      'Ősi nyelv (lingua domini)': 2,
       'Politika/diplomácia': 2,
       Pszi: 2,
       'Számtan/Mértan': 2,
@@ -113,7 +118,7 @@ test('Character: Bor Ven', () => {
     },
     kepzettsegek: {
       'Fegyverhasználat (tőr)': 2,
-      Vallásismeret: 4,
+      'Vallásismeret (Domvik)': 4,
       Lélektan: 2,
       Ékesszólás: 2,
       'Helyismeret (shadoni)': 3,

@@ -1834,6 +1834,34 @@ export function papTharr(options: PapOptions): Iskola {
 
 /* #region TODO: Paplovag */
 
+const PAPLOVAG_OKTATASOK: Oktatasok = {
+  [KepzettsegType.Allatismeret]: 2,
+  [KepzettsegType.Ekesszolas]: 2,
+  [KepzettsegType.Fajdalomtures]: 2,
+  [KepzettsegType.Fegyverhasznalat]: 2,
+  [KepzettsegType.Fegyverismeret]: 2,
+  [KepzettsegType.Hadvezetes]: 2,
+  [KepzettsegType.HarcteriGyakorlat]: 2,
+  [KepzettsegType.Heraldika]: 2,
+  [KepzettsegType.Herbalizmus]: 2,
+  [KepzettsegType.IrasOlvasas]: 2,
+  [KepzettsegType.Kultura]: 2,
+  [KepzettsegType.Legendaismeret]: 2,
+  [KepzettsegType.Lelektan]: 2,
+  [KepzettsegType.Lovaglas]: 2,
+  [KepzettsegType.Muveszetek]: 2,
+  [KepzettsegType.Nyelvtudas]: 2,
+  [KepzettsegType.Orvoslas]: 2,
+  [KepzettsegType.Pajzshasznalat]: 2,
+  [alkepzettsegNev(KepzettsegType.Pszi, 'pyarroni')]: 2,
+  [KepzettsegType.SzamtanMertan]: 2,
+  [KepzettsegType.Terkepeszet]: 2,
+  [KepzettsegType.Tortenelem]: 2,
+  [KepzettsegType.UdvariEtikettIntrika]: 2,
+  [KepzettsegType.Vallasismeret]: 2,
+  [KepzettsegType.Vertviselet]: 2,
+};
+
 export function paplovagDarton(): Iskola {
   return {
     nev: 'Paplovag (Darton)',
@@ -1844,12 +1872,42 @@ export function paplovagDarton(): Iskola {
   };
 }
 
-export function paplovagDomvik(): Iskola {
+export interface PaplovagDomvikOptions {
+  fegyverhasznalat3: string;
+}
+
+export function paplovagDomvik(options: PaplovagDomvikOptions): Iskola {
   return {
     nev: 'Paplovag (Domvik)',
     kap: 9,
-    kepzettsegek: [],
-    oktatasok: {},
+    kepzettsegek: [
+      { kepzettseg: fegyverhasznalat(options.fegyverhasznalat3), szint: 3 },
+      { kepzettseg: pajzshasznalat, szint: 2 },
+      { kepzettseg: fajdalomtures, szint: 2 },
+      { kepzettseg: hadvezetes, szint: 2 },
+      { kepzettseg: harcteriGyakorlat, szint: 2 },
+      { kepzettseg: vertviselet, szint: 3 },
+      { kepzettseg: allatismeret('hátas állatok'), szint: 2 },
+      { kepzettseg: lovaglas, szint: 3 },
+      { kepzettseg: heraldika, szint: 2 },
+      { kepzettseg: lelektan, szint: 2 },
+      { kepzettseg: udvariEtikettIntrika, szint: 2 },
+      { kepzettseg: irasOlvasas, szint: 2 },
+      { kepzettseg: tortenelem, szint: 2 },
+      { kepzettseg: vallasismeret('Domvik'), szint: 3 },
+      { kepzettseg: ekesszolas, szint: 2 },
+      { kepzettseg: politikaDiplomacia, szint: 2 },
+      { kepzettseg: herbalizmus, szint: 2 },
+      { kepzettseg: orvoslas, szint: 2 },
+      { kepzettseg: elettan, szint: 2 },
+      { kepzettseg: osiNyelv('lingua domini'), szint: 2 },
+    ],
+    oktatasok: mergeOktatasok(PAPLOVAG_OKTATASOK, {
+      [KepzettsegType.Elettan]: 2,
+      [KepzettsegType.JogTorvenykezes]: 2,
+      [KepzettsegType.PolitikaDiplomacia]: 2,
+      [alkepzettsegNev(KepzettsegType.OsiNyelv, 'lingua domini')]: 2,
+    }),
     hatterek: [kegyelt],
   };
 }

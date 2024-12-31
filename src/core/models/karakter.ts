@@ -45,6 +45,7 @@ export interface Karakter {
   szintenkentiKegy: number;
   szintenkentiPszi: number;
   szintenkentiFp: number;
+  szintenkentiHm: number;
   oktatasok: Oktatasok;
   kepzettsegek: Kepzettsegek;
 }
@@ -98,6 +99,7 @@ export function emptykarakter(): Karakter {
     szintenkentiKegy: 0,
     szintenkentiPszi: 0,
     szintenkentiFp: 0,
+    szintenkentiHm: 0,
     oktatasok: {},
     kepzettsegek: {},
   };

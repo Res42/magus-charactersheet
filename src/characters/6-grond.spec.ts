@@ -45,21 +45,21 @@ test('Character: Grond', () => {
           { kepzettseg: fajdalomtures, kp: 18, tulajdonsag: TulajdonsagType.Allokepesseg },
           { kepzettseg: harcteriGyakorlat, kp: 18, tulajdonsag: TulajdonsagType.Gyorsasag },
         ],
-        te: 3,
+        te: 3 + 3,
       },
       {
         kepzettsegek: [
           { kepzettseg: fegyverhasznalat('pika'), kp: 28, tulajdonsag: TulajdonsagType.Ero },
           { kepzettseg: vertviselet, kp: 6 },
         ],
-        te: 4,
+        te: 3 + 4,
       },
       {
         kepzettsegek: [
           { kepzettseg: harciLaz, kp: 21, tulajdonsag: TulajdonsagType.Egeszseg },
           { kepzettseg: nyelvtudas('erv'), kp: 4 },
         ],
-        te: 13,
+        te: 3 + 13,
       },
     ],
   });
@@ -113,7 +113,8 @@ test('Character: Grond', () => {
     szintenkentiMentalTME: 2,
     szintenkentiKegy: 0,
     szintenkentiPszi: 0,
-    szintenkentiFp: 0,
+    szintenkentiFp: 3,
+    szintenkentiHm: 3,
     oktatasok: {
       Építészet: 2,
       Térképészet: 2,

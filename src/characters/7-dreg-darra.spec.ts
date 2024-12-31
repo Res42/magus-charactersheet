@@ -31,6 +31,7 @@ test('Character: Dreg Darra', () => {
           { kepzettseg: vertviselet, kp: 6 },
         ],
         fp: 10,
+        te: 2,
       },
       {
         kepzettsegek: [
@@ -38,13 +39,14 @@ test('Character: Dreg Darra', () => {
           { kepzettseg: harcmuveszet('Shien-su'), kp: 27, tulajdonsag: TulajdonsagType.Gyorsasag },
         ],
         fp: 1,
+        te: 2,
       },
       {
         kepzettsegek: [{ kepzettseg: harciLaz, kp: 28, tulajdonsag: TulajdonsagType.Egeszseg }],
         fp: 9,
-        te: 2,
+        te: 2 + 2,
       },
-      { fp: 1, te: 20 },
+      { fp: 1, te: 2 + 20 },
     ],
   });
 
@@ -96,6 +98,7 @@ test('Character: Dreg Darra', () => {
     szintenkentiKegy: 0,
     szintenkentiPszi: 1,
     szintenkentiFp: 1,
+    szintenkentiHm: 2,
     oktatasok: {
       Akrobatika: 2,
       Élettan: 2,

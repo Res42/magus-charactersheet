@@ -78,6 +78,14 @@ export const harcteriGyakorlat: FokosKepzettseg = {
   nev: KepzettsegType.HarcteriGyakorlat,
   fokok: MASODIK_NEHEZSEGI_SZINTU_FOKOK,
   tulajdonsag: [TulajdonsagType.Gyorsasag, TulajdonsagType.Ugyesseg, TulajdonsagType.Erzekeles],
+  szintenkentiBonusz: (regiKepzettsegSzint, ujKepzettsegiSzint) => {
+    const bonusz = ujSzintenkenti123Bonusz(regiKepzettsegSzint, ujKepzettsegiSzint);
+
+    return (karakter) => ({
+      ...karakter,
+      szintenkentiHm: karakter.szintenkentiHm + bonusz,
+    });
+  },
 };
 
 export const ketkezesharc: FokosKepzettseg = {

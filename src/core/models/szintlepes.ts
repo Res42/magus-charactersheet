@@ -25,6 +25,10 @@ export interface KepzettsegSzintlepesResult {
   readonly shouldAddTulajdonsag: boolean;
 }
 
+export function getHmOfSzintlepes(szintlepes: Szintlepes): number {
+  return (szintlepes.ke ?? 0) + (szintlepes.ce ?? 0) + (szintlepes.te ?? 0) + (szintlepes.ve ?? 0);
+}
+
 export function getKapOfSzintlepes(szintlepes: Szintlepes): number {
   return (
     (szintlepes.mana ?? 0) * 3 +

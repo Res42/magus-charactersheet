@@ -1,18 +1,33 @@
 import { Karakter, KarakterMapperFn } from '../models/karakter';
 import { SzazalekosKepzettseg, getSzintenkentiBonuszFn, isFokosKepzettseg } from '../models/kepzettseg';
 import { getOktatasBonusz } from '../models/oktatas';
-import { KepzettsegSzintlepes, KepzettsegSzintlepesResult, Szintlepes, getKapOfSzintlepes } from '../models/szintlepes';
+import {
+  KepzettsegSzintlepes,
+  KepzettsegSzintlepesResult,
+  Szintlepes,
+  getHmOfSzintlepes,
+  getKapOfSzintlepes,
+} from '../models/szintlepes';
 import { tulajdonsagNoveles } from '../models/tulajdonsag';
 import { mapObjectValues } from '../utils/utils';
 
 function validateSzintlepes(szintlepes: Szintlepes, index: number): KarakterMapperFn {
   return (karakter) => {
     const kapOfSzintlepes = getKapOfSzintlepes(szintlepes);
-    if (kapOfSzintlepes !== karakter.szintenkentiKap) {
+    const hmOfSzintlepes = getHmOfSzintlepes(szintlepes);
+
+    if (hmOfSzintlepes < karakter.szintenkentiHm) {
+      console.warn(`Valószínűleg elfelejtetted elkölteni a Harctéri gyakorlatból kapott szintenkénti HM-eket.`);
+    }
+
+    const szint = index + 1;
+    const szintenkentiOsszesKap = karakter.szintenkentiKap + karakter.szintenkentiHm * 2;
+
+    if (kapOfSzintlepes !== szintenkentiOsszesKap) {
       console.warn(
-        `A(z) ${index + 1}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${
-          karakter.szintenkentiKap
-        }, a szintlépés KAP-ja: ${kapOfSzintlepes}.`
+        `A(z) ${szint}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${szintenkentiOsszesKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}. Lehetséges okok:
+        - az intelligenciából származő KP-kat még nem kezeli a rendszer.
+        - elfelejtetted elkölteni a Harctéri gyakorlatból kapott szintenkénti HM-eket.`
       );
     }
 
@@ -138,7 +153,7 @@ function szazalekosKepzettsegSzintlepes(
 
 export function mapSzintlepesek(szintlepesek: Szintlepes[]): KarakterMapperFn[] {
   return szintlepesek.flatMap((szintlepes, index) => [
-    validateSzintlepes(szintlepes, index),
     ...mapSzintlepes(szintlepes),
+    validateSzintlepes(szintlepes, index),
   ]);
 }
