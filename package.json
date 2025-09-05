@@ -5,36 +5,23 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "vitest",
+    "lint": "eslint ."
   },
   "author": "Adam Reisinger",
   "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^29.5.3",
-    "@typescript-eslint/eslint-plugin": "^6.2.1",
-    "@typescript-eslint/parser": "^6.2.1",
-    "eslint": "^8.46.0",
-    "jest": "^29.6.2",
-    "prettier": "^3.0.1",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
-  },
   "dependencies": {
     "typescript-parsec": "^0.3.4"
   },
-  "jest": {
-    "preset": "ts-jest/presets/default-esm",
-    "testEnvironment": "node",
-    "transform": {
-      "^.*\\.ts$": [
-        "ts-jest",
-        {
-          "useESM": true
-        }
-      ]
-    }
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0",
+    "vitest": "^3.2.4"
   },
   "volta": {
-    "node": "16.20.1"
+    "node": "22.19.0"
   }
 }

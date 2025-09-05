@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { createKarakter } from '../core/create-karakter';
 import { ember } from '../core/data/fajok';
 import { manalato, psziErzekenyseg, sajatKultura, vagyon } from '../core/data/hatterek';

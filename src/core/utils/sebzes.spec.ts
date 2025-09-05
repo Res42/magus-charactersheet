@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { Sebzes, addSebzes, parseSebzes, substractSebzes } from './sebzes';
 
 const UTK_TESZTESETEK: [string, Sebzes][] = [
