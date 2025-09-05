@@ -1,18 +1,10 @@
 import { mergeWith, MergeWithFn } from '../utils/utils';
 
 /** Képzettség név - oktatási KP / százalék bónusz (NEM OKTATÁSI SZINT!) map. */
-export type Oktatasok = { [key in string]?: number };
+export type Oktatasok = Record<string, number>;
 
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok, o2: Oktatasok | undefined, osszeadodik?: boolean): Oktatasok;
-export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined, osszeadodik?: boolean): undefined;
-export function mergeOktatasok(
-  o1: Oktatasok | undefined,
-  o2: Oktatasok | undefined,
-  osszeadodik = false
-): Oktatasok | undefined {
-  if (o1 == null && o2 == null) return undefined;
+export function mergeOktatasok(o1: Oktatasok | undefined, o2: Oktatasok | undefined, osszeadodik = false): Oktatasok {
+  if (o1 == null && o2 == null) return {};
   if (o1 == null) return { ...o2 };
   if (o2 == null) return { ...o1 };
 
@@ -24,5 +16,6 @@ export function mergeOktatasok(
 }
 
 export function getOktatasBonusz(oktatasok: Oktatasok, kepzettseg: string): number {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return Object.entries(oktatasok).filter(([key]) => kepzettseg.includes(key))?.[0]?.[1] ?? 0;
 }

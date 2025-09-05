@@ -216,13 +216,15 @@ export interface SzazalekosKepzettseg extends KepzettsegBase {
 }
 
 export type Kepzettseg = FokosKepzettseg | SzazalekosKepzettseg;
-export type Kepzettsegek = { [key in string]?: number };
+export type Kepzettsegek = Record<string, number>;
 
 export function isFokosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is FokosKepzettseg {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (kepzettseg as FokosKepzettseg).fokok != null;
 }
 
 export function isSzazalekosKepzettseg(kepzettseg: Kepzettseg): kepzettseg is SzazalekosKepzettseg {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (kepzettseg as SzazalekosKepzettseg).szazalekPerKp != null;
 }
 

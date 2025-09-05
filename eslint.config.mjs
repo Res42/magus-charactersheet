@@ -14,5 +14,5 @@ export default defineConfig(
       },
     },
   },
-  { ignores: ['node_modules'] }
+  { ignores: ['node_modules', 'eslint.config.mjs'] },
 );

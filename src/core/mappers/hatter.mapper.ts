@@ -38,7 +38,9 @@ function validateFaj(hatterek: Hatterek[]): KarakterMapperFn {
     const fajok = hatterek.filter(isFaj);
 
     if (fajok.length !== 1) {
-      throw new Error(`Nem pontosan 1 faj lett megadva háttérnek. Jelenleg ennyi faj van megadva: ${fajok.length}.`);
+      throw new Error(
+        `Nem pontosan 1 faj lett megadva háttérnek. Jelenleg ennyi faj van megadva: ${fajok.length.toString()}.`
+      );
     }
 
     return karakter;

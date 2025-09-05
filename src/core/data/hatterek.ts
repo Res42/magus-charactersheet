@@ -54,16 +54,24 @@ export function vagyon(ertek: 1 | 2 | 3): Hatter {
   return { nev: 'Vagyon', kap: ertek };
 }
 
-export function adottsag(tulajdonsag: TulajdonsagType.Ero, ertek: 1 | 2 | 3 | 4): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Gyorsasag, ertek: 1 | 2): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Ugyesseg, ertek: 1 | 2): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Allokepesseg, ertek: 1 | 2 | 3 | 4): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Karizma, ertek: 1 | 2 | 3 | 4): Adottsag;
+export function adottsag(
+  tulajdonsag:
+    | TulajdonsagType.Ero
+    | TulajdonsagType.Allokepesseg
+    | TulajdonsagType.Karizma
+    | TulajdonsagType.Intelligencia
+    | TulajdonsagType.Asztral,
+  ertek: 1 | 2 | 3 | 4
+): Adottsag;
 export function adottsag(tulajdonsag: TulajdonsagType.Egeszseg, ertek: 1 | 2 | 3): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Intelligencia, ertek: 1 | 2 | 3 | 4): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Akaratero, ertek: 1 | 2): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Asztral, ertek: 1 | 2 | 3 | 4): Adottsag;
-export function adottsag(tulajdonsag: TulajdonsagType.Erzekeles, ertek: 1 | 2): Adottsag;
+export function adottsag(
+  tulajdonsag:
+    | TulajdonsagType.Gyorsasag
+    | TulajdonsagType.Ugyesseg
+    | TulajdonsagType.Akaratero
+    | TulajdonsagType.Erzekeles,
+  ertek: 1 | 2
+): Adottsag;
 export function adottsag(tulajdonsag: TulajdonsagType, ertek: number): Adottsag {
   return { nev: `Adottság (${tulajdonsag})`, kap: ertek, tulajdonsag };
 }

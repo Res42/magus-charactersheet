@@ -39,10 +39,12 @@ export interface SzazalekosAlapKepzettseg {
 export type AlapKepzettseg = FokosAlapKepzettseg | SzazalekosAlapKepzettseg;
 
 export function isFokosAlapKepzettseg(alapKepzettseg: AlapKepzettseg): alapKepzettseg is FokosAlapKepzettseg {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (alapKepzettseg as FokosAlapKepzettseg).szint != null;
 }
 
 export function isSzazalekosAlapKepzettseg(alapKepzettseg: AlapKepzettseg): alapKepzettseg is SzazalekosAlapKepzettseg {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (alapKepzettseg as SzazalekosAlapKepzettseg).szazalek != null;
 }
 
@@ -63,18 +65,22 @@ export interface SajatKultura {
 export type Hatterek = Faj | Adottsag | Hatter | Iskola | SajatKultura;
 
 export function isFaj(hatter: Hatterek): hatter is Faj {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (hatter as Faj).tulajdonsagLimitek != null;
 }
 
 export function isAdottsag(hatter: Hatterek): hatter is Adottsag {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (hatter as Adottsag).tulajdonsag != null;
 }
 
 export function isIskola(hatter: Hatterek): hatter is Iskola {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (hatter as Iskola).oktatasok != null;
 }
 
 export function isSajatKultura(hatter: Hatterek): hatter is SajatKultura {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (hatter as SajatKultura).kepzettsegek != null;
 }
 

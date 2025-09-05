@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-conversion */
 import {
   alt,
   apply,
@@ -18,9 +19,7 @@ import { mergeWith } from './utils';
  * A property név a kocka oldalszáma, az érték a dobott kockák száma.
  * A konstansokat az 1 oldalú kocka ábrázolja.
  */
-export interface Sebzes {
-  [sides: number]: number;
-}
+export type Sebzes = Record<number, number>;
 
 enum TokenKind {
   Integer,

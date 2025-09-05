@@ -13,7 +13,6 @@ import {
   alkepzettsegNev,
 } from '../models/kepzettseg';
 import { Oktatasok, mergeOktatasok } from '../models/oktatas';
-import { mapObjectValues } from '../utils/utils';
 import { kegyelt, magiatagadas, magikusFogekonysag, nemesiVer, psziErzekenyseg, sugallat, vagyon } from './hatterek';
 import {
   akrobatika,
@@ -417,7 +416,11 @@ export function lovag(options: LovagOptions): Iskola {
         [KepzettsegType.UdvariEtikettIntrika]: 2,
         [KepzettsegType.Vertviselet]: 2,
       },
-      mapObjectValues((options.extraOktatasok ?? {}) as Oktatasok, (_, v) => (v ? 2 : undefined))
+      Object.fromEntries(
+        Object.entries(options.extraOktatasok ?? {})
+          .map(([key, value]) => [key, value ? 2 : undefined])
+          .filter((kv): kv is [string, number] => kv[1] != null)
+      )
     ),
     hatterek: [nemesiVer],
   };

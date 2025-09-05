@@ -1,15 +1,14 @@
 import { Karakter, KarakterMapperFn } from '../models/karakter';
-import { SzazalekosKepzettseg, getSzintenkentiBonuszFn, isFokosKepzettseg } from '../models/kepzettseg';
+import { getSzintenkentiBonuszFn, isFokosKepzettseg, SzazalekosKepzettseg } from '../models/kepzettseg';
 import { getOktatasBonusz } from '../models/oktatas';
 import {
+  getHmOfSzintlepes,
+  getKapOfSzintlepes,
   KepzettsegSzintlepes,
   KepzettsegSzintlepesResult,
   Szintlepes,
-  getHmOfSzintlepes,
-  getKapOfSzintlepes,
 } from '../models/szintlepes';
-import { tulajdonsagNoveles } from '../models/tulajdonsag';
-import { mapObjectValues } from '../utils/utils';
+import { tulajdonsagNoveles, Tulajdonsagok, TulajdonsagType } from '../models/tulajdonsag';
 
 function validateSzintlepes(szintlepes: Szintlepes, index: number): KarakterMapperFn {
   return (karakter) => {
@@ -25,7 +24,7 @@ function validateSzintlepes(szintlepes: Szintlepes, index: number): KarakterMapp
 
     if (kapOfSzintlepes !== szintenkentiOsszesKap) {
       console.warn(
-        `A(z) ${szint}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${szintenkentiOsszesKap}, a szintlépés KAP-ja: ${kapOfSzintlepes}. Lehetséges okok:
+        `A(z) ${szint.toString()}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${szintenkentiOsszesKap.toString()}, a szintlépés KAP-ja: ${kapOfSzintlepes.toString()}. Lehetséges okok:
         - az intelligenciából származő KP-kat még nem kezeli a rendszer.
         - elfelejtetted elkölteni a Harctéri gyakorlatból kapott szintenkénti HM-eket.`
       );
@@ -43,9 +42,12 @@ function mapSzintlepes(szintlepes: Szintlepes): KarakterMapperFn[] {
   return [
     (karakter) => ({
       ...karakter,
-      tulajdonsagok: mapObjectValues(karakter.tulajdonsagok, (tulajdonsag) =>
-        tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0)
-      ),
+      tulajdonsagok: Object.fromEntries(
+        (Object.keys(karakter.tulajdonsagok) as TulajdonsagType[]).map((tulajdonsag) => [
+          tulajdonsag,
+          tulajdonsagNoveles(karakter, tulajdonsag, szintlepes[tulajdonsag] ?? 0),
+        ])
+      ) as Tulajdonsagok,
     }),
     // TODO: képzettség sorrendezés, bónusz tulajdonságok miatt
     ...(szintlepes.kepzettsegek?.map(kepzettsegSzintlepes) ?? []),
@@ -128,7 +130,7 @@ function fokosKepzettsegSzintlepes(karakter: Karakter, szintlepes: KepzettsegSzi
 
   if ((karakter.kepzettsegek[szintlepes.kepzettseg.nev] ?? 0) === aktualisSzint) {
     console.warn(
-      `A megadott ${szintlepes.kp} KP-ból nem sikerült a '${szintlepes.kepzettseg.nev}' képzettségben fokot növelni. A szükséges KP ${kovetkezoSzinthezSzuksegesKp}.`
+      `A megadott ${szintlepes.kp.toString()} KP-ból nem sikerült a '${szintlepes.kepzettseg.nev}' képzettségben fokot növelni. A szükséges KP ${kovetkezoSzinthezSzuksegesKp.toString()}.`
     );
   }
 
