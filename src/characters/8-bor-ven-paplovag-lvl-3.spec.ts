@@ -15,7 +15,7 @@ import {
 import { Karakter } from '../core/models/karakter';
 import { TulajdonsagType } from '../core/models/tulajdonsag';
 
-test('Character: Bor Ven', () => {
+test('Character: Bor Ven - lvl 3', () => {
   const bor = createKarakter({
     nev: 'Bor Ven',
     jellem: 'Rend, Élet',
