@@ -25,7 +25,7 @@ function validateSzintlepes(szintlepes: Szintlepes, index: number): KarakterMapp
     if (kapOfSzintlepes !== szintenkentiOsszesKap) {
       console.warn(
         `A(z) ${szint.toString()}. szintlépés nem tartalmaz megfelelő mennyiségű KAP-ot. Az elkölthető KAP: ${szintenkentiOsszesKap.toString()}, a szintlépés KAP-ja: ${kapOfSzintlepes.toString()}. Lehetséges okok:
-        - az intelligenciából származő KP-kat még nem kezeli a rendszer.
+        - az intelligenciából származó KP-kat még nem kezeli a rendszer.
         - elfelejtetted elkölteni a Harctéri gyakorlatból kapott szintenkénti HM-eket.`
       );
     }

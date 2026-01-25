@@ -348,6 +348,47 @@ export const harcosPredociVertes: Iskola = {
   // TODO: nincs CÉ-je (I. hátrány)
 };
 
+export const abaszisziFalanxharcos: Iskola = {
+  nev: 'Abasziszi falanxharcos',
+  kap: 4,
+  kepzettsegek: [
+    { kepzettseg: eses, szazalek: 20 },
+    { kepzettseg: fajdalomtures, szint: 2 },
+    { kepzettseg: fegyverhasznalat('lándzsa'), szint: 3 },
+    { kepzettseg: fegyverhasznalat('egykezes kardok'), szint: 2 },
+    { kepzettseg: fegyverismeret, szint: 2 },
+    { kepzettseg: futas, szint: 2 },
+    { kepzettseg: harcteriGyakorlat, szint: 2 },
+    { kepzettseg: pajzshasznalat, szint: 3 },
+    { kepzettseg: pusztakezesHarc('ökölharc'), szint: 2 },
+    { kepzettseg: taktika, szint: 3 },
+    { kepzettseg: uszas, szint: 2 },
+    { kepzettseg: vertviselet, szint: 3 },
+  ],
+  oktatasok: {
+    [KepzettsegType.Eses]: 2,
+    [KepzettsegType.Fajdalomtures]: 2,
+    [alkepzettsegNev(KepzettsegType.Fegyverhasznalat, 'lándzsa')]: 2,
+    [alkepzettsegNev(KepzettsegType.Fegyverhasznalat, 'egykezes kardok')]: 2,
+    [alkepzettsegNev(KepzettsegType.Fegyverhasznalat, 'rövidkard')]: 2,
+    [KepzettsegType.Fegyverismeret]: 2,
+    [KepzettsegType.Futas]: 2,
+    [KepzettsegType.Hadvezetes]: 2,
+    [KepzettsegType.HarcteriGyakorlat]: 2,
+    [KepzettsegType.IrasOlvasas]: 2,
+    [KepzettsegType.Lelektan]: 2,
+    [alkepzettsegNev(KepzettsegType.Muveszetek, 'rajz')]: 2,
+    [alkepzettsegNev(KepzettsegType.Nyelvtudas, 'aszisz')]: 2,
+    [KepzettsegType.Pajzshasznalat]: 2,
+    [KepzettsegType.PusztakezesHarc]: 2,
+    [KepzettsegType.SzamtanMertan]: 2,
+    [KepzettsegType.Taktika]: 2,
+    [KepzettsegType.Terkepeszet]: 2,
+    [KepzettsegType.Uszas]: 2,
+    [KepzettsegType.Vertviselet]: 2,
+  },
+};
+
 /* #endregion */
 
 /* #region Lovag */
